@@ -22,6 +22,6 @@ typedef struct scene_t
 	void (*render_func)(struct scene_t *);
 	int (*free_func)(struct scene_t *);
 	
-	void *user_data;
+	void *user_data;		//e.g. a pointer to a dynamically allocated scene state structure, etc.
 } scene_t;
 

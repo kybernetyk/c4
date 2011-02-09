@@ -14,10 +14,10 @@
 #include "quad.h"
 #include "font.h"
 
-quad_t p;
-quad_t q;
-atlas_quad_t r;
-font_t f;
+static quad_t p;
+static quad_t q;
+static atlas_quad_t r;
+static font_t f;
 
 static int scene_init(scene_t *scene)
 {

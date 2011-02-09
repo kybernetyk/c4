@@ -34,6 +34,7 @@
 		0397CA1813029E1B00FCB95C /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 0397CA1713029E1B00FCB95C /* font.c */; };
 		0397CA331302A07E00FCB95C /* impact20_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0397CA311302A07E00FCB95C /* impact20_0.png */; };
 		0397CA341302A07E00FCB95C /* impact20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 0397CA321302A07E00FCB95C /* impact20.fnt */; };
+		03A2593C1302B7FE00C30AEE /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 03A2593B1302B7FE00C30AEE /* TODO */; };
 		1D3623260D0F684500981E51 /* c4AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* c4AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -97,6 +98,7 @@
 		0397CA1713029E1B00FCB95C /* font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = font.c; sourceTree = "<group>"; };
 		0397CA311302A07E00FCB95C /* impact20_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = impact20_0.png; sourceTree = "<group>"; };
 		0397CA321302A07E00FCB95C /* impact20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = impact20.fnt; sourceTree = "<group>"; };
+		03A2593B1302B7FE00C30AEE /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* c4AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c4AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* c4AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = c4AppDelegate.m; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				0397C9911301CBD600FCB95C /* README */,
+				03A2593B1302B7FE00C30AEE /* TODO */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				2514C27610084DB600A42282 /* Shaders */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -364,6 +367,7 @@
 				0397C9D2130299AE00FCB95C /* bubbles.png in Resources */,
 				0397CA331302A07E00FCB95C /* impact20_0.png in Resources */,
 				0397CA341302A07E00FCB95C /* impact20.fnt in Resources */,
+				03A2593C1302B7FE00C30AEE /* TODO in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
