@@ -16,7 +16,7 @@
 
 typedef struct font_t
 {
-	renderinfo_t renderinfo;
+	renderinfo_t ri;
 	bm_font fnt;
 	tex2d_id tex_id;
 } font_t;

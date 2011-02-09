@@ -55,8 +55,8 @@ bool game_init(void)
 	timer_update(&timer);
 	
 	font_load("impact20.fnt", &fps_font);
-	fps_font.renderinfo.pos = vec2d_make(0.0, SCREEN_H);
-	fps_font.renderinfo.anchor_point = vec2d_make(0.0, 1.0);
+	fps_font.ri.pos = vec2d_make(0.0, SCREEN_H);
+	fps_font.ri.anchor_point = vec2d_make(0.0, 1.0);
 	
 	current_scene = startup_scene_create();
 	current_scene.init_func(&current_scene);

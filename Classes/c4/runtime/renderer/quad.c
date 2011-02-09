@@ -23,11 +23,11 @@ bool quad_load(const char *filename, quad_t *quad_out)
 	
 	tex2d_t *tex = tex2d_get_tex_by_id(quad_out->tex_id);
 	
-	quad_out->renderinfo.alpha = 1.0;
-	quad_out->renderinfo.rot_a = 0.0;
-	quad_out->renderinfo.scale = vec2d_make(1.0, 1.0);
-	quad_out->renderinfo.size = size2d_make(tex->w,tex->h);
-	quad_out->renderinfo.anchor_point = vec2d_make(0.5, 0.5);
+	quad_out->ri.alpha = 1.0;
+	quad_out->ri.rot_a = 0.0;
+	quad_out->ri.scale = vec2d_make(1.0, 1.0);
+	quad_out->ri.size = size2d_make(tex->w,tex->h);
+	quad_out->ri.anchor_point = vec2d_make(0.5, 0.5);
 
 	return true;
 }
@@ -46,11 +46,11 @@ void quad_render(quad_t *quad)
 		return;
 	
 	glPushMatrix();
-	renderinfo_transform(&quad->renderinfo);
+	renderinfo_transform(&quad->ri);
 	
-	GLfloat w = quad->renderinfo.size.w;
-	GLfloat h = quad->renderinfo.size.h;
-	GLfloat alpha = quad->renderinfo.alpha;
+	GLfloat w = quad->ri.size.w;
+	GLfloat h = quad->ri.size.h;
+	GLfloat alpha = quad->ri.alpha;
 	
 	GLfloat		coordinates[] = { 0.0f,	1.0,
 		1.0,	1.0,

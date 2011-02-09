@@ -20,7 +20,7 @@
 
 typedef struct quad_t
 {
-	renderinfo_t renderinfo;
+	renderinfo_t ri;
 	tex2d_id tex_id;
 } quad_t;
 

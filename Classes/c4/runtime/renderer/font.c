@@ -35,11 +35,11 @@ bool font_load(const char *filename, font_t *font_out)
 	}
 
 	tex2d_t *tex = tex2d_get_tex_by_id(font_out->tex_id);
-	font_out->renderinfo.alpha = 1.0;
-	font_out->renderinfo.rot_a = 0.0;
-	font_out->renderinfo.scale = vec2d_make(1.0, 1.0);
-	font_out->renderinfo.size = size2d_make(tex->w,tex->h);
-	font_out->renderinfo.anchor_point = vec2d_make(0.5, 0.5);
+	font_out->ri.alpha = 1.0;
+	font_out->ri.rot_a = 0.0;
+	font_out->ri.scale = vec2d_make(1.0, 1.0);
+	font_out->ri.size = size2d_make(tex->w,tex->h);
+	font_out->ri.anchor_point = vec2d_make(0.5, 0.5);
 	return true;
 }
 
@@ -50,15 +50,15 @@ static void font_transform(font_t *fnt, const char *text)
 	float h = fnt->fnt.line_h*.75; //bm_height(&font, text);
 
 	
-	glTranslatef(fnt->renderinfo.pos.x, fnt->renderinfo.pos.y, fnt->renderinfo.zval);
+	glTranslatef(fnt->ri.pos.x, fnt->ri.pos.y, fnt->ri.zval);
 	
-	if (fnt->renderinfo.rot_a != 0.0f )
-		glRotatef( fnt->renderinfo.rot_a, 0.0f, 0.0f, 1.0f );
+	if (fnt->ri.rot_a != 0.0f )
+		glRotatef( fnt->ri.rot_a, 0.0f, 0.0f, 1.0f );
 	
-	if (fnt->renderinfo.scale.x != 1.0 || fnt->renderinfo.scale.y != 1.0)
-		glScalef( fnt->renderinfo.scale.x, fnt->renderinfo.scale.y, 1.0f );
+	if (fnt->ri.scale.x != 1.0 || fnt->ri.scale.y != 1.0)
+		glScalef( fnt->ri.scale.x, fnt->ri.scale.y, 1.0f );
 	
-	glTranslatef(- (fnt->renderinfo.anchor_point.x * w),h - (fnt->renderinfo.anchor_point.y * h), 0);
+	glTranslatef(- (fnt->ri.anchor_point.x * w),h - (fnt->ri.anchor_point.y * h), 0);
 	
 }
 
@@ -71,7 +71,7 @@ void font_render(font_t *fnt, const char *text)
 	glPushMatrix();
 	font_transform(fnt, text);
 	
-	GLfloat alpha = fnt->renderinfo.alpha;
+	GLfloat alpha = fnt->ri.alpha;
 	int l = strlen(text);
 	
 	tex2d_bind(texture->name);

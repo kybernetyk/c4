@@ -15,7 +15,7 @@
 
 typedef struct atlas_quad_t
 {
-	renderinfo_t renderinfo;
+	renderinfo_t ri;
 	rect_t src_rect;
 	tex2d_id tex_id;
 } atlas_quad_t;

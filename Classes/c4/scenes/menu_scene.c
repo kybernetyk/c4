@@ -22,31 +22,31 @@ static font_t f;
 static int scene_init(scene_t *scene)
 {
 	quad_load("menu_back.png", &p);
-	p.renderinfo.zval = 0;
-	p.renderinfo.anchor_point = vec2d_make(0.0, 0.0);
+	p.ri.zval = 0;
+	p.ri.anchor_point = vec2d_make(0.0, 0.0);
 	
 	quad_load("minyx_bw.png", &q);
-	q.renderinfo.pos.x = SCREEN_W/2;
-	q.renderinfo.pos.y = SCREEN_H/2;
-	q.renderinfo.zval = 1.0;
+	q.ri.pos.x = SCREEN_W/2;
+	q.ri.pos.y = SCREEN_H/2;
+	q.ri.zval = 1.0;
 	
 	atlas_quad_load("bubbles.png", &r);
-	r.renderinfo.pos = vec2d_make(100, 100);
-	r.renderinfo.zval = 2.0;
-	r.renderinfo.size = size2d_make(43, 43);
+	r.ri.pos = vec2d_make(100, 100);
+	r.ri.zval = 2.0;
+	r.ri.size = size2d_make(43, 43);
 	r.src_rect = rect_make(0.0, 0.0, 43.0, 43.0);
 	
 	font_load("impact20.fnt", &f);
-	f.renderinfo.pos = vec2d_make(SCREEN_W/2, SCREEN_H/2);
-	f.renderinfo.zval = 3.0;
+	f.ri.pos = vec2d_make(SCREEN_W/2, SCREEN_H/2);
+	f.ri.zval = 3.0;
 	
 	return 0;
 }
 
 static void scene_update(scene_t *scene, double dt)
 {
-	q.renderinfo.rot_a += 360.0 * dt;
-	r.renderinfo.rot_a += 360.0 * dt;
+	q.ri.rot_a += 360.0 * dt;
+	r.ri.rot_a += 360.0 * dt;
 }
 
 static void scene_render(scene_t *scene)
