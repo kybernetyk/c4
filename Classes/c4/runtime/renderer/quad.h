@@ -13,6 +13,8 @@
 */
 
 #pragma once
+#include <stdbool.h>
+
 #include "renderinfo.h"
 #include "texture.h"
 
@@ -22,6 +24,6 @@ typedef struct quad_t
 	tex2d_id tex_id;
 } quad_t;
 
-extern GLuint quad_load(const char *filename, quad_t *quad_out);
+extern bool quad_load(const char *filename, quad_t *quad_out);
 extern void quad_render(quad_t *quad);
 extern void quad_free(quad_t *quad);

@@ -76,7 +76,7 @@ static void setup_viewport_and_projection(int vp_w_pixels, int vp_h_pixels, floa
 }
 
 
-int renderer_init(double scale)
+bool renderer_init(double scale)
 {
 	viewport.scale = scale;
 	
@@ -91,7 +91,8 @@ int renderer_init(double scale)
 	camera.rot_a = 0.0;
 	camera.x = viewport_size_x/2.0;
 	camera.y = viewport_size_y/2.0;
-	return 0;
+
+	return true;
 }
 
 void renderer_begin_frame(void)

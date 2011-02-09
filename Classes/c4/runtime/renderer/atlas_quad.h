@@ -8,6 +8,8 @@
  */
 
 #pragma once
+#include <stdbool.h>
+
 #include "renderinfo.h"
 #include "texture.h"
 
@@ -18,6 +20,6 @@ typedef struct atlas_quad_t
 	tex2d_id tex_id;
 } atlas_quad_t;
 
-extern GLuint atlas_quad_load(const char *filename, atlas_quad_t *quad_out);
+extern bool atlas_quad_load(const char *filename, atlas_quad_t *quad_out);
 extern void atlas_quad_render(atlas_quad_t *quad);
 extern void atlas_quad_free(atlas_quad_t *quad);

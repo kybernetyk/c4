@@ -66,7 +66,11 @@ enum {
     animationFrameInterval = 1;
     self.displayLink = nil;
 	
-	game_init();
+	if (!game_init())
+	{
+		printf("couldn't init game!\n");
+		abort();
+	}
 }
 
 - (void)dealloc

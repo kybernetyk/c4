@@ -7,9 +7,11 @@
  *
  */
 #pragma once
+#include <stdbool.h>
+
 #include "vector2d.h"
 
-extern int renderer_init(double scale);
+extern bool renderer_init(double scale);
 extern void renderer_begin_frame(void);
 extern void renderer_end_frame(void);
 extern void renderer_release(void);

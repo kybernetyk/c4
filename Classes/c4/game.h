@@ -9,11 +9,13 @@
  *
  */
 #pragma once
+#include <stdbool.h>
+
 #include "scene.h"
 
-extern int game_init(void);
+extern bool game_init(void);
 extern void game_tick(void);
 extern void game_render(void);
-extern int game_end(void);
+extern void game_end(void);
 
 extern void game_set_next_scene (scene_t scene);

@@ -11,14 +11,14 @@
 #include "renderinfo.h"
 #include "quad.h"
 
-GLuint quad_load(const char *filename, quad_t *quad_out)
+bool quad_load(const char *filename, quad_t *quad_out)
 {
 	quad_out->tex_id = tex2d_load(filename);
 	if (quad_out->tex_id < 0)
 	{
 		printf("couldn't load quad %s ...\n", filename);
 		abort();
-		return 0;
+		return false;
 	}
 	
 	tex2d_t *tex = tex2d_get_tex_by_id(quad_out->tex_id);
@@ -29,7 +29,7 @@ GLuint quad_load(const char *filename, quad_t *quad_out)
 	quad_out->renderinfo.size = size2d_make(tex->w,tex->h);
 	quad_out->renderinfo.anchor_point = vec2d_make(0.5, 0.5);
 
-	return tex->name;
+	return true;
 }
 
 void quad_free(quad_t *quad)

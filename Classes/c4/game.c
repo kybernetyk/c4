@@ -40,7 +40,7 @@ void game_set_next_scene(scene_t scene)
 	next_scene_queued = true;
 }
 
-int game_init(void)
+bool game_init(void)
 {
 	TICKS_PER_SECOND = DESIRED_FPS;
 	SKIP_TICKS = 1000 / TICKS_PER_SECOND;
@@ -48,7 +48,8 @@ int game_init(void)
 	FIXED_DELTA = (1.0/TICKS_PER_SECOND);
 	paused = 0;
 
-	renderer_init(1.0);
+	if (!renderer_init(1.0))
+		return false;
 		
 	next_game_tick = timer_get_tick_count();
 	timer_update(&timer);
@@ -60,7 +61,8 @@ int game_init(void)
 	current_scene = startup_scene_create();
 	current_scene.init_func(&current_scene);
 	next_scene_queued = false;
-	return 0;
+
+	return true;
 }
 
 void game_tick(void)
@@ -122,11 +124,10 @@ void game_render(void)
 	renderer_end_frame();
 }
 
-int game_end(void)
+void game_end(void)
 {
 	//current scene end
 	current_scene.free_func(&current_scene);
 	font_free(&fps_font);
 	renderer_release();
-	return 0;
 }
