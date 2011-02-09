@@ -38,7 +38,9 @@
 **/
 
 /**
- This is a special version of SOIL. It works under OS X and Mac. Also it sets the global "bound texture" value
+ This is a special version of SOIL. It works under OS X and iOS and is able to load compressed iOS pngs.
+ 
+ Also it sets the global "bound texture" value
  
  **/
 
