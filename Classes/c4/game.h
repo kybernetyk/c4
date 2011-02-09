@@ -5,7 +5,7 @@
  *	your game loop	
  *
  *  Created by jrk on 8/2/11.
- *  Copyright 2011 flux forge. All rights reserved.
+ *  Copyright 2011 Jaroslaw Szpilewski. All rights reserved.
  *
  */
 #pragma once
