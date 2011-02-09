@@ -1,0 +1,8 @@
+TODO (in no particular order):
+
+[ ] sound
+[ ] simple UI stuff (buttons, labels)
+[ ] entity system
+[ ] split the framework from the xcode project into a lib
+[ ] replace #defines by some config mechanism
+[ ] mac port
