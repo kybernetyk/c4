@@ -5,3 +5,5 @@ The code in this directory was not written by me! It's not stated which license 
 it seems to be GPL-compatible. So for the meantime we'll use this code until we port the system down to C.
 
 I've added some methods to make the code work on OS X.
+
+NOTE: The texture binding code uses tex2d_bind() - if you want to extract the pemitter, you should replace it by a glBind
