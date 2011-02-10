@@ -13,6 +13,7 @@
 #include "texture.h"
 
 //TODO: rewrite the particle emitter in C so we can be portable to non apple platforms!
+//right now this file is just a stub to call obj-c code from C ...
 
 typedef struct particle_emitter_t
 {
