@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0308B75C13045E7A0083D624 /* particle_emitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0308B75B13045E7A0083D624 /* particle_emitter.m */; };
+		0308B769130463000083D624 /* ParticleEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0308B766130463000083D624 /* ParticleEmitter.m */; };
+		0308B76A130463000083D624 /* TBXMLParticleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0308B768130463000083D624 /* TBXMLParticleAdditions.m */; };
+		0308B770130463100083D624 /* OBJCTexture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 0308B76F130463100083D624 /* OBJCTexture2D.m */; };
+		0308B788130463370083D624 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0308B785130463360083D624 /* NSDataAdditions.m */; };
+		0308B789130463370083D624 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 0308B787130463370083D624 /* TBXML.m */; };
+		0308B7A71304643A0083D624 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0308B7A61304643A0083D624 /* CoreGraphics.framework */; };
+		0308B7C1130464460083D624 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0308B7C0130464460083D624 /* libz.dylib */; };
+		0308B7CF1304661E0083D624 /* stars.pex in Resources */ = {isa = PBXBuildFile; fileRef = 0308B7CE1304661E0083D624 /* stars.pex */; };
 		034D2C3D13019D42004A32A0 /* game.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C2E13019D42004A32A0 /* game.c */; };
 		034D2C3E13019D42004A32A0 /* menu_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C3513019D42004A32A0 /* menu_scene.c */; };
 		034D2C3F13019D42004A32A0 /* scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C3713019D42004A32A0 /* scene.c */; };
@@ -48,6 +57,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0308B75A13045E7A0083D624 /* particle_emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = particle_emitter.h; sourceTree = "<group>"; };
+		0308B75B13045E7A0083D624 /* particle_emitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = particle_emitter.m; sourceTree = "<group>"; };
+		0308B765130463000083D624 /* ParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEmitter.h; sourceTree = "<group>"; };
+		0308B766130463000083D624 /* ParticleEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleEmitter.m; sourceTree = "<group>"; };
+		0308B767130463000083D624 /* TBXMLParticleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXMLParticleAdditions.h; sourceTree = "<group>"; };
+		0308B768130463000083D624 /* TBXMLParticleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXMLParticleAdditions.m; sourceTree = "<group>"; };
+		0308B76E130463100083D624 /* OBJCTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJCTexture2D.h; sourceTree = "<group>"; };
+		0308B76F130463100083D624 /* OBJCTexture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBJCTexture2D.m; sourceTree = "<group>"; };
+		0308B784130463360083D624 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		0308B785130463360083D624 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
+		0308B786130463360083D624 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
+		0308B787130463370083D624 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
+		0308B78C130463410083D624 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		0308B78F1304636E0083D624 /* Structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Structures.h; sourceTree = "<group>"; };
+		0308B7A61304643A0083D624 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0308B7C0130464460083D624 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0308B7CE1304661E0083D624 /* stars.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stars.pex; sourceTree = "<group>"; };
 		034D2C2E13019D42004A32A0 /* game.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
 		034D2C2F13019D42004A32A0 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		034D2C3513019D42004A32A0 /* menu_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = menu_scene.c; sourceTree = "<group>"; };
@@ -125,12 +151,73 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
 				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
+				0308B7A71304643A0083D624 /* CoreGraphics.framework in Frameworks */,
+				0308B7C1130464460083D624 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0308B75F130461370083D624 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				0397CA1613029E1B00FCB95C /* font.h */,
+				0397CA1713029E1B00FCB95C /* font.c */,
+				0397CA1313029E0D00FCB95C /* bm_font.c */,
+				0397CA1413029E0D00FCB95C /* bm_font.h */,
+			);
+			name = Font;
+			sourceTree = "<group>";
+		};
+		0308B7601304613F0083D624 /* Particle */ = {
+			isa = PBXGroup;
+			children = (
+				0308B764130463000083D624 /* Particle Emitter */,
+				0308B75A13045E7A0083D624 /* particle_emitter.h */,
+				0308B75B13045E7A0083D624 /* particle_emitter.m */,
+			);
+			name = Particle;
+			sourceTree = "<group>";
+		};
+		0308B7611304615A0083D624 /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				034D2CB41301AC7C004A32A0 /* quad.h */,
+				034D2CB51301AC7C004A32A0 /* quad.c */,
+				0397C9A61302980400FCB95C /* atlas_quad.h */,
+				0397C9A71302980400FCB95C /* atlas_quad.c */,
+			);
+			name = Sprites;
+			sourceTree = "<group>";
+		};
+		0308B764130463000083D624 /* Particle Emitter */ = {
+			isa = PBXGroup;
+			children = (
+				0308B78F1304636E0083D624 /* Structures.h */,
+				0308B78C130463410083D624 /* Global.h */,
+				0308B783130463360083D624 /* TBXML */,
+				0308B76E130463100083D624 /* OBJCTexture2D.h */,
+				0308B76F130463100083D624 /* OBJCTexture2D.m */,
+				0308B765130463000083D624 /* ParticleEmitter.h */,
+				0308B766130463000083D624 /* ParticleEmitter.m */,
+				0308B767130463000083D624 /* TBXMLParticleAdditions.h */,
+				0308B768130463000083D624 /* TBXMLParticleAdditions.m */,
+			);
+			path = "Particle Emitter";
+			sourceTree = "<group>";
+		};
+		0308B783130463360083D624 /* TBXML */ = {
+			isa = PBXGroup;
+			children = (
+				0308B784130463360083D624 /* NSDataAdditions.h */,
+				0308B785130463360083D624 /* NSDataAdditions.m */,
+				0308B786130463360083D624 /* TBXML.h */,
+				0308B787130463370083D624 /* TBXML.m */,
+			);
+			path = TBXML;
+			sourceTree = "<group>";
+		};
 		034D2C2D13019D42004A32A0 /* c4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,24 +256,19 @@
 		034D2C3213019D42004A32A0 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				0308B7611304615A0083D624 /* Sprites */,
+				0308B7601304613F0083D624 /* Particle */,
+				0308B75F130461370083D624 /* Font */,
 				034D2C8B1301AA3B004A32A0 /* SOIL_iPhone */,
 				034D2C4413019D50004A32A0 /* renderer.h */,
 				034D2C4513019D50004A32A0 /* renderer.c */,
 				034D2C4A1301A023004A32A0 /* ogl.h */,
 				034D2C781301A636004A32A0 /* texture.h */,
-				0397CA1313029E0D00FCB95C /* bm_font.c */,
-				0397CA1413029E0D00FCB95C /* bm_font.h */,
 				034D2C791301A636004A32A0 /* texture.c */,
-				034D2CB41301AC7C004A32A0 /* quad.h */,
-				034D2CB51301AC7C004A32A0 /* quad.c */,
 				034D2DD11301C399004A32A0 /* hash.h */,
 				034D2DD21301C399004A32A0 /* hash.c */,
 				034D2E1B1301C896004A32A0 /* renderinfo.h */,
 				034D2E321301CA6C004A32A0 /* renderinfo.c */,
-				0397C9A61302980400FCB95C /* atlas_quad.h */,
-				0397C9A71302980400FCB95C /* atlas_quad.c */,
-				0397CA1613029E1B00FCB95C /* font.h */,
-				0397CA1713029E1B00FCB95C /* font.c */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -231,6 +313,7 @@
 		034D2E561301CB84004A32A0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0308B7CE1304661E0083D624 /* stars.pex */,
 				0397CA311302A07E00FCB95C /* impact20_0.png */,
 				0397CA321302A07E00FCB95C /* impact20.fnt */,
 				0397C9D1130299AE00FCB95C /* bubbles.png */,
@@ -284,6 +367,7 @@
 				034D2E561301CB84004A32A0 /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				0308B7C0130464460083D624 /* libz.dylib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -304,6 +388,7 @@
 				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				0308B7A61304643A0083D624 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -368,6 +453,7 @@
 				0397CA331302A07E00FCB95C /* impact20_0.png in Resources */,
 				0397CA341302A07E00FCB95C /* impact20.fnt in Resources */,
 				03A2593C1302B7FE00C30AEE /* TODO in Resources */,
+				0308B7CF1304661E0083D624 /* stars.pex in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +487,12 @@
 				0397C9A81302980400FCB95C /* atlas_quad.c in Sources */,
 				0397CA1513029E0D00FCB95C /* bm_font.c in Sources */,
 				0397CA1813029E1B00FCB95C /* font.c in Sources */,
+				0308B75C13045E7A0083D624 /* particle_emitter.m in Sources */,
+				0308B769130463000083D624 /* ParticleEmitter.m in Sources */,
+				0308B76A130463000083D624 /* TBXMLParticleAdditions.m in Sources */,
+				0308B770130463100083D624 /* OBJCTexture2D.m in Sources */,
+				0308B788130463370083D624 /* NSDataAdditions.m in Sources */,
+				0308B789130463370083D624 /* TBXML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

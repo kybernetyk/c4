@@ -13,11 +13,13 @@
 #include "atlas_quad.h"
 #include "quad.h"
 #include "font.h"
+#include "particle_emitter.h"
 
 static quad_t p;
 static quad_t q;
 static atlas_quad_t r;
 static font_t f;
+static particle_emitter_t pe;
 
 static int scene_init(scene_t *scene)
 {
@@ -40,6 +42,10 @@ static int scene_init(scene_t *scene)
 	f.ri.pos = vec2d_make(SCREEN_W/2, SCREEN_H/2);
 	f.ri.zval = 3.0;
 	
+	particle_emitter_load("stars.pex", &pe);
+	pe.ri.zval = 4.0;
+	pe.ri.pos = vec2d_make(SCREEN_W/2, SCREEN_H/2);
+	
 	return 0;
 }
 
@@ -47,6 +53,7 @@ static void scene_update(scene_t *scene, double dt)
 {
 	q.ri.rot_a += 360.0 * dt;
 	r.ri.rot_a += 360.0 * dt;
+	particle_emitter_update(&pe, dt);
 }
 
 static void scene_render(scene_t *scene)
@@ -55,6 +62,7 @@ static void scene_render(scene_t *scene)
 	quad_render(&q);
 	atlas_quad_render(&r);
 	font_render(&f, "oh hai!");
+	particle_emitter_render(&pe);
 }
 
 static int scene_free(scene_t *scene)
