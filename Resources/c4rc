@@ -1,0 +1,4 @@
+screen.w = 320
+screen.h = 480
+desiredfps = 60
+orientation = portrait

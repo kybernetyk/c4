@@ -11,6 +11,7 @@
 #import "c4ViewController.h"
 #import "EAGLView.h"
 #include "game.h"
+#include "c4_config.h"
 
 // Uniform index.
 enum {
@@ -41,6 +42,12 @@ enum {
 
 - (void)awakeFromNib
 {
+	if (!c4_config_read_config_file(&g_sysconfig, "c4rc"))
+	{
+		printf("couldn't parse config file!\n");
+		abort();
+	}
+	
     //EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     EAGLContext *aContext = nil;
     if (!aContext)
@@ -63,7 +70,8 @@ enum {
         [self loadShaders];
     
     animating = FALSE;
-    animationFrameInterval = 1;
+    animationFrameInterval = 60/g_sysconfig.desired_fps;
+	printf("animation interval = %i\n", animationFrameInterval);
     self.displayLink = nil;
 	
 	if (!game_init())

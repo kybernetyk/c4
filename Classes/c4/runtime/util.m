@@ -28,6 +28,7 @@ const char *path_for_file(const char *filename)
 	{
 		NSLog(@"%s not found! path_for_file()",filename);
 		abort();
+		return NULL;
 	}
 
 	const char *c = [ret cStringUsingEncoding: NSASCIIStringEncoding];

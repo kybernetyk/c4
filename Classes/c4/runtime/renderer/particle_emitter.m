@@ -25,7 +25,7 @@ bool particle_emitter_load(const char *filename, particle_emitter_t *pe)
 	pe->ri.rot_a = 0.0;
 	pe->ri.scale = vec2d_make(1.0, 1.0);
 	pe->ri.zval = 0.0;
-	pe->ri.size = size2d_make(SCREEN_W,SCREEN_H);	//well, actualle a PE has no real size ... but for sake of anchor point calculations we need to set it to screen size
+	pe->ri.size = size2d_make(0,0);
 	pe->ri.anchor_point = vec2d_make(0.5, 0.5);
 	
 	return true;
@@ -34,8 +34,7 @@ bool particle_emitter_load(const char *filename, particle_emitter_t *pe)
 void particle_emitter_render(particle_emitter_t *pe)
 {
 	glPushMatrix();
-	//renderinfo_transform(&pe->ri);				//transofrmation done by the particle emitter
-	glTranslatef(0.0, 0.0, pe->ri.zval);
+	glTranslatef(0.0, 0.0, pe->ri.zval);		//the pe system will do further transforms
 	[(ParticleEmitter *)pe->pe renderParticles];
 	glPopMatrix();
 }
@@ -45,8 +44,6 @@ void particle_emitter_update(particle_emitter_t *pe, float delta)
 	Vector2f pos;
 	pos.x = pe->ri.pos.x;
 	pos.y = pe->ri.pos.y;
-	
-	printf("pos: %f,%f\n",pos.x,pos.y);
 
 	[(ParticleEmitter *)pe->pe setSourcePosition: pos];
 	[(ParticleEmitter *)pe->pe updateWithDelta: delta];
