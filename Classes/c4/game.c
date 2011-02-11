@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "input.h"
 #include "renderer.h"
 #include "timer.h"
 #include "scene.h"
@@ -42,6 +43,8 @@ void game_set_next_scene(scene_t scene)
 
 bool game_init(void)
 {
+	input_init();
+	
 	TICKS_PER_SECOND = DESIRED_FPS;
 	SKIP_TICKS = 1000 / TICKS_PER_SECOND;
 	MAX_FRAMESKIP = 5;
