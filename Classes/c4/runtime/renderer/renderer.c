@@ -80,18 +80,19 @@ bool renderer_init(double scale)
 {
 	viewport.scale = scale;
 	
-	double screen_size_x = SCREEN_W * scale;
-	double screen_size_y = SCREEN_H * scale;	//change to 280 for a 40px high empty strip [eg for an ad banner]
+	double screen_size_x = SCREEN_W;
+	double screen_size_y = SCREEN_H;	//change to 280 for a 40px high empty strip [eg for an ad banner]
 	
-	double viewport_size_x = SCREEN_W;// / pixeltometerratio;//viewport_size_x / xyratio;
-	double viewport_size_y = SCREEN_H;	
+	double viewport_size_x = SCREEN_W / scale;// / pixeltometerratio;//viewport_size_x / xyratio;
+	double viewport_size_y = SCREEN_H / scale;	
 	
 	
 	setup_viewport_and_projection(screen_size_x, screen_size_y, viewport_size_x, viewport_size_y);
 	camera.rot_a = 0.0;
-	camera.x = viewport_size_x/2.0;
-	camera.y = viewport_size_y/2.0;
+	camera.x = screen_size_x/2.0;
+	camera.y = screen_size_y/2.0;
 
+	
 	return true;
 }
 
@@ -101,15 +102,18 @@ void renderer_begin_frame(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	glLoadIdentity();
+
 	
-	
-	glTranslatef( viewport.w_units/2.0, viewport.h_units/2.0, 0);
+	glTranslatef( (viewport.w_units/2.0), viewport.h_units/2.0, 0);
 	
 	if (camera.rot_a != 0.0)
 		glRotatef(camera.rot_a, 0.0, 0.0, 1.0);
 	
-	glTranslatef( -camera.x , -camera.y, 0.0);
-	
+	//glScalef(.5, .5, 1.0);	
+
+	glTranslatef( -camera.x, -camera.y, 0.0);
+
+
 }
 
 void renderer_end_frame(void)
