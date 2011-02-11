@@ -90,8 +90,10 @@ static char *str_trim(char *line)
 
 static unsigned int line_get_key(const char *line)
 {
-	char *copy = str_lower(strdup(line));
-	char *pend = copy;
+	char copy[strlen(line)+1];
+	sprintf(copy, "%s", line);
+	char *pend = str_lower(copy);
+	
 	while(1)
 	{
 		if (*pend == '=' || *pend == '\n' || *pend == 0)
@@ -105,7 +107,7 @@ static unsigned int line_get_key(const char *line)
 	char *tmp = str_trim(copy);
 	unsigned int hash = murmur_hash_2(tmp, strlen(tmp), 0);
 	
-	free(copy);
+
 	return hash;
 }
 
@@ -141,8 +143,10 @@ static char *line_get_value(char *line)
 
 static void set_key_value(c4_config_t *cfg, unsigned int key_hash, const char *value)
 {
-	char *copy = strdup(value);
+	char copy[strlen(value)+1];
+	sprintf(copy, "%s", value);
 	char *val = str_trim(copy);
+	
 	
 	unsigned int h_val = murmur_hash_2(val, strlen(val), 0);
 	
@@ -171,7 +175,6 @@ static void set_key_value(c4_config_t *cfg, unsigned int key_hash, const char *v
 			cfg->orientation = LANDSCAPE;
 	}
 	
-	free(copy);
 	return;
 }
 
