@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "EAGLView.h"
+#include "input.h"
+#include "renderer.h"
 
 @interface EAGLView (PrivateMethods)
 - (void)createFramebuffer;
@@ -124,7 +126,7 @@
         
         glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
         
-        glViewport(0, 0, framebufferWidth, framebufferHeight);
+        //glViewport(0, 0, framebufferWidth, framebufferHeight);		//comment this out so our scaling won't be overwritten!
     }
 }
 
@@ -148,6 +150,69 @@
 {
     // The framebuffer will be re-created at the beginning of the next setFramebuffer method call.
     [self deleteFramebuffer];
+}
+#pragma mark -
+#pragma mark === Touch handling  ===
+#pragma mark
+
+-(CGPoint)convertToGL:(CGPoint)uiPoint
+{
+	CGSize size = [self bounds].size;
+	
+	//#ifdef ORIENTATION_LANDSCAPE
+	CGPoint ret = CGPointZero;
+	ret.x = uiPoint.x;
+	ret.y = size.height - uiPoint.y;
+	//#endif
+	
+	
+	return ret;
+}
+
+
+// Handles the start of a touch
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	UITouch *touch = [[touches allObjects] objectAtIndex: 0];
+	CGPoint loc = [touch locationInView: self];
+	
+	loc = [self convertToGL: loc];
+	
+	vec2d_t v = renderer_screen_to_world(vec2d_make(loc.x, loc.y));
+	
+	input_set_touch_active(true);
+	input_set_touch_location(v);
+	input_set_initial_touch_location(v);
+	[super touchesBegan: touches withEvent: event];
+}
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	//NSLog(@"moved!");
+	UITouch *touch = [[touches allObjects] objectAtIndex: 0];
+	CGPoint loc = [touch locationInView: self];
+	
+	loc = [self convertToGL: loc];
+	vec2d_t v = renderer_screen_to_world(vec2d_make(loc.x, loc.y));
+	
+	input_set_touch_active(true);
+	input_set_touch_location(v);
+	[super touchesMoved: touches withEvent: event];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	UITouch *touch = [[touches allObjects] objectAtIndex: 0];
+	CGPoint loc = [touch locationInView: self];
+	loc = [self convertToGL: loc];
+	
+	vec2d_t v = renderer_screen_to_world(vec2d_make(loc.x, loc.y));
+	
+	input_set_touch_active(false);
+	input_set_touch_location(v);
+	input_set_touch_up_received(true);
+	
+	[super touchesEnded: touches withEvent: event];
 }
 
 @end
