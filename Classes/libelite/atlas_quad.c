@@ -13,7 +13,7 @@
 #include "renderinfo.h"
 #include "quad.h"
 
-bool atlas_quad_load(const char *filename, atlas_quad_t *quad_out)
+bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out)
 {
 	quad_out->tex_id = tex2d_load(filename);
 	if (quad_out->tex_id < 0)
@@ -36,13 +36,13 @@ bool atlas_quad_load(const char *filename, atlas_quad_t *quad_out)
 	
 }
 
-void atlas_quad_free(atlas_quad_t *quad)
+void atlas_quad_free(le_atlas_quad_t *quad)
 {
 	tex2d_release(quad->tex_id);
 	quad->tex_id = -1;
 }
 
-void atlas_quad_render(atlas_quad_t *quad)
+void atlas_quad_render(le_atlas_quad_t *quad)
 {
 	tex2d_t *tex = tex2d_get_tex_by_id(quad->tex_id);
 	if (!tex)

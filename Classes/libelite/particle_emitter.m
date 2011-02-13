@@ -13,7 +13,7 @@
 #include "renderinfo.h"
 #import "ParticleEmitter.h"
 
-bool particle_emitter_load(const char *filename, particle_emitter_t *pe)
+bool particle_emitter_load(const char *filename, le_particle_emitter_t *pe)
 {
 	ParticleEmitter *pm = [[ParticleEmitter alloc] initParticleEmitterWithFile: [NSString stringWithCString: filename
 																								   encoding: NSASCIIStringEncoding]];
@@ -31,7 +31,7 @@ bool particle_emitter_load(const char *filename, particle_emitter_t *pe)
 	return true;
 }
 
-void particle_emitter_render(particle_emitter_t *pe)
+void particle_emitter_render(le_particle_emitter_t *pe)
 {
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, pe->ri.zval);		//the pe system will do further transforms
@@ -39,7 +39,7 @@ void particle_emitter_render(particle_emitter_t *pe)
 	glPopMatrix();
 }
 
-void particle_emitter_update(particle_emitter_t *pe, float delta)
+void particle_emitter_update(le_particle_emitter_t *pe, float delta)
 {
 	Vector2f pos;
 	pos.x = pe->ri.pos.x;
@@ -50,7 +50,7 @@ void particle_emitter_update(particle_emitter_t *pe, float delta)
 }
 
 
-void particle_emitter_free(particle_emitter_t *pe)
+void particle_emitter_free(le_particle_emitter_t *pe)
 {
 	if (pe->pe)
 	{
@@ -60,39 +60,39 @@ void particle_emitter_free(particle_emitter_t *pe)
 }
 
 
-void particle_emitter_start(particle_emitter_t *pe)
+void particle_emitter_start(le_particle_emitter_t *pe)
 {
 	[(ParticleEmitter *)pe->pe startParticleEmitter];
 }
 
-void particle_emitter_reset(particle_emitter_t *pe)
+void particle_emitter_reset(le_particle_emitter_t *pe)
 {
 	[(ParticleEmitter *)pe->pe reset];
 }
 
-void particle_emitter_stop(particle_emitter_t *pe)
+void particle_emitter_stop(le_particle_emitter_t *pe)
 {
 	[(ParticleEmitter *)pe->pe stopParticleEmitter];
 }
 
-bool particle_emitter_is_active(particle_emitter_t *pe)
+bool particle_emitter_is_active(le_particle_emitter_t *pe)
 {
 	return [(ParticleEmitter *)pe->pe active];	
 }
 
-bool particle_emitter_should_handle(particle_emitter_t *pe)
+bool particle_emitter_should_handle(le_particle_emitter_t *pe)
 {
 	if (![(ParticleEmitter *)pe->pe active] && [(ParticleEmitter *)pe->pe particleCount] == 0)
 		return false;
 	return true;
 }
 
-double particle_emitter_get_duration(particle_emitter_t *pe)
+double particle_emitter_get_duration(le_particle_emitter_t *pe)
 {
 	return [(ParticleEmitter *)pe->pe duration];
 }
 
-void particle_emitter_set_duration(particle_emitter_t *pe, double dur)
+void particle_emitter_set_duration(le_particle_emitter_t *pe, double dur)
 {
 	[(ParticleEmitter *)pe->pe setDuration: dur];
 }

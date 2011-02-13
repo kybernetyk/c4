@@ -13,13 +13,13 @@
 #include "renderinfo.h"
 #include "texture.h"
 
-typedef struct atlas_quad_t
+typedef struct le_atlas_quad_t
 {
 	renderinfo_t ri;
 	rect_t src_rect;
 	tex2d_id tex_id;
-} atlas_quad_t;
+} le_atlas_quad_t;
 
-extern bool atlas_quad_load(const char *filename, atlas_quad_t *quad_out);
-extern void atlas_quad_render(atlas_quad_t *quad);
-extern void atlas_quad_free(atlas_quad_t *quad);
+extern bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out);
+extern void atlas_quad_render(le_atlas_quad_t *quad);
+extern void atlas_quad_free(le_atlas_quad_t *quad);

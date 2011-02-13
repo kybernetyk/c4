@@ -8,20 +8,13 @@
  */
 #include <stdio.h>
 #include "elite.h"
-
 #include "menu_scene.h"
 
-#include "renderer.h"
-#include "atlas_quad.h"
-#include "quad.h"
-#include "font.h"
-#include "particle_emitter.h"
-
-static quad_t p;
-static quad_t q;
-static atlas_quad_t r;
-static font_t f;
-static particle_emitter_t pe;
+static le_quad_t p;
+static le_quad_t q;
+static le_atlas_quad_t r;
+static le_font_t f;
+static le_particle_emitter_t pe;
 
 static audio_id music;
 static audio_id sound;

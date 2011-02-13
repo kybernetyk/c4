@@ -9,6 +9,6 @@
 
 /* first scene called by the game after everything is initialized */
 #pragma once
-#include "scene.h"
+#include "elite.h"
 
 extern scene_t startup_scene_create(void);

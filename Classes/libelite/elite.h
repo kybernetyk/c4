@@ -12,14 +12,18 @@
 #include "sys_config.h"
 #include "scene.h"
 
-#include "input.h"
-#include "texture.h"
-#include "renderinfo.h"
 #include "renderer.h"
+#include "renderinfo.h"
+#include "texture.h"
+#include "quad.h"
+#include "atlas_quad.h"
+#include "font.h"
+#include "particle_emitter.h"
+
+#include "input.h"
 #include "audio.h"
 
 #include "timer.h"
-#include "font.h"
 #include "util.h"
 #include "hash.h"
 

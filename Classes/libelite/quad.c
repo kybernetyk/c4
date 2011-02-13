@@ -11,7 +11,7 @@
 #include "renderinfo.h"
 #include "quad.h"
 
-bool quad_load(const char *filename, quad_t *quad_out)
+bool quad_load(const char *filename, le_quad_t *quad_out)
 {
 	quad_out->tex_id = tex2d_load(filename);
 	if (quad_out->tex_id < 0)
@@ -32,14 +32,14 @@ bool quad_load(const char *filename, quad_t *quad_out)
 	return true;
 }
 
-void quad_free(quad_t *quad)
+void quad_free(le_quad_t *quad)
 {
 	tex2d_release(quad->tex_id);
 	quad->tex_id = -1;
 }
 
 
-void quad_render(quad_t *quad)
+void quad_render(le_quad_t *quad)
 {
 	tex2d_t *tex = tex2d_get_tex_by_id(quad->tex_id);
 	if (!tex)

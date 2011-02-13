@@ -7,11 +7,9 @@
  *
  */
 #include <stdio.h>
-
+#include "elite.h"
 #include "startup_scene.h"
-
 #include "menu_scene.h"
-#include "game.h"
 
 /* warning! do not set the next scene in the init method! do it in update */
 

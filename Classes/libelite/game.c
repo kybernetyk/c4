@@ -29,7 +29,7 @@ static scene_t next_scene;
 static bool next_scene_queued = false;
 
 static char fps_str[255];
-static font_t fps_font;
+static le_font_t fps_font;
 
 void game_set_next_scene(scene_t scene)
 {

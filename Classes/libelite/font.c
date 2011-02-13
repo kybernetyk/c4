@@ -15,7 +15,7 @@
 #include "renderinfo.h"
 #include "util.h"
 
-bool font_load(const char *filename, font_t *font_out)
+bool font_load(const char *filename, le_font_t *font_out)
 {
 	const char *fn = path_for_file(filename);
 	
@@ -44,7 +44,7 @@ bool font_load(const char *filename, font_t *font_out)
 }
 
 
-static void font_transform(font_t *fnt, const char *text)
+static void font_transform(le_font_t *fnt, const char *text)
 {
 	int w = bm_width(&fnt->fnt, text);
 	float h = fnt->fnt.line_h*.75; //bm_height(&font, text);
@@ -62,7 +62,7 @@ static void font_transform(font_t *fnt, const char *text)
 	
 }
 
-void font_render(font_t *fnt, const char *text)
+void font_render(le_font_t *fnt, const char *text)
 {
 	tex2d_t *texture = tex2d_get_tex_by_id(fnt->tex_id);
 	if (!texture)
@@ -130,7 +130,7 @@ void font_render(font_t *fnt, const char *text)
 	glPopMatrix();
 }
 
-void font_free(font_t *fnt)
+void font_free(le_font_t *fnt)
 {
 	tex2d_release(fnt->tex_id);
 	fnt->tex_id = -1;

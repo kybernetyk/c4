@@ -6,6 +6,7 @@
  *  Copyright 2011 Jaroslaw Szpilewski. All rights reserved.
  *
  */
+#pragma once
 
 typedef struct timer_t
 {

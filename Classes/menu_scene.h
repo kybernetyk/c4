@@ -7,7 +7,7 @@
  *
  */
 #pragma once
-#include "scene.h"
+#include "elite.h"
 
 /* a stub for a main menu scene */
 
