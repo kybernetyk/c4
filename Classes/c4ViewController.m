@@ -11,7 +11,7 @@
 #import "c4ViewController.h"
 #import "EAGLView.h"
 #include "game.h"
-#include "c4_config.h"
+#include "sys_config.h"
 #include "startup_scene.h"
 
 // Uniform index.
@@ -43,7 +43,7 @@ enum {
 
 - (void)awakeFromNib
 {
-	if (!c4_config_read_config_file(&g_sysconfig, "c4rc"))
+	if (!sys_config_read_config_file(&g_sysconfig, "sysconfig"))
 	{
 		printf("couldn't parse config file!\n");
 		abort();

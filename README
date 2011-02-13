@@ -14,7 +14,9 @@ contact: http://nntp.pl / jszpilewski at me dot com
 
 Current State
 -------------
+2011-02-13: Yay, we got particles, sound, and input. also the API structure cleared up a little. at least I have now a
+			general idea in which direction the lib will go. 
 
-2011-04-09: Well, it's unusable by now. Work is being done and it's even not clear how the API will look like.
+2011-02-09: Well, it's unusable by now. Work is being done and it's even not clear how the API will look like.
 			There's no game logic (components, etc) built in yet.
 			If you need an incomplete 2d opengl lib ... now might be the time to fork it ;)

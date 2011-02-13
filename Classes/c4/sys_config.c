@@ -11,13 +11,12 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "c4_config.h"
 #include "util.h"
 #include "hash.h"
 
-c4_config_t g_sysconfig;
+sys_config_t g_sysconfig;
 
-static void dump_config(c4_config_t *cfg)
+static void dump_config(sys_config_t *cfg)
 {
 	printf("dumping c4 config ...\n");
 	printf("\tscreen_w = %.2f\n", cfg->screen_w);
@@ -141,7 +140,7 @@ static char *line_get_value(char *line)
 	return NULL;
 }
 
-static void set_key_value(c4_config_t *cfg, unsigned int key_hash, const char *value)
+static void set_key_value(sys_config_t *cfg, unsigned int key_hash, const char *value)
 {
 	char copy[strlen(value)+1];
 	sprintf(copy, "%s", value);
@@ -178,7 +177,7 @@ static void set_key_value(c4_config_t *cfg, unsigned int key_hash, const char *v
 	return;
 }
 
-static void set_defaults(c4_config_t *cfg)
+static void set_defaults(sys_config_t *cfg)
 {
 	//screen
 	cfg->screen_w = 320;
@@ -193,7 +192,7 @@ static void set_defaults(c4_config_t *cfg)
 	cfg->default_music_vol = 0.5;
 }
 
-bool c4_config_read_config_file(c4_config_t *cfg, const char *filename)
+bool sys_config_read_config_file(sys_config_t *cfg, const char *filename)
 {
 	set_defaults(cfg);
 	

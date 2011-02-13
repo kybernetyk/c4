@@ -1,8 +1,8 @@
 /*
- *  c4_config.h
- *  c4
+ *  sys_config.h
+ *  libelite
 
- 	Config system for the framework. Important: FILL THE GLOBAL STRUCTURE BEFORE CALLING ANY OTHER c4 METHOD!
+ 	Config system for the lib. Important: FILL THE GLOBAL STRUCTURE BEFORE CALLING ANY OTHER LE METHOD!
  
  *
  *  Created by jrk on 11/2/11.
@@ -14,19 +14,19 @@
 #pragma once
 #include <stdbool.h>
 
-typedef enum c4_orientation_e
+typedef enum device_orientation_e
 {
 	PORTRAIT,
 	LANDSCAPE
-} c4_orientation_e;
+} device_orientation_e;
 
-typedef struct c4_config_t
+typedef struct sys_config_t
 {
 	//gfx
 	double screen_w;
 	double screen_h;
 	double desired_fps;
-	c4_orientation_e orientation;
+	device_orientation_e orientation;
 	int texture_cache_size;
 	
 	//sfx
@@ -35,10 +35,10 @@ typedef struct c4_config_t
 	double default_music_vol;
 	
 	
-} c4_config_t;
-extern c4_config_t g_sysconfig;
+} sys_config_t;
+extern sys_config_t g_sysconfig;
 
-extern bool c4_config_read_config_file(c4_config_t *cfg, const char *filename);
+extern bool sys_config_read_config_file(sys_config_t *cfg, const char *filename);
 
 //defines for easy accessing the global config
 #define ORIENTATION g_sysconfig.orientation

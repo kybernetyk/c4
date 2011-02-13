@@ -17,8 +17,8 @@
 		0308B7C1130464460083D624 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0308B7C0130464460083D624 /* libz.dylib */; };
 		0308B7CF1304661E0083D624 /* stars.pex in Resources */ = {isa = PBXBuildFile; fileRef = 0308B7CE1304661E0083D624 /* stars.pex */; };
 		0308B81413046AA80083D624 /* WHATS_THIS in Resources */ = {isa = PBXBuildFile; fileRef = 0308B81313046AA80083D624 /* WHATS_THIS */; };
-		0308B817130550F40083D624 /* c4_config.c in Sources */ = {isa = PBXBuildFile; fileRef = 0308B816130550F40083D624 /* c4_config.c */; };
-		0308B838130554870083D624 /* c4rc in Resources */ = {isa = PBXBuildFile; fileRef = 0308B837130554870083D624 /* c4rc */; };
+		0308B817130550F40083D624 /* sys_config.c in Sources */ = {isa = PBXBuildFile; fileRef = 0308B816130550F40083D624 /* sys_config.c */; };
+		0308B838130554870083D624 /* sysconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0308B837130554870083D624 /* sysconfig */; };
 		0308B98F130574C30083D624 /* input.c in Sources */ = {isa = PBXBuildFile; fileRef = 0308B98E130574C30083D624 /* input.c */; };
 		0349A7EE1307FB8F00411EA7 /* CDAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0349A7E61307FB8F00411EA7 /* CDAudioManager.m */; };
 		0349A7EF1307FB8F00411EA7 /* CDOpenALSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0349A7E91307FB8F00411EA7 /* CDOpenALSupport.m */; };
@@ -90,9 +90,9 @@
 		0308B7C0130464460083D624 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0308B7CE1304661E0083D624 /* stars.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stars.pex; sourceTree = "<group>"; };
 		0308B81313046AA80083D624 /* WHATS_THIS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WHATS_THIS; sourceTree = "<group>"; };
-		0308B815130550F40083D624 /* c4_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c4_config.h; sourceTree = "<group>"; };
-		0308B816130550F40083D624 /* c4_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c4_config.c; sourceTree = "<group>"; };
-		0308B837130554870083D624 /* c4rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c4rc; sourceTree = "<group>"; };
+		0308B815130550F40083D624 /* sys_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sys_config.h; sourceTree = "<group>"; };
+		0308B816130550F40083D624 /* sys_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sys_config.c; sourceTree = "<group>"; };
+		0308B837130554870083D624 /* sysconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconfig; sourceTree = "<group>"; };
 		0308B98D130574C30083D624 /* input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
 		0308B98E130574C30083D624 /* input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = input.c; sourceTree = "<group>"; };
 		0349A7E51307FB8F00411EA7 /* CDAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAudioManager.h; sourceTree = "<group>"; };
@@ -287,8 +287,8 @@
 				034D2C3C13019D42004A32A0 /* timer.h */,
 				034D2C631301A45C004A32A0 /* vector2d.h */,
 				034D2C641301A45C004A32A0 /* vector2d.c */,
-				0308B815130550F40083D624 /* c4_config.h */,
-				0308B816130550F40083D624 /* c4_config.c */,
+				0308B815130550F40083D624 /* sys_config.h */,
+				0308B816130550F40083D624 /* sys_config.c */,
 				0349A84F130801BA00411EA7 /* elite.h */,
 				0349A850130801BA00411EA7 /* elite.c */,
 			);
@@ -389,7 +389,7 @@
 				034D2E581301CB84004A32A0 /* MainWindow.xib */,
 				034D2E591301CB84004A32A0 /* menu_back.png */,
 				034D2E5A1301CB84004A32A0 /* minyx_bw.png */,
-				0308B837130554870083D624 /* c4rc */,
+				0308B837130554870083D624 /* sysconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -527,7 +527,7 @@
 				03A2593C1302B7FE00C30AEE /* TODO in Resources */,
 				0308B7CF1304661E0083D624 /* stars.pex in Resources */,
 				0308B81413046AA80083D624 /* WHATS_THIS in Resources */,
-				0308B838130554870083D624 /* c4rc in Resources */,
+				0308B838130554870083D624 /* sysconfig in Resources */,
 				0349A8E213080A9000411EA7 /* music.mp3 in Resources */,
 				0349A8E913080AAA00411EA7 /* click.mp3 in Resources */,
 			);
@@ -569,7 +569,7 @@
 				0308B770130463100083D624 /* OBJCTexture2D.m in Sources */,
 				0308B788130463370083D624 /* NSDataAdditions.m in Sources */,
 				0308B789130463370083D624 /* TBXML.m in Sources */,
-				0308B817130550F40083D624 /* c4_config.c in Sources */,
+				0308B817130550F40083D624 /* sys_config.c in Sources */,
 				0308B98F130574C30083D624 /* input.c in Sources */,
 				0349A7EE1307FB8F00411EA7 /* CDAudioManager.m in Sources */,
 				0349A7EF1307FB8F00411EA7 /* CDOpenALSupport.m in Sources */,
