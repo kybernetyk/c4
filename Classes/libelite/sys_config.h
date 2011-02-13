@@ -16,23 +16,24 @@
 
 typedef enum device_orientation_e
 {
-	PORTRAIT,
-	LANDSCAPE
+	LE_PORTRAIT,
+	LE_LANDSCAPE
 } device_orientation_e;
 
 typedef struct sys_config_t
 {
 	//gfx
-	double screen_w;
-	double screen_h;
-	double desired_fps;
-	device_orientation_e orientation;
-	int texture_cache_size;
+	double screen_w;						//viewport width in pixels
+	double screen_h;						//viewport height in pixels
+	double screen_scale;					//debug scaling
+	double desired_fps;						//the desired fps rate the game should run on
+	device_orientation_e orientation;		//device orientation lock
+	int texture_cache_size;					//size of the texture cache (in elements)
 	
 	//sfx
-	int audio_cache_size;
-	double default_sound_vol;
-	double default_music_vol;
+	int audio_cache_size;					//size of audio resource cache (in elements)
+	double sound_vol;				//default sfx volume
+	double music_vol;				//default music volume
 	
 	
 } sys_config_t;

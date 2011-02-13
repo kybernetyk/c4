@@ -19,16 +19,26 @@ sys_config_t g_sysconfig;
 
 static void dump_config(sys_config_t *cfg)
 {
-	printf("dumping c4 config ...\n");
-	printf("\tscreen_w = %.2f\n", cfg->screen_w);
-	printf("\tscreen_h = %.2f\n", cfg->screen_h);
-	printf("\tdesired_fps = %.2f\n", cfg->desired_fps);
-	printf("\torientation = %i", cfg->orientation);
-	if (cfg->orientation == PORTRAIT)
+	printf("dumping config ...\n{\n");
+	printf("\tscreen:\n\t{\n");
+	printf("\t\tscreen_w = %.2f\n", cfg->screen_w);
+	printf("\t\tscreen_h = %.2f\n", cfg->screen_h);
+	printf("\t\tscreen_scale = %.2f\n", cfg->screen_scale);
+	printf("\t\ttexture_cache_size = %i\n", cfg->texture_cache_size);
+	printf("\t\tdesired_fps = %.2f\n", cfg->desired_fps);
+	printf("\t\torientation = %i", cfg->orientation);
+	if (cfg->orientation == LE_PORTRAIT)
 		printf(" (= PORTRAIT)\n");
-	if (cfg->orientation == LANDSCAPE)
+	if (cfg->orientation == LE_LANDSCAPE)
 		printf(" (= LANDSCAPE)\n");
-	
+	printf("\t}\n");
+	//sfx
+	printf("\taudio:\n\t{\n");
+	printf("\t\tsound_vol = %.2f\n", cfg->sound_vol);
+	printf("\t\tmusic_vol = %.2f\n", cfg->music_vol);
+	printf("\t\taudio_cache_size = %i\n", cfg->audio_cache_size);
+	printf("\t}\n");
+	printf("}\n");
 }
 
 static bool line_is_comment(const char *line)
@@ -147,22 +157,29 @@ static void set_key_value(sys_config_t *cfg, unsigned int key_hash, const char *
 	sprintf(copy, "%s", value);
 	char *val = str_trim(copy);
 	
-	
 	unsigned int h_val = murmur_hash_2(val, strlen(val), 0);
 	
 	unsigned int h_screen_w = murmur_hash_2("screen.w", strlen("screen.w"), 0);
 	unsigned int h_screen_h = murmur_hash_2("screen.h", strlen("screen.h"), 0);
-	unsigned int h_des_fps = murmur_hash_2("desiredfps", strlen("desiredfps"), 0);
-	unsigned int h_orientation = murmur_hash_2("orientation", strlen("orientation"), 0);
-	
+	unsigned int h_screen_scale = murmur_hash_2("screen.scale", strlen("screen.scale"), 0);
+	unsigned int h_tex_cache_size = murmur_hash_2("screen.texture_cache_size", strlen("screen.texture_cache_size"), 0);
+	unsigned int h_des_fps = murmur_hash_2("screen.desired_fps", strlen("screen.desired_fps"), 0);
+	unsigned int h_orientation = murmur_hash_2("screen.orientation", strlen("screen.orientation"), 0);
+
 	if (key_hash == h_screen_w)
-		cfg->screen_w = atoi(val);
+		cfg->screen_w = atof(val);
 
 	if (key_hash == h_screen_h)
-		cfg->screen_h = atoi(val);
+		cfg->screen_h = atof(val);
+	
+	if (key_hash == h_screen_scale)
+		cfg->screen_scale = atof(val);
 	
 	if (key_hash == h_des_fps)
-		cfg->desired_fps = atoi(val);
+		cfg->desired_fps = atof(val);
+
+	if (key_hash == h_tex_cache_size)
+		cfg->texture_cache_size = atoi(val);
 	
 	if (key_hash == h_orientation)
 	{	
@@ -170,10 +187,23 @@ static void set_key_value(sys_config_t *cfg, unsigned int key_hash, const char *
 		unsigned int h_landscape = murmur_hash_2("landscape", strlen("landscape"), 0);
 
 		if (h_val == h_portrait)
-			cfg->orientation = PORTRAIT;
+			cfg->orientation = LE_PORTRAIT;
 		if (h_val == h_landscape)
-			cfg->orientation = LANDSCAPE;
+			cfg->orientation = LE_LANDSCAPE;
 	}
+
+	
+	unsigned int h_audio_cache_size = murmur_hash_2("audio.audio_cache_size", strlen("audio.audio_cache_size"), 0);
+	unsigned int h_sound_volume = murmur_hash_2("audio.sound_vol", strlen("audio.sound_vol"), 0);
+	unsigned int h_music_volume = murmur_hash_2("audio.music_vol", strlen("audio.music_vol"), 0);
+	
+	if (key_hash == h_audio_cache_size)
+		cfg->audio_cache_size = atoi(val);
+	if (key_hash == h_sound_volume)
+		cfg->sound_vol = atof(val);
+	if (key_hash == h_music_volume)
+		cfg->music_vol = atof(val);
+	
 	
 	return;
 }
@@ -181,16 +211,17 @@ static void set_key_value(sys_config_t *cfg, unsigned int key_hash, const char *
 static void set_defaults(sys_config_t *cfg)
 {
 	//screen
-	cfg->screen_w = 320;
-	cfg->screen_h = 480;
-	cfg->desired_fps = 30;
-	cfg->orientation = PORTRAIT;
+	cfg->screen_w = 320.0;
+	cfg->screen_h = 480.0;
+	cfg->screen_scale = 1.0;
+	cfg->desired_fps = 60.0;
+	cfg->orientation = LE_PORTRAIT;
 	cfg->texture_cache_size = 32;
 	
 	//audio
 	cfg->audio_cache_size = 32;
-	cfg->default_sound_vol = 0.8;
-	cfg->default_music_vol = 0.5;
+	cfg->sound_vol = 0.8;
+	cfg->music_vol = 0.5;
 }
 
 bool sys_config_read_config_file(sys_config_t *cfg, const char *filename)

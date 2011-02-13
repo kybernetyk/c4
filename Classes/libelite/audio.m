@@ -50,8 +50,8 @@ bool audio_init(void)
 	if (!sound_delays)
 		sound_delays = calloc(g_sysconfig.audio_cache_size, sizeof(float));
 	
-	audio_set_sound_vol(g_sysconfig.default_sound_vol);
-	audio_set_music_vol(g_sysconfig.default_music_vol);
+	audio_set_sound_vol(g_sysconfig.sound_vol);
+	audio_set_music_vol(g_sysconfig.music_vol);
 	
 	return true;
 }

@@ -11,7 +11,7 @@
 
 #include "vec2d.h"
 
-extern bool renderer_init(double scale);
+extern bool renderer_init(void);
 extern void renderer_begin_frame(void);
 extern void renderer_end_frame(void);
 extern void renderer_shutdown(void);

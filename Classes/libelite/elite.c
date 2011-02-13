@@ -23,7 +23,7 @@ bool elite_init(const char *configfile)
 		return false;
 	if (!audio_init())
 		return false;
-	if (!renderer_init(1.0))
+	if (!renderer_init())
 		return false;
 	
 	return true;

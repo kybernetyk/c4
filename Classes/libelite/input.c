@@ -141,5 +141,6 @@ void input_get_initial_touch_location(vec2d_t *outvec)
 
 bool input_touch_inside_rect(rect_t *rc)
 {
+//	printf("touch loc: %f,%f\n",_touch_location.x,_touch_location.y);
 	return vec2d_inside_rect(&_touch_location, rc);
 }

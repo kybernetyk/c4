@@ -77,15 +77,15 @@ static void setup_viewport_and_projection(int vp_w_pixels, int vp_h_pixels, floa
 }
 
 
-bool renderer_init(double scale)
+bool renderer_init(void)
 {
-	viewport.scale = scale;
+	viewport.scale = g_sysconfig.screen_scale;
 	
 	double screen_size_x = g_sysconfig.screen_w;
 	double screen_size_y = g_sysconfig.screen_h;	//change to 280 for a 40px high empty strip [eg for an ad banner]
 	
-	double viewport_size_x = g_sysconfig.screen_w / scale;// / pixeltometerratio;//viewport_size_x / xyratio;
-	double viewport_size_y = g_sysconfig.screen_h / scale;	
+	double viewport_size_x = g_sysconfig.screen_w / viewport.scale;// / pixeltometerratio;//viewport_size_x / xyratio;
+	double viewport_size_y = g_sysconfig.screen_h / viewport.scale;	
 	
 	
 	setup_viewport_and_projection(screen_size_x, screen_size_y, viewport_size_x, viewport_size_y);
