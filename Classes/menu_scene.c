@@ -26,8 +26,8 @@ static int scene_init(scene_t *scene)
 	p.ri.anchor_point = vec2d_make(0.0, 0.0);
 	
 	quad_load("minyx_bw.png", &q);
-	q.ri.pos.x = SCREEN_W/2;
-	q.ri.pos.y = SCREEN_H/2;
+	q.ri.pos.x = g_sysconfig.screen_w/2;
+	q.ri.pos.y = g_sysconfig.screen_h/2;
 	q.ri.zval = 1.0;
 	
 	atlas_quad_load("bubbles.png", &r);
@@ -37,12 +37,12 @@ static int scene_init(scene_t *scene)
 	r.src_rect = rect_make(0.0, 0.0, 43.0, 43.0);
 	
 	font_load("impact20.fnt", &f);
-	f.ri.pos = vec2d_make(SCREEN_W/2, SCREEN_H/2);
+	f.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2);
 	f.ri.zval = 3.0;
 	
 	particle_emitter_load("stars.pex", &pe);
 	pe.ri.zval = 4.0;
-	pe.ri.pos = vec2d_make(SCREEN_W/2, SCREEN_H/2);
+	pe.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2);
 	
 	music = audio_music_load("music.mp3");
 	sound = audio_sound_load("click.mp3");

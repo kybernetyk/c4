@@ -39,11 +39,3 @@ typedef struct sys_config_t
 extern sys_config_t g_sysconfig;
 
 extern bool sys_config_read_config_file(sys_config_t *cfg, const char *filename);
-
-//defines for easy accessing the global config
-#define ORIENTATION g_sysconfig.orientation
-#define DESIRED_FPS g_sysconfig.desired_fps
-#define SCREEN_W g_sysconfig.screen_w
-#define SCREEN_H g_sysconfig.screen_h
-
-#define MAX_TEXTURES g_sysconfig.texture_cache_size

@@ -39,7 +39,7 @@ void game_set_next_scene(scene_t scene)
 
 bool game_init(scene_t initial_scene)
 {
-	TICKS_PER_SECOND = DESIRED_FPS;
+	TICKS_PER_SECOND = g_sysconfig.desired_fps;
 	SKIP_TICKS = 1000 / TICKS_PER_SECOND;
 	MAX_FRAMESKIP = 5;
 	FIXED_DELTA = (1.0/TICKS_PER_SECOND);
@@ -50,7 +50,7 @@ bool game_init(scene_t initial_scene)
 	timer_update(&timer);
 	
 	font_load("impact20.fnt", &fps_font);
-	fps_font.ri.pos = vec2d_make(0.0, SCREEN_H);
+	fps_font.ri.pos = vec2d_make(0.0, g_sysconfig.screen_h);
 	fps_font.ri.anchor_point = vec2d_make(0.0, 1.0);
 	
 	current_scene = initial_scene;

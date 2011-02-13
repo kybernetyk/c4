@@ -51,7 +51,7 @@ tex2d_id tex2d_load(const char *filename)
 	const char *fn = path_for_file(filename);
 	unsigned int fnhash = murmur_hash_2(filename, strlen(filename), 0); 
 	
-	for (int i = 0; i < MAX_TEXTURES; i++)
+	for (int i = 0; i < g_sysconfig.texture_cache_size; i++)
 	{
 		if (tex_cache[i].hash == fnhash && tex_cache[i].retain_count > 0)
 		{
@@ -87,7 +87,7 @@ tex2d_id tex2d_load(const char *filename)
 	
 	//find free texture slot
 	tex2d_id ti = -1;
-	for (int i = 0; i < MAX_TEXTURES; i++)
+	for (int i = 0; i < g_sysconfig.texture_cache_size; i++)
 	{
 		if (tex_cache[i].retain_count == 0)
 		{	
@@ -119,7 +119,7 @@ tex2d_id tex2d_load(const char *filename)
 
 tex2d_t *tex2d_get_tex_by_id(tex2d_id tex_id)
 {
-	if (tex_id < 0 || tex_id >= MAX_TEXTURES)
+	if (tex_id < 0 || tex_id >= g_sysconfig.texture_cache_size)
 	{
 		printf("%i is an invalid tex_id!\n", tex_id);
 		abort();
