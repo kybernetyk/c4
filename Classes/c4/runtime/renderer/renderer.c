@@ -9,6 +9,7 @@
 
 #include "renderer.h"
 #include "ogl.h"
+#include "texture.h"
 
 
 static struct camera_t
@@ -92,6 +93,7 @@ bool renderer_init(double scale)
 	camera.x = screen_size_x/2.0;
 	camera.y = screen_size_y/2.0;
 
+	tex_manager_init();
 	
 	return true;
 }
@@ -121,9 +123,9 @@ void renderer_end_frame(void)
 	
 }
 
-void renderer_release(void)
+void renderer_shutdown(void)
 {
-	
+	tex_manager_shutdown();
 }
 
 #pragma mark -

@@ -8,3 +8,4 @@ TODO (in no particular order):
 [ ] split the framework from the xcode project into a lib
 [*] replace #defines by some config mechanism
 [ ] mac port
+[ ] rename

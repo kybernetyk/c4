@@ -16,10 +16,6 @@
 #include "SOIL.h"
 #include "hash.h"
 
-#define MAX_TEXTURES 64
-
-GLuint texture_current_bound_texture = 0;
-
 typedef struct tex_cache_element
 {
 	unsigned int hash;				//32bit hash value for the filename
@@ -27,10 +23,30 @@ typedef struct tex_cache_element
 	tex2d_t texture;
 } tex_cache_element;
 
-static tex_cache_element tex_cache[MAX_TEXTURES];
+GLuint texture_current_bound_texture = 0;
+static tex_cache_element *tex_cache = 0;
+
+bool tex_manager_init(void)
+{
+	if (!tex_cache)
+		tex_cache = calloc(g_sysconfig.texture_cache_size, sizeof(tex_cache_element));
+
+	return true;
+}
+
+void tex_manager_shutdown(void)
+{
+	if (tex_cache)
+	{
+		free(tex_cache);
+		tex_cache = NULL;
+	}
+}
 
 tex2d_id tex2d_load(const char *filename)
 {
+	
+	
 	const char *fn = path_for_file(filename);
 	unsigned int fnhash = murmur_hash_2(filename, strlen(filename), 0); 
 	

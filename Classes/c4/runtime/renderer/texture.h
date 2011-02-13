@@ -27,6 +27,9 @@ typedef struct texture_params_t
 
 extern GLuint texture_current_bound_texture;
 
+extern bool tex_manager_init(void);
+extern void tex_manager_shutdown(void);
+
 extern tex2d_id tex2d_load(const char *filename);
 extern tex2d_t *tex2d_get_tex_by_id(tex2d_id tex_id);
 extern void tex2d_bind(GLuint texname);

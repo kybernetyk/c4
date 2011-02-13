@@ -208,8 +208,8 @@
 	
 	vec2d_t v = renderer_screen_to_world(vec2d_make(loc.x, loc.y));
 	
-	input_set_touch_active(false);
 	input_set_touch_location(v);
+	input_set_touch_active(false);
 	input_set_touch_up_received(true);
 	
 	[super touchesEnded: touches withEvent: event];

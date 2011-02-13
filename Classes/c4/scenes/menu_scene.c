@@ -7,6 +7,8 @@
  *
  */
 #include <stdio.h>
+#include "elite.h"
+
 #include "menu_scene.h"
 
 #include "renderer.h"
@@ -20,6 +22,9 @@ static quad_t q;
 static atlas_quad_t r;
 static font_t f;
 static particle_emitter_t pe;
+
+static audio_id music;
+static audio_id sound;
 
 static int scene_init(scene_t *scene)
 {
@@ -46,6 +51,11 @@ static int scene_init(scene_t *scene)
 	pe.ri.zval = 4.0;
 	pe.ri.pos = vec2d_make(SCREEN_W/2, SCREEN_H/2);
 	
+	music = audio_music_load("music.mp3");
+	sound = audio_sound_load("click.mp3");
+	
+	audio_music_play(music);
+	
 	return 0;
 }
 
@@ -54,6 +64,12 @@ static void scene_update(scene_t *scene, double dt)
 	q.ri.rot_a += 360.0 * dt;
 	r.ri.rot_a += 360.0 * dt;
 	particle_emitter_update(&pe, dt);
+	
+	if (input_touch_up_received())
+	{	
+		printf("playing sound %i ...\n", sound);
+		audio_sound_play(sound);
+	}
 }
 
 static void scene_render(scene_t *scene)

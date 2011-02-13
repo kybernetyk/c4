@@ -11,8 +11,9 @@
 #include <stdbool.h>
 #include "vector2d.h"
 
-extern void input_init(void);
+extern bool input_init(void);
 extern void input_update(void);
+extern void input_shutdown(void);
 
 extern void input_set_touch_active(bool b);
 extern bool input_is_touch_active(void);

@@ -8,16 +8,15 @@
  */
 
 #include "game.h"
+
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "input.h"
-#include "renderer.h"
-#include "timer.h"
-#include "scene.h"
+#include "elite.h"
+
+
 #include "startup_scene.h"
 
-#include "font.h"
 
 static int TICKS_PER_SECOND;
 static int SKIP_TICKS;
@@ -43,7 +42,7 @@ void game_set_next_scene(scene_t scene)
 
 bool game_init(void)
 {
-	input_init();
+	elite_init();
 	
 	TICKS_PER_SECOND = DESIRED_FPS;
 	SKIP_TICKS = 1000 / TICKS_PER_SECOND;
@@ -51,8 +50,6 @@ bool game_init(void)
 	FIXED_DELTA = (1.0/TICKS_PER_SECOND);
 	paused = 0;
 
-	if (!renderer_init(1.0))
-		return false;
 		
 	next_game_tick = timer_get_tick_count();
 	timer_update(&timer);
@@ -83,7 +80,8 @@ void game_tick(void)
 	timer_update(&timer);
 	timer_get_fps(&timer);
 	sprintf(fps_str, "fps: %.2f", timer.fps);
-
+	input_update();
+	
 	loops = 0;
 	while (timer_get_tick_count() > next_game_tick && loops < MAX_FRAMESKIP)
 	{
@@ -93,6 +91,7 @@ void game_tick(void)
 		next_game_tick += SKIP_TICKS;
 		loops++;
 	}
+
 }
 
 void game_render(void)
@@ -132,5 +131,6 @@ void game_end(void)
 	//current scene end
 	current_scene.free_func(&current_scene);
 	font_free(&fps_font);
-	renderer_release();
+	renderer_shutdown();
+	audio_shutdown();
 }

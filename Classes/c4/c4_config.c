@@ -178,8 +178,25 @@ static void set_key_value(c4_config_t *cfg, unsigned int key_hash, const char *v
 	return;
 }
 
+static void set_defaults(c4_config_t *cfg)
+{
+	//screen
+	cfg->screen_w = 320;
+	cfg->screen_h = 480;
+	cfg->desired_fps = 30;
+	cfg->orientation = PORTRAIT;
+	cfg->texture_cache_size = 32;
+	
+	//audio
+	cfg->audio_cache_size = 32;
+	cfg->default_sound_vol = 0.8;
+	cfg->default_music_vol = 0.5;
+}
+
 bool c4_config_read_config_file(c4_config_t *cfg, const char *filename)
 {
+	set_defaults(cfg);
+	
 	const char *fn = path_for_file(filename);
 	if (!fn)
 		return false;

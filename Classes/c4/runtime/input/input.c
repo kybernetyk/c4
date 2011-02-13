@@ -8,6 +8,7 @@
  */
 
 #include "input.h"
+#include <stdio.h>
 
 static vec2d_t _touch_location;
 static vec2d_t _initial_touch_location;
@@ -18,10 +19,17 @@ static bool _touchup_handled;
 static bool _touchdown_handled;
 
 
-void input_init(void)
+bool input_init(void)
 {
 	_is_touch_active = false;
 	_is_touchup_active = false;
+	
+	return true;
+}
+
+void input_shutdown(void)
+{
+	
 }
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
@@ -99,7 +107,7 @@ bool input_is_touch_active(void)
 
 void input_set_touch_up_received(bool b)
 {
-	_is_touch_active = b;
+	_is_touchup_active = b;
 	_touchup_handled = false;
 }
 
@@ -112,7 +120,7 @@ bool input_touch_up_received(void)
 void input_set_touch_location(vec2d_t vec)
 {
 	_touch_location = vec;	
-	printf("touch loc: %f,%f\n",vec.x,vec.y);
+	//printf("touch loc: %f,%f\n",vec.x,vec.y);
 }
 
 void input_get_touch_location(vec2d_t *outvec)

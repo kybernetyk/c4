@@ -14,6 +14,6 @@
 extern bool renderer_init(double scale);
 extern void renderer_begin_frame(void);
 extern void renderer_end_frame(void);
-extern void renderer_release(void);
+extern void renderer_shutdown(void);
 
 extern vec2d_t renderer_screen_to_world(vec2d_t vec);
