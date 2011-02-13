@@ -34,3 +34,5 @@ typedef struct rect_t
 } rect_t;
 
 extern rect_t rect_make(double x, double y, double w, double h);
+
+extern bool vec2d_inside_rect(vec2d_t *vec, rect_t *rec);

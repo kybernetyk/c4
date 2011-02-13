@@ -137,3 +137,9 @@ void input_get_initial_touch_location(vec2d_t *outvec)
 {
 	*outvec = _initial_touch_location;	
 }
+
+
+bool input_touch_inside_rect(rect_t *rc)
+{
+	return vec2d_inside_rect(&_touch_location, rc);
+}

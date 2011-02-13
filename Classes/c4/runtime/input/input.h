@@ -26,3 +26,7 @@ extern void input_get_touch_location(vec2d_t *outvec);			//current location of t
 
 extern void input_set_initial_touch_location(vec2d_t vec);
 extern void input_get_initial_touch_location(vec2d_t *outvec);	//first registered location for touch
+
+
+//intersection tests
+extern bool input_touch_inside_rect(rect_t *rc);

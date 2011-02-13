@@ -35,3 +35,11 @@ rect_t rect_make(double x, double y, double w, double h)
 		.h = h
 	};
 }
+
+bool vec2d_inside_rect(vec2d_t *vec, rect_t *rec)
+{
+	if ( ((vec->x > rec->x) && (vec->x < (rec->x + rec->w))) &&
+		 ((vec->y > rec->y) && (vec->y < (rec->y + rec->h))) )
+		return true;
+	return false;
+}
