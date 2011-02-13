@@ -23,6 +23,7 @@
 // THE SOFTWARE.
 #pragma once
 #import "ogl.h"
+#import <UIKit/UIKit.h>
 
 // Enumerators for the different pixel formats this class can handle
 typedef enum {
@@ -74,7 +75,7 @@ typedef enum {
 
 // Designated initializer that takes a UIImage and a filter (used for the MIN and MAG settings
 // of the texture) and creates an OpenGL texture.
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#ifdef LE_TARGET_IPHONE
 - (id) initWithImage:(UIImage*)aImage filter:(GLenum)aFilter;
 #else
 - (id) initWithImage:(NSImage*)aImage filter:(GLenum)aFilter;

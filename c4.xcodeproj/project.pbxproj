@@ -31,10 +31,10 @@
 		0349A851130801BA00411EA7 /* elite.c in Sources */ = {isa = PBXBuildFile; fileRef = 0349A850130801BA00411EA7 /* elite.c */; };
 		0349A8E213080A9000411EA7 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0349A8E113080A9000411EA7 /* music.mp3 */; };
 		0349A8E913080AAA00411EA7 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0349A8E813080AAA00411EA7 /* click.mp3 */; };
+		0349A9CD13081A8100411EA7 /* menu_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 0349A9C913081A8100411EA7 /* menu_scene.c */; };
+		0349A9CE13081A8100411EA7 /* startup_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 0349A9CB13081A8100411EA7 /* startup_scene.c */; };
 		034D2C3D13019D42004A32A0 /* game.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C2E13019D42004A32A0 /* game.c */; };
-		034D2C3E13019D42004A32A0 /* menu_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C3513019D42004A32A0 /* menu_scene.c */; };
 		034D2C3F13019D42004A32A0 /* scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C3713019D42004A32A0 /* scene.c */; };
-		034D2C4013019D42004A32A0 /* startup_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C3913019D42004A32A0 /* startup_scene.c */; };
 		034D2C4113019D42004A32A0 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C3B13019D42004A32A0 /* timer.c */; };
 		034D2C4613019D50004A32A0 /* renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C4513019D50004A32A0 /* renderer.c */; };
 		034D2C651301A45C004A32A0 /* vector2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 034D2C641301A45C004A32A0 /* vector2d.c */; };
@@ -113,14 +113,14 @@
 		0349A850130801BA00411EA7 /* elite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = elite.c; sourceTree = "<group>"; };
 		0349A8E113080A9000411EA7 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		0349A8E813080AAA00411EA7 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
+		0349A9C913081A8100411EA7 /* menu_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = menu_scene.c; sourceTree = "<group>"; };
+		0349A9CA13081A8100411EA7 /* menu_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menu_scene.h; sourceTree = "<group>"; };
+		0349A9CB13081A8100411EA7 /* startup_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = startup_scene.c; sourceTree = "<group>"; };
+		0349A9CC13081A8100411EA7 /* startup_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = startup_scene.h; sourceTree = "<group>"; };
 		034D2C2E13019D42004A32A0 /* game.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
 		034D2C2F13019D42004A32A0 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
-		034D2C3513019D42004A32A0 /* menu_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = menu_scene.c; sourceTree = "<group>"; };
-		034D2C3613019D42004A32A0 /* menu_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menu_scene.h; sourceTree = "<group>"; };
 		034D2C3713019D42004A32A0 /* scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scene.c; sourceTree = "<group>"; };
 		034D2C3813019D42004A32A0 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
-		034D2C3913019D42004A32A0 /* startup_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = startup_scene.c; sourceTree = "<group>"; };
-		034D2C3A13019D42004A32A0 /* startup_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = startup_scene.h; sourceTree = "<group>"; };
 		034D2C3B13019D42004A32A0 /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
 		034D2C3C13019D42004A32A0 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		034D2C4413019D50004A32A0 /* renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderer.h; sourceTree = "<group>"; };
@@ -349,12 +349,8 @@
 		034D2C3413019D42004A32A0 /* scenes */ = {
 			isa = PBXGroup;
 			children = (
-				034D2C3513019D42004A32A0 /* menu_scene.c */,
-				034D2C3613019D42004A32A0 /* menu_scene.h */,
 				034D2C3713019D42004A32A0 /* scene.c */,
 				034D2C3813019D42004A32A0 /* scene.h */,
-				034D2C3913019D42004A32A0 /* startup_scene.c */,
-				034D2C3A13019D42004A32A0 /* startup_scene.h */,
 			);
 			path = scenes;
 			sourceTree = "<group>";
@@ -397,6 +393,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0349A9C913081A8100411EA7 /* menu_scene.c */,
+				0349A9CA13081A8100411EA7 /* menu_scene.h */,
+				0349A9CB13081A8100411EA7 /* startup_scene.c */,
+				0349A9CC13081A8100411EA7 /* startup_scene.h */,
 				034D2C2D13019D42004A32A0 /* c4 */,
 				28FD14FC0DC6FC130079059D /* EAGLView.h */,
 				28FD14FD0DC6FC130079059D /* EAGLView.m */,
@@ -545,9 +545,7 @@
 				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
 				28EC4C5911D54ECE0027AA9F /* c4ViewController.m in Sources */,
 				034D2C3D13019D42004A32A0 /* game.c in Sources */,
-				034D2C3E13019D42004A32A0 /* menu_scene.c in Sources */,
 				034D2C3F13019D42004A32A0 /* scene.c in Sources */,
-				034D2C4013019D42004A32A0 /* startup_scene.c in Sources */,
 				034D2C4113019D42004A32A0 /* timer.c in Sources */,
 				034D2C4613019D50004A32A0 /* renderer.c in Sources */,
 				034D2C651301A45C004A32A0 /* vector2d.c in Sources */,
@@ -577,6 +575,8 @@
 				0349A7F11307FB8F00411EA7 /* SimpleAudioEngine.m in Sources */,
 				0349A81D1307FBE700411EA7 /* audio.m in Sources */,
 				0349A851130801BA00411EA7 /* elite.c in Sources */,
+				0349A9CD13081A8100411EA7 /* menu_scene.c in Sources */,
+				0349A9CE13081A8100411EA7 /* startup_scene.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,7 +618,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS = LE_TARGET_IPHONE;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -633,6 +633,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = LE_TARGET_IPHONE;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;

@@ -50,7 +50,7 @@
 	[super dealloc];
 }
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#ifdef LE_TARGET_IPHONE
 - (id)initWithImage:(UIImage*)aImage filter:(GLenum)aFilter {
     
     self = [super init];

@@ -307,7 +307,7 @@
 	emitCounter = 0;
 }
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#ifdef LE_TARGET_IPHONE
 - (void)renderParticles 
 {
 
@@ -554,7 +554,7 @@
 		if (fileName && !fileData) {		
 			// Create a new texture which is going to be used as the texture for the point sprites. As there is
             // no texture data in the file, this is done using an external image file
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#ifdef LE_TARGET_IPHONE
 			texture = [[OBJCTexture2D alloc] initWithImage:[UIImage imageNamed:fileName] filter:GL_LINEAR];
 #else
 			texture = [[OBJCTexture2D alloc] initWithImage:[NSImage imageNamed:fileName] filter:GL_LINEAR];
@@ -564,7 +564,7 @@
         // If texture data is present in the file then create the texture image from that data rather than an external file
         if (fileData) 
 		{
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#ifdef LE_TARGET_IPHONE
             texture = [[OBJCTexture2D alloc] initWithImage:[UIImage imageWithData:[[NSData dataWithBase64EncodedString:fileData] gzipInflate]] filter:GL_LINEAR];
 #else
 			NSData *dta = [[NSData dataWithBase64EncodedString:fileData] gzipInflate];

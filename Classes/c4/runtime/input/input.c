@@ -32,7 +32,7 @@ void input_shutdown(void)
 	
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+#if LE_TARGET_IPHONE
 void input_update(void)
 {
 	if (_touchup_handled)

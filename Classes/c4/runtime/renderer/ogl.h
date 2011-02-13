@@ -11,7 +11,7 @@
 
 #pragma once
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#ifdef LE_TARGET_IPHONE
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #else

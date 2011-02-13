@@ -1,10 +1,10 @@
 TODO (in no particular order):
 
-[ ] sound
+[*] sound
 [ ] simple UI stuff (buttons, labels)
 [*] input abstraction
 [ ] entity system
-[ ] particle system rewrite in C
+[*] particle system
 [ ] split the framework from the xcode project into a lib
 [*] replace #defines by some config mechanism
 [ ] mac port

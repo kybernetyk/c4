@@ -15,9 +15,6 @@
 #include "elite.h"
 
 
-#include "startup_scene.h"
-
-
 static int TICKS_PER_SECOND;
 static int SKIP_TICKS;
 static int MAX_FRAMESKIP= 5;

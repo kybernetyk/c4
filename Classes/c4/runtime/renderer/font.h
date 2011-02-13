@@ -13,7 +13,6 @@
 #include "texture.h"
 #include "bm_font.h"
 
-
 typedef struct font_t
 {
 	renderinfo_t ri;
