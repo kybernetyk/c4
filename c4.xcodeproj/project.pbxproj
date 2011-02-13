@@ -43,6 +43,9 @@
 		0343731B1308370700925536 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 034372F81308370700925536 /* timer.c */; };
 		0343731C1308370700925536 /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 034372FB1308370700925536 /* util.m */; };
 		0343731D1308370700925536 /* vec2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 034372FC1308370700925536 /* vec2d.c */; };
+		034374EB1308545500925536 /* cool.pex in Resources */ = {isa = PBXBuildFile; fileRef = 034374EA1308545500925536 /* cool.pex */; };
+		034374F4130854A300925536 /* vortex.pex in Resources */ = {isa = PBXBuildFile; fileRef = 034374F3130854A300925536 /* vortex.pex */; };
+		034375241308556C00925536 /* tss.pex in Resources */ = {isa = PBXBuildFile; fileRef = 034375231308556C00925536 /* tss.pex */; };
 		0349A7FE1307FB9700411EA7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A7FD1307FB9700411EA7 /* OpenAL.framework */; };
 		0349A8021307FBA500411EA7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A8011307FBA500411EA7 /* AudioToolbox.framework */; };
 		0349A8061307FBA500411EA7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A8051307FBA500411EA7 /* AVFoundation.framework */; };
@@ -145,6 +148,9 @@
 		034372FB1308370700925536 /* util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = util.m; sourceTree = "<group>"; };
 		034372FC1308370700925536 /* vec2d.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vec2d.c; sourceTree = "<group>"; };
 		034372FD1308370700925536 /* vec2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec2d.h; sourceTree = "<group>"; };
+		034374EA1308545500925536 /* cool.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cool.pex; sourceTree = "<group>"; };
+		034374F3130854A300925536 /* vortex.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vortex.pex; sourceTree = "<group>"; };
+		034375231308556C00925536 /* tss.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tss.pex; sourceTree = "<group>"; };
 		0349A7FD1307FB9700411EA7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		0349A8011307FBA500411EA7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0349A8051307FBA500411EA7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -370,9 +376,12 @@
 		034D2E561301CB84004A32A0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				034375231308556C00925536 /* tss.pex */,
+				034374EA1308545500925536 /* cool.pex */,
 				0349A8E813080AAA00411EA7 /* click.mp3 */,
 				0349A8E113080A9000411EA7 /* music.mp3 */,
 				0308B7CE1304661E0083D624 /* stars.pex */,
+				034374F3130854A300925536 /* vortex.pex */,
 				0397CA311302A07E00FCB95C /* impact20_0.png */,
 				0397CA321302A07E00FCB95C /* impact20.fnt */,
 				0397C9D1130299AE00FCB95C /* bubbles.png */,
@@ -522,6 +531,9 @@
 				0349A8E213080A9000411EA7 /* music.mp3 in Resources */,
 				0349A8E913080AAA00411EA7 /* click.mp3 in Resources */,
 				0343730B1308370700925536 /* WHATS_THIS in Resources */,
+				034374EB1308545500925536 /* cool.pex in Resources */,
+				034374F4130854A300925536 /* vortex.pex in Resources */,
+				034375241308556C00925536 /* tss.pex in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

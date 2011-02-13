@@ -7,6 +7,7 @@
  *
  */
 #include <stdio.h>
+#include <math.h>
 #include "elite.h"
 #include "menu_scene.h"
 
@@ -15,6 +16,11 @@ static le_quad_t q;
 static le_atlas_quad_t r;
 static le_font_t f;
 static le_particle_emitter_t pe;
+static le_particle_emitter_t pe2;
+
+static le_particle_emitter_t pe3;
+static le_particle_emitter_t pe4;
+
 
 static audio_id music;
 static audio_id sound;
@@ -33,16 +39,29 @@ static int scene_init(scene_t *scene)
 	atlas_quad_load("bubbles.png", &r);
 	r.ri.pos = vec2d_make(100, 100);
 	r.ri.zval = 2.0;
-	r.ri.size = size2d_make(43, 43);
-	r.src_rect = rect_make(0.0, 0.0, 43.0, 43.0);
+	r.ri.size = size2d_make(41, 41);
+	r.src_rect = rect_make(0.0, 0.0, 41.0, 41.0);
 	
 	font_load("impact20.fnt", &f);
 	f.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2);
 	f.ri.zval = 3.0;
 	
-	particle_emitter_load("stars.pex", &pe);
+	particle_emitter_load("cool.pex", &pe);
 	pe.ri.zval = 4.0;
 	pe.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2);
+
+	particle_emitter_load("tss.pex", &pe2);
+	pe2.ri.zval = 4.0;
+	pe2.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h);
+
+	particle_emitter_load("stars.pex", &pe3);
+	pe3.ri.zval = 4.0;
+	pe3.ri.pos = vec2d_make(0, 0);
+	
+	particle_emitter_load("stars.pex", &pe4);
+	pe4.ri.zval = 4.0;
+	pe4.ri.pos = vec2d_make(g_sysconfig.screen_w, 0);
+	
 	
 	music = audio_music_load("music.mp3");
 	sound = audio_sound_load("click.mp3");
@@ -55,8 +74,17 @@ static int scene_init(scene_t *scene)
 static void scene_update(scene_t *scene, double dt)
 {
 	q.ri.rot_a += 360.0 * dt;
-	r.ri.rot_a += 360.0 * dt;
+	//r.ri.rot_a += 360.0 * dt;
+	
+	pe.ri.pos.x = g_sysconfig.screen_w/2 +  100.0 * sin(timer_get_double_time()*5.0);
+	pe.ri.pos.y = g_sysconfig.screen_h/2 +  100.0 * cos(timer_get_double_time()*5.0);
+	
+
 	particle_emitter_update(&pe, dt);
+	particle_emitter_update(&pe2, dt);
+	particle_emitter_update(&pe3, dt);
+	particle_emitter_update(&pe4, dt);
+
 	
 	if (input_touch_up_received())
 	{	
@@ -72,7 +100,6 @@ static void scene_update(scene_t *scene, double dt)
 			printf("playing sound %i ...\n", sound);
 			audio_sound_play(sound);	
 		}
-		
 	}
 }
 
@@ -82,7 +109,11 @@ static void scene_render(scene_t *scene)
 	quad_render(&q);
 	atlas_quad_render(&r);
 	font_render(&f, "oh hai!");
+	particle_emitter_render(&pe2);
 	particle_emitter_render(&pe);
+	particle_emitter_render(&pe3);
+	particle_emitter_render(&pe4);
+
 }
 
 static int scene_free(scene_t *scene)
