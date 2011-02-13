@@ -3,4 +3,4 @@
 SCREen.W = 320						#screen width
 scrEen.h = 480						#screen height
 desIredfps = 60						#desired fps the game wishes to run at
-oriEntation = landscape				#orientation lock for the device
+oriEntation = portrait				#orientation lock for the device

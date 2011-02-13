@@ -6,7 +6,7 @@
  *  Copyright 2011 Jaroslaw Szpilewski. All rights reserved.
  *
  */
-
+#pragma once
 #include <stdbool.h>
 
 #include "sys_config.h"
@@ -32,5 +32,5 @@
 
 
 
-extern bool elite_init(void);
+extern bool elite_init(const char *configfile);
 extern void elite_shutdown(void);

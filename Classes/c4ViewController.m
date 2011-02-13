@@ -43,12 +43,6 @@ enum {
 
 - (void)awakeFromNib
 {
-	if (!sys_config_read_config_file(&g_sysconfig, "sysconfig"))
-	{
-		printf("couldn't parse config file!\n");
-		abort();
-	}
-	
     //EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     EAGLContext *aContext = nil;
     if (!aContext)
@@ -69,17 +63,26 @@ enum {
     
     if ([context API] == kEAGLRenderingAPIOpenGLES2)
         [self loadShaders];
-    
-    animating = FALSE;
-    animationFrameInterval = 60/g_sysconfig.desired_fps;
-	printf("animation interval = %i\n", animationFrameInterval);
-    self.displayLink = nil;
-	
+
+	//opengl contexts have to be set up before calling this!
+	if (!elite_init("sysconfig"))
+	{
+		printf("elite_init() failed!\n");
+		abort();
+		return;
+	}
+
 	if (!game_init(startup_scene_create()))
 	{
 		printf("couldn't init game!\n");
 		abort();
 	}
+	
+    animating = FALSE;
+    animationFrameInterval = 60/g_sysconfig.desired_fps;
+	printf("animation interval = %i\n", animationFrameInterval);
+    self.displayLink = nil;
+	
 }
 
 - (void)dealloc

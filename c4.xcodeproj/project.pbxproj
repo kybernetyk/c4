@@ -356,6 +356,17 @@
 			name = util;
 			sourceTree = "<group>";
 		};
+		0343738513083B3500925536 /* test_game */ = {
+			isa = PBXGroup;
+			children = (
+				0349A9C913081A8100411EA7 /* menu_scene.c */,
+				0349A9CA13081A8100411EA7 /* menu_scene.h */,
+				0349A9CB13081A8100411EA7 /* startup_scene.c */,
+				0349A9CC13081A8100411EA7 /* startup_scene.h */,
+			);
+			name = test_game;
+			sourceTree = "<group>";
+		};
 		034D2E561301CB84004A32A0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,11 +388,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0343738513083B3500925536 /* test_game */,
 				034372B31308370700925536 /* libelite */,
-				0349A9C913081A8100411EA7 /* menu_scene.c */,
-				0349A9CA13081A8100411EA7 /* menu_scene.h */,
-				0349A9CB13081A8100411EA7 /* startup_scene.c */,
-				0349A9CC13081A8100411EA7 /* startup_scene.h */,
 				28FD14FC0DC6FC130079059D /* EAGLView.h */,
 				28FD14FD0DC6FC130079059D /* EAGLView.m */,
 				1D3623240D0F684500981E51 /* c4AppDelegate.h */,

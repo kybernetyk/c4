@@ -39,8 +39,6 @@ void game_set_next_scene(scene_t scene)
 
 bool game_init(scene_t initial_scene)
 {
-	elite_init();
-	
 	TICKS_PER_SECOND = DESIRED_FPS;
 	SKIP_TICKS = 1000 / TICKS_PER_SECOND;
 	MAX_FRAMESKIP = 5;
