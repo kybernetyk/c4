@@ -40,7 +40,7 @@ void game_set_next_scene(scene_t scene)
 	next_scene_queued = true;
 }
 
-bool game_init(void)
+bool game_init(scene_t initial_scene)
 {
 	elite_init();
 	
@@ -58,7 +58,7 @@ bool game_init(void)
 	fps_font.ri.pos = vec2d_make(0.0, SCREEN_H);
 	fps_font.ri.anchor_point = vec2d_make(0.0, 1.0);
 	
-	current_scene = startup_scene_create();
+	current_scene = initial_scene;
 	current_scene.init_func(&current_scene);
 	next_scene_queued = false;
 
@@ -80,13 +80,11 @@ void game_tick(void)
 	timer_update(&timer);
 	timer_get_fps(&timer);
 	sprintf(fps_str, "fps: %.2f", timer.fps);
-	input_update();
 	
 	loops = 0;
 	while (timer_get_tick_count() > next_game_tick && loops < MAX_FRAMESKIP)
 	{
-		//scene_update(&current_scene,FIXED_DELTA);
-		//printf("update scene\n");
+		input_update();
 		current_scene.update_func(&current_scene, FIXED_DELTA);
 		next_game_tick += SKIP_TICKS;
 		loops++;

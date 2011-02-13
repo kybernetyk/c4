@@ -13,7 +13,7 @@
 
 #include "scene.h"
 
-extern bool game_init(void);
+extern bool game_init(scene_t initial_scene);
 extern void game_tick(void);
 extern void game_render(void);
 extern void game_end(void);

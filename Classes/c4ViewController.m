@@ -12,6 +12,7 @@
 #import "EAGLView.h"
 #include "game.h"
 #include "c4_config.h"
+#include "startup_scene.h"
 
 // Uniform index.
 enum {
@@ -74,7 +75,7 @@ enum {
 	printf("animation interval = %i\n", animationFrameInterval);
     self.displayLink = nil;
 	
-	if (!game_init())
+	if (!game_init(startup_scene_create()))
 	{
 		printf("couldn't init game!\n");
 		abort();

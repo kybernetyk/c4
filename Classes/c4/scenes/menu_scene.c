@@ -67,19 +67,20 @@ static void scene_update(scene_t *scene, double dt)
 	
 	if (input_touch_up_received())
 	{	
-		rect_t r =rect_make(0, 0, 100, 100);
-		if (input_touch_inside_rect(&r))
+		if (input_touch_inside_rect(&(rect_t)
+									{
+										.x = 0,
+										.y = 0,
+										.w = 256,
+										.h = 256
+									}
+									))
 		{	
 			printf("playing sound %i ...\n", sound);
 			audio_sound_play(sound);	
 		}
 		
 	}
-	
-//	if (input_is_touch_active())
-//	{
-//		printf("touch active!\n");
-//	}
 }
 
 static void scene_render(scene_t *scene)
