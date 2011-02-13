@@ -13,4 +13,3 @@
 #import <UIKit/UIKit.h>
 #endif
 #include <stdbool.h>
-#include "sys_config.h"

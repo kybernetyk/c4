@@ -10,8 +10,8 @@
 
 #import "c4ViewController.h"
 #import "EAGLView.h"
-#include "game.h"
-#include "sys_config.h"
+
+#include "elite.h"
 #include "startup_scene.h"
 
 // Uniform index.

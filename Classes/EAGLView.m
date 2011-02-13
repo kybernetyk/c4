@@ -9,8 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "EAGLView.h"
-#include "input.h"
-#include "renderer.h"
+#include "elite.h"
+
 
 @interface EAGLView (PrivateMethods)
 - (void)createFramebuffer;

@@ -8,7 +8,7 @@
  */
 #pragma once
 //generic render info for stuff that needs to be rendered
-#include "vector2d.h"
+#include "vec2d.h"
 
 typedef struct renderinfo_t
 {

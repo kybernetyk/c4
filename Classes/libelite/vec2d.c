@@ -7,7 +7,7 @@
  *
  */
 
-#include "vector2d.h"
+#include "vec2d.h"
 
 vec2d_t vec2d_make (double x, double y)
 {

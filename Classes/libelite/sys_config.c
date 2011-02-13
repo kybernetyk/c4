@@ -13,6 +13,7 @@
 
 #include "util.h"
 #include "hash.h"
+#include "sys_config.h"
 
 sys_config_t g_sysconfig;
 

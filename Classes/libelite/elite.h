@@ -6,8 +6,11 @@
  *  Copyright 2011 Jaroslaw Szpilewski. All rights reserved.
  *
  */
-#pragma once
+
 #include <stdbool.h>
+
+#include "sys_config.h"
+#include "scene.h"
 
 #include "input.h"
 #include "texture.h"
@@ -17,9 +20,13 @@
 
 #include "timer.h"
 #include "font.h"
-#include "scene.h"
 #include "util.h"
 #include "hash.h"
+
+
+#include "game.h"
+
+
 
 extern bool elite_init(void);
 extern void elite_shutdown(void);

@@ -9,7 +9,7 @@
 
 #pragma once
 #include <stdbool.h>
-#include "vector2d.h"
+#include "vec2d.h"
 
 extern bool input_init(void);
 extern void input_update(void);

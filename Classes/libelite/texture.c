@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "sys_config.h"
 #include "texture.h"
 #include "util.h"
 #include "SOIL.h"

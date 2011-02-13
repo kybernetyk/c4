@@ -11,6 +11,15 @@ LICENSE: GPL (will be probably re-licensed/dual licensed on release)
 
 contact: http://nntp.pl / jszpilewski at me dot com
 
+Intro
+-----
+blah
+
+How to build
+------------
+Open XCode project, click build. If you want to extract the lib don't forget to define the LE_TARGET_IPHONE preprocessor macro in your project!
+
+
 
 Current State
 -------------

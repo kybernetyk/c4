@@ -6,7 +6,7 @@
  *  Copyright 2011 Jaroslaw Szpilewski. All rights reserved.
  *
  */
-
+#include "sys_config.h"
 #include "renderer.h"
 #include "ogl.h"
 #include "texture.h"

@@ -11,6 +11,7 @@
 //till we replace cocos dension with something different :]
 
 #include "audio.h"
+#include "sys_config.h"
 
 #include <stdio.h>
 #include <string.h>
