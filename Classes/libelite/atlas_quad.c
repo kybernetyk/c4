@@ -14,6 +14,14 @@
 #include "renderinfo.h"
 #include "quad.h"
 
+le_atlas_quad_t *atlas_quad_new(void)
+{
+	le_atlas_quad_t *ret = calloc(1, sizeof(le_atlas_quad_t));
+	ret->is_dynamic = true;
+	
+	return ret;
+}
+
 bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out)
 {
 	quad_out->tex_id = tex2d_load(filename);
@@ -34,13 +42,15 @@ bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out)
 	quad_out->src_rect = rect_make(0.0, 0.0, tex->w, tex->h);
 	
 	return true;
-	
 }
 
 void atlas_quad_free(le_atlas_quad_t *quad)
 {
 	tex2d_release(quad->tex_id);
 	quad->tex_id = -1;
+	
+	if (quad->is_dynamic)
+		free(quad);
 }
 
 void atlas_quad_render(le_atlas_quad_t *quad)

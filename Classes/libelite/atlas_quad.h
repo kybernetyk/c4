@@ -18,8 +18,12 @@ typedef struct le_atlas_quad_t
 	renderinfo_t ri;
 	rect_t src_rect;
 	tex2d_id tex_id;
+	
+	bool is_dynamic;
 } le_atlas_quad_t;
 
+
+extern le_atlas_quad_t *atlas_quad_new(void);
 extern bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out);
 extern void atlas_quad_render(le_atlas_quad_t *quad);
 extern void atlas_quad_free(le_atlas_quad_t *quad);

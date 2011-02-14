@@ -22,8 +22,11 @@ typedef struct le_quad_t
 {
 	renderinfo_t ri;
 	tex2d_id tex_id;
+	
+	bool is_dynamic;
 } le_quad_t;
 
+extern le_quad_t *quad_new(void);
 extern bool quad_load(const char *filename, le_quad_t *quad_out);
 extern void quad_render(le_quad_t *quad);
 extern void quad_free(le_quad_t *quad);

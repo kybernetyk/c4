@@ -19,8 +19,11 @@ typedef struct le_particle_emitter_t
 {
 	renderinfo_t ri;
 	void *pe;				//pointer to obj-c particle emitter object (TODO: port down to C)
+	
+	bool is_dynamic;
 } le_particle_emitter_t;
 
+extern le_particle_emitter_t *particle_emitter_new(void);
 extern bool particle_emitter_load(const char *filename, le_particle_emitter_t *pe);
 extern void particle_emitter_free(le_particle_emitter_t *pe);
 

@@ -15,6 +15,16 @@
 #include "renderinfo.h"
 #include "util.h"
 
+
+le_font_t *font_new(void)
+{
+	le_font_t *ret = calloc(1, sizeof(le_font_t));
+	ret->is_dynamic = true;
+	
+	return ret;
+}
+
+
 bool font_load(const char *filename, le_font_t *font_out)
 {
 	const char *fn = path_for_file(filename);
@@ -134,4 +144,8 @@ void font_free(le_font_t *fnt)
 {
 	tex2d_release(fnt->tex_id);
 	fnt->tex_id = -1;
+	
+	if (fnt->is_dynamic)
+		free(fnt);
+
 }

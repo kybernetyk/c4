@@ -46,6 +46,12 @@
 		034374EB1308545500925536 /* cool.pex in Resources */ = {isa = PBXBuildFile; fileRef = 034374EA1308545500925536 /* cool.pex */; };
 		034374F4130854A300925536 /* vortex.pex in Resources */ = {isa = PBXBuildFile; fileRef = 034374F3130854A300925536 /* vortex.pex */; };
 		034375241308556C00925536 /* tss.pex in Resources */ = {isa = PBXBuildFile; fileRef = 034375231308556C00925536 /* tss.pex */; };
+		0343755013095CFB00925536 /* component.c in Sources */ = {isa = PBXBuildFile; fileRef = 0343754F13095CFB00925536 /* component.c */; };
+		0343755313095D1500925536 /* entity.c in Sources */ = {isa = PBXBuildFile; fileRef = 0343755213095D1500925536 /* entity.c */; };
+		0343755613095D2D00925536 /* entity_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 0343755513095D2D00925536 /* entity_manager.c */; };
+		034375D31309702300925536 /* render_system.c in Sources */ = {isa = PBXBuildFile; fileRef = 034375D21309702300925536 /* render_system.c */; };
+		034375DA1309712F00925536 /* comp_renderable.c in Sources */ = {isa = PBXBuildFile; fileRef = 034375D91309712F00925536 /* comp_renderable.c */; };
+		0343766D130981E600925536 /* comp_position.c in Sources */ = {isa = PBXBuildFile; fileRef = 0343766C130981E600925536 /* comp_position.c */; };
 		0349A7FE1307FB9700411EA7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A7FD1307FB9700411EA7 /* OpenAL.framework */; };
 		0349A8021307FBA500411EA7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A8011307FBA500411EA7 /* AudioToolbox.framework */; };
 		0349A8061307FBA500411EA7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A8051307FBA500411EA7 /* AVFoundation.framework */; };
@@ -151,6 +157,19 @@
 		034374EA1308545500925536 /* cool.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cool.pex; sourceTree = "<group>"; };
 		034374F3130854A300925536 /* vortex.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vortex.pex; sourceTree = "<group>"; };
 		034375231308556C00925536 /* tss.pex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tss.pex; sourceTree = "<group>"; };
+		0343754E13095CFB00925536 /* component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = component.h; sourceTree = "<group>"; };
+		0343754F13095CFB00925536 /* component.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = component.c; sourceTree = "<group>"; };
+		0343755113095D1500925536 /* entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entity.h; sourceTree = "<group>"; };
+		0343755213095D1500925536 /* entity.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entity.c; sourceTree = "<group>"; };
+		0343755413095D2D00925536 /* entity_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entity_manager.h; sourceTree = "<group>"; };
+		0343755513095D2D00925536 /* entity_manager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entity_manager.c; sourceTree = "<group>"; };
+		0343755713095E2100925536 /* le_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = le_types.h; sourceTree = "<group>"; };
+		034375D11309702300925536 /* render_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_system.h; sourceTree = "<group>"; };
+		034375D21309702300925536 /* render_system.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render_system.c; sourceTree = "<group>"; };
+		034375D81309712F00925536 /* comp_renderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = comp_renderable.h; sourceTree = "<group>"; };
+		034375D91309712F00925536 /* comp_renderable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = comp_renderable.c; sourceTree = "<group>"; };
+		0343766B130981E600925536 /* comp_position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = comp_position.h; sourceTree = "<group>"; };
+		0343766C130981E600925536 /* comp_position.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = comp_position.c; sourceTree = "<group>"; };
 		0349A7FD1307FB9700411EA7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		0349A8011307FBA500411EA7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0349A8051307FBA500411EA7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -209,6 +228,8 @@
 		034372B31308370700925536 /* libelite */ = {
 			isa = PBXGroup;
 			children = (
+				034375CF1309700A00925536 /* systems */,
+				0343754D13095CE800925536 /* components */,
 				034373591308386A00925536 /* audio */,
 				034372BC1308370700925536 /* ext */,
 				0343735C130838A200925536 /* gameloop */,
@@ -219,6 +240,7 @@
 				034372BB1308370700925536 /* elite.h */,
 				034372F41308370700925536 /* sys_config.c */,
 				034372F51308370700925536 /* sys_config.h */,
+				0343755713095E2100925536 /* le_types.h */,
 			);
 			path = libelite;
 			sourceTree = "<group>";
@@ -371,6 +393,48 @@
 				0349A9CC13081A8100411EA7 /* startup_scene.h */,
 			);
 			name = test_game;
+			sourceTree = "<group>";
+		};
+		0343754D13095CE800925536 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				0343754E13095CFB00925536 /* component.h */,
+				0343754F13095CFB00925536 /* component.c */,
+				0343755113095D1500925536 /* entity.h */,
+				0343755213095D1500925536 /* entity.c */,
+				0343755413095D2D00925536 /* entity_manager.h */,
+				0343755513095D2D00925536 /* entity_manager.c */,
+			);
+			name = components;
+			sourceTree = "<group>";
+		};
+		034375CF1309700A00925536 /* systems */ = {
+			isa = PBXGroup;
+			children = (
+				0343766A130981D900925536 /* position_system */,
+				034375D01309700F00925536 /* render_system */,
+			);
+			name = systems;
+			sourceTree = "<group>";
+		};
+		034375D01309700F00925536 /* render_system */ = {
+			isa = PBXGroup;
+			children = (
+				034375D11309702300925536 /* render_system.h */,
+				034375D21309702300925536 /* render_system.c */,
+				034375D81309712F00925536 /* comp_renderable.h */,
+				034375D91309712F00925536 /* comp_renderable.c */,
+			);
+			name = render_system;
+			sourceTree = "<group>";
+		};
+		0343766A130981D900925536 /* position_system */ = {
+			isa = PBXGroup;
+			children = (
+				0343766B130981E600925536 /* comp_position.h */,
+				0343766C130981E600925536 /* comp_position.c */,
+			);
+			name = position_system;
 			sourceTree = "<group>";
 		};
 		034D2E561301CB84004A32A0 /* Resources */ = {
@@ -581,6 +645,12 @@
 				0343731B1308370700925536 /* timer.c in Sources */,
 				0343731C1308370700925536 /* util.m in Sources */,
 				0343731D1308370700925536 /* vec2d.c in Sources */,
+				0343755013095CFB00925536 /* component.c in Sources */,
+				0343755313095D1500925536 /* entity.c in Sources */,
+				0343755613095D2D00925536 /* entity_manager.c in Sources */,
+				034375D31309702300925536 /* render_system.c in Sources */,
+				034375DA1309712F00925536 /* comp_renderable.c in Sources */,
+				0343766D130981E600925536 /* comp_position.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

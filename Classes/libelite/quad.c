@@ -11,6 +11,14 @@
 #include "renderinfo.h"
 #include "quad.h"
 
+le_quad_t *quad_new(void)
+{
+	le_quad_t *ret = calloc(1, sizeof(le_quad_t));
+	ret->is_dynamic = true;
+	
+	return ret;
+}
+
 bool quad_load(const char *filename, le_quad_t *quad_out)
 {
 	quad_out->tex_id = tex2d_load(filename);
@@ -36,6 +44,9 @@ void quad_free(le_quad_t *quad)
 {
 	tex2d_release(quad->tex_id);
 	quad->tex_id = -1;
+	
+	if (quad->is_dynamic)
+		free(quad);
 }
 
 

@@ -13,6 +13,14 @@
 #include "renderinfo.h"
 #import "ParticleEmitter.h"
 
+le_particle_emitter_t *particle_emitter_new(void)
+{
+	le_particle_emitter_t *ret = calloc(1, sizeof(le_particle_emitter_t));
+	ret->is_dynamic = true;
+	
+	return ret;
+}
+
 bool particle_emitter_load(const char *filename, le_particle_emitter_t *pe)
 {
 	ParticleEmitter *pm = [[ParticleEmitter alloc] initParticleEmitterWithFile: [NSString stringWithCString: filename
@@ -57,6 +65,9 @@ void particle_emitter_free(le_particle_emitter_t *pe)
 		[(ParticleEmitter *)pe->pe release];
 		pe->pe = nil;
 	}
+	
+	if (pe->is_dynamic)
+		free(pe);
 }
 
 

@@ -27,8 +27,11 @@
 #include "util.h"
 #include "hash.h"
 
+#include "entity_manager.h"
+#include "entity.h"
 
 #include "game.h"
+
 
 
 
