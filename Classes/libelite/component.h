@@ -21,6 +21,8 @@ typedef struct le_component_t
 	void *user_data;
 	void (*user_data_deallocator)(void *);
 	bool in_use;
+	
+	char name[128];
 } le_component_t;
 
-#define comp_get_userdata(obj, type) (*((type*)obj->user_data))
+#define comp_get_userdata(obj, type) ((type*)obj->user_data)

@@ -10,7 +10,15 @@
 #pragma once
 #include "elite.h"
 
+typedef struct comp_text_t
+{
+	char *string;
+	le_font_t *font;
+} comp_text_t;
+
 extern le_quad_t *comp_quad_init(le_component_t *comp, const char *filename);
 extern le_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename, rect_t src);
-extern le_font_t *comp_font_init(le_component_t *comp, const char *filename);
 extern le_particle_emitter_t *comp_pe_init(le_component_t *comp, const char *filename);
+
+extern comp_text_t *comp_text_init(le_component_t *comp, const char *filename, const char *text);
+extern void comp_text_set_text(comp_text_t *ctxt, const char *text);

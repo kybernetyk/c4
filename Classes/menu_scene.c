@@ -11,60 +11,44 @@
 #include "elite.h"
 #include "menu_scene.h"
 
-static le_quad_t p;
-static le_quad_t q;
-static le_atlas_quad_t r;
-static le_font_t f;
-static le_particle_emitter_t pe;
-static le_particle_emitter_t pe2;
-
-static le_particle_emitter_t pe3;
-static le_particle_emitter_t pe4;
-
+static le_entity_manager_t mgr;
+static le_render_system_t rs;
 
 static audio_id music;
 static audio_id sound;
 
 static int scene_init(scene_t *scene)
 {
-	quad_load("menu_back.png", &p);
-	p.ri.zval = 0;
-	p.ri.anchor_point = vec2d_make(0.0, 0.0);
-	
-	quad_load("minyx_bw.png", &q);
-	q.ri.pos.x = g_sysconfig.screen_w/2;
-	q.ri.pos.y = g_sysconfig.screen_h/2;
-	q.ri.zval = 1.0;
-	
-	atlas_quad_load("bubbles.png", &r);
-	r.ri.pos = vec2d_make(100, 100);
-	r.ri.zval = 2.0;
-	r.ri.size = size2d_make(41, 41);
-	r.src_rect = rect_make(0.0, 0.0, 41.0, 41.0);
-	
-	font_load("impact20.fnt", &f);
-	f.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2);
-	f.ri.zval = 3.0;
-	
-	particle_emitter_load("cool.pex", &pe);
-	pe.ri.zval = 4.0;
-	pe.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2);
-
-	particle_emitter_load("tss.pex", &pe2);
-	pe2.ri.zval = 4.0;
-	pe2.ri.pos = vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h);
-
-	particle_emitter_load("stars.pex", &pe3);
-	pe3.ri.zval = 4.0;
-	pe3.ri.pos = vec2d_make(0, 0);
-	
-	particle_emitter_load("stars.pex", &pe4);
-	pe4.ri.zval = 4.0;
-	pe4.ri.pos = vec2d_make(g_sysconfig.screen_w, 0);
-	
+	em_init(&mgr);
+	render_system_init(&rs, &mgr);
 	
 	music = audio_music_load("music.mp3");
 	sound = audio_sound_load("click.mp3");
+	
+	
+	le_entity_t *ent = em_create_entity(&mgr);
+	le_component_t *comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -4.0);
+	
+	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_RENDERABLE);
+	comp_quad_init(comp, "menu_back.png");
+
+
+	ent = em_create_entity(&mgr);
+	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(100, 100), -3.0);
+	
+	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_RENDERABLE);
+	comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
+	
+
+	ent = em_create_entity(&mgr);
+	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -2.0);
+	
+	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_RENDERABLE);
+	comp_text_init(comp, "impact20.fnt", "oh hai!");
+	comp_text_set_text(comp_get_userdata(comp, comp_text_t), "fick dich k?");
 	
 	audio_music_play(music);
 	
@@ -73,18 +57,7 @@ static int scene_init(scene_t *scene)
 
 static void scene_update(scene_t *scene, double dt)
 {
-	q.ri.rot_a += 360.0 * dt;
-	//r.ri.rot_a += 360.0 * dt;
-	
-	pe.ri.pos.x = g_sysconfig.screen_w/2 +  100.0 * sin(timer_get_double_time()*5.0);
-	pe.ri.pos.y = g_sysconfig.screen_h/2 +  100.0 * cos(timer_get_double_time()*5.0);
-	
-
-	particle_emitter_update(&pe, dt);
-	particle_emitter_update(&pe2, dt);
-	particle_emitter_update(&pe3, dt);
-	particle_emitter_update(&pe4, dt);
-
+	render_system_update(&rs, dt);
 	
 	if (input_touch_up_received())
 	{	
@@ -105,24 +78,14 @@ static void scene_update(scene_t *scene, double dt)
 
 static void scene_render(scene_t *scene)
 {
-	quad_render(&p);
-	quad_render(&q);
-	atlas_quad_render(&r);
-	font_render(&f, "oh hai!");
-	particle_emitter_render(&pe2);
-	particle_emitter_render(&pe);
-	particle_emitter_render(&pe3);
-	particle_emitter_render(&pe4);
-
+	render_system_render(&rs);
 }
 
 static int scene_free(scene_t *scene)
 {
+	
+	render_system_shutdown(&rs);
 	printf("menuscene free\n");
-	quad_free(&p);
-	quad_free(&q);
-	atlas_quad_free(&r);
-	font_free(&f);
 	
 	return 0;
 }

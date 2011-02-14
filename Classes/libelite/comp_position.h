@@ -15,8 +15,9 @@
 typedef struct comp_position_t
 {
 	vec2d_t pos;
+	double z;
 	double rot;
 } comp_position_t;
 
 
-extern comp_position_t *comp_position_init(le_component_t *comp, vec2d_t pos);
+extern comp_position_t *comp_position_init(le_component_t *comp, vec2d_t pos, double z);

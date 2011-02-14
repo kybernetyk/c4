@@ -29,8 +29,13 @@
 
 #include "entity_manager.h"
 #include "entity.h"
+#include "component.h"
+#include "render_system.h"
+#include "comp_renderable.h"
+#include "comp_position.h"
 
 #include "game.h"
+
 
 
 

@@ -164,7 +164,7 @@ le_component_t *em_get_component_from_entity(le_entity_manager_t *manager, le_en
 	return ret;
 }
 
-size_t em_get_entities_with_component(le_entity_manager_t *manager, component_family_id_t fam_id, le_entity_t *outarr[], size_t max_count)
+size_t em_get_entities_with_component(le_entity_manager_t *manager, component_family_id_t fam_id, le_entity_t **outarr, size_t max_count)
 {
 	size_t out_counter = 0;
 
@@ -206,4 +206,31 @@ size_t em_get_entities_with_components(le_entity_manager_t *manager, component_f
 	}
 	
 	return out_counter;
+}
+
+#pragma mark -
+#pragma mark dumping
+
+void em_dump_component(le_entity_manager_t *manager, le_component_t *component)
+{
+	printf("component [fam: %i, sub: %i] @ %p (%s)\n", component->family, component->subid, component, component->name);	
+}
+
+void em_dump_components(le_entity_manager_t *manager, le_entity_t *entity)
+{
+	for (int i = 0; i < COMPONENTS; i++)
+	{	
+		if (manager->components[entity->manager_id][i].in_use)
+		{	
+			printf("\t");
+			em_dump_component(manager, &manager->components[entity->manager_id][i]);
+			
+		}
+	}
+}
+
+void em_dump_entity(le_entity_manager_t *manager, le_entity_t *entity)
+{
+	printf("entity [mid: %i, guid: %i] @ %p:\n", entity->manager_id, entity->guid, entity);
+	em_dump_components(manager, entity);
 }
