@@ -211,6 +211,16 @@ static void set_key_value(sys_config_t *cfg, unsigned int key_hash, const char *
 		cfg->music_vol = atof(val);
 	
 	
+	
+	unsigned int h_em_entity_pool = murmur_hash_2("entity_manager.entity_pool_size", strlen("entity_manager.entity_pool_size"), 0);
+	unsigned int h_em_components_per_ent = murmur_hash_2("entity_manager.components_per_entity", strlen("entity_manager.components_per_entity"), 0);
+
+	if (key_hash == h_em_entity_pool)
+		cfg->entity_pool_size = atoi(val);
+	if (key_hash == h_em_components_per_ent)
+		cfg->components_per_entity = atoi(val);
+	
+	
 	return;
 }
 
