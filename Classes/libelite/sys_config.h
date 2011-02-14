@@ -35,6 +35,9 @@ typedef struct sys_config_t
 	double sound_vol;				//default sfx volume
 	double music_vol;				//default music volume
 	
+	//entity
+	int entity_pool_size;
+	int components_per_entity;
 	
 } sys_config_t;
 extern sys_config_t g_sysconfig;

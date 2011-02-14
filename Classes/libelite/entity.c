@@ -11,7 +11,6 @@
 #include "elite.h"
 #include <stdio.h>
 
-#define COMPONENTS 32
 
 #pragma mark -
 #pragma mark component management
@@ -68,7 +67,7 @@ void entity_remove_all_components(le_entity_t *entity)
 	
 	manager->is_dirty = true;
 	
-	for (int i = 0; i < COMPONENTS; i++)
+	for (int i = 0; i < g_sysconfig.components_per_entity; i++)
 		if (manager->components[entity->manager_id][i].in_use)
 			entity_remove_component(entity, &manager->components[entity->manager_id][i]);
 }
@@ -102,7 +101,7 @@ void component_dump(le_component_t *component)
 void entity_dump_components(le_entity_t *entity)
 {
 	le_entity_manager_t *manager = entity->entity_manager;
-	for (int i = 0; i < COMPONENTS; i++)
+	for (int i = 0; i < g_sysconfig.components_per_entity; i++)
 	{	
 		if (manager->components[entity->manager_id][i].in_use)
 		{	

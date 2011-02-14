@@ -58,7 +58,7 @@ void render_system_render(le_render_system_t *rs)
 		switch (current_ren->subid) 
 		{
 			case REN_SUB_QUAD:
-				quad = comp_get_userdata(current_ren, le_quad_t);
+				quad = current_ren->user_data;
 				quad->ri.pos = pos->pos;
 				quad->ri.zval = pos->z;
 				quad->ri.rot_a = pos->rot;
@@ -66,21 +66,21 @@ void render_system_render(le_render_system_t *rs)
 				break;
 
 			case REN_SUB_ATLAS_QUAD:
-				aquad = comp_get_userdata(current_ren, le_atlas_quad_t);
+				aquad = current_ren->user_data;
 				aquad->ri.pos = pos->pos;
 				aquad->ri.zval = pos->z;
 				aquad->ri.rot_a = pos->rot;
 				atlas_quad_render(aquad);
 				break;
 			case REN_SUB_TEXT:
-				text = comp_get_userdata(current_ren, comp_text_t);
+				text = current_ren->user_data;
 				text->font->ri.pos = pos->pos;
 				text->font->ri.zval = pos->z;
 				text->font->ri.rot_a = pos->rot;
 				font_render(text->font, text->string);
 				break;
 			case REN_SUB_PEMITTER:
-				pe = comp_get_userdata(current_ren, le_particle_emitter_t);
+				pe = current_ren->user_data;
 				pe->ri.pos = pos->pos;
 				pe->ri.zval = pos->z;
 				particle_emitter_render(pe);

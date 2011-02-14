@@ -12,9 +12,7 @@
 
 #include "entity_manager.h"
 #include "entity.h"
-
-#define ENTITIES 512
-#define COMPONENTS 32
+#include "sys_config.h"
 
 #pragma mark -
 #pragma mark alloc/dealloc
@@ -23,8 +21,8 @@ void em_init(le_entity_manager_t *manager)
 	manager->is_dirty = true;
 	manager->current_guid = 1;
 	
-	manager->entities = calloc(ENTITIES, sizeof(le_entity_t));
-	for (int i = 0; i < ENTITIES; i++)
+	manager->entities = calloc(g_sysconfig.entity_pool_size, sizeof(le_entity_t));
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 	{	
 		manager->entities[i].guid = 0;
 		manager->entities[i].manager_id = i;
@@ -32,11 +30,11 @@ void em_init(le_entity_manager_t *manager)
 		manager->entities[i].entity_manager = manager;
 	}
 	
-	manager->components = calloc(ENTITIES, sizeof(le_component_t*));
-	for (int i = 0; i < ENTITIES; i++)
+	manager->components = calloc(g_sysconfig.entity_pool_size, sizeof(le_component_t*));
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 	{	
-		manager->components[i] = calloc(COMPONENTS, sizeof(le_component_t));
-		for (int j = 0; j < COMPONENTS; j++)
+		manager->components[i] = calloc(g_sysconfig.components_per_entity, sizeof(le_component_t));
+		for (int j = 0; j < g_sysconfig.components_per_entity; j++)
 		{
 			manager->components[i][j].family = 0;
 			manager->components[i][j].subid = 0;
@@ -55,7 +53,7 @@ void em_prepare_frame(le_entity_manager_t *manager)
 void em_free(le_entity_manager_t *manager)
 {
 	free(manager->entities);
-	for (int i = 0; i < ENTITIES; i++)
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 		free(manager->components[i]);
 
 	free(manager->components);
@@ -67,7 +65,7 @@ le_entity_t *em_create_entity(le_entity_manager_t *manager)
 {
 	manager->is_dirty = true;
 	
-	for (int i = 0; i < ENTITIES; i++)
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 	{
 		if (!manager->entities[i].in_use)
 		{
@@ -84,7 +82,7 @@ le_entity_t *em_create_entity(le_entity_manager_t *manager)
 
 le_entity_t *em_get_entity_by_guid(le_entity_manager_t *manager, guid_t guid)
 {
-	for (int i = 0; i < ENTITIES; i++)
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 		if (manager->entities[i].in_use && manager->entities[i].guid == guid)
 			return &manager->entities[i];
 	
@@ -108,7 +106,7 @@ size_t em_get_entities_with_component(le_entity_manager_t *manager, component_fa
 {
 	size_t out_counter = 0;
 
-	for (int i = 0; i < ENTITIES; i++)
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 	{
 		if (manager->components[i][fam_id].in_use)
 			outarr[out_counter++] = &manager->entities[i];
@@ -125,7 +123,7 @@ size_t em_get_entities_with_components(le_entity_manager_t *manager, component_f
 	size_t out_counter = 0;
 	
 	bool add_ent = true;	
-	for (int i = 0; i < ENTITIES; i++)
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 	{
 		add_ent = true;
 		for (int qi = 0; qi < query_size; qi++)

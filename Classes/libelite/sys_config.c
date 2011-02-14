@@ -38,7 +38,13 @@ static void dump_config(sys_config_t *cfg)
 	printf("\t\tmusic_vol = %.2f\n", cfg->music_vol);
 	printf("\t\taudio_cache_size = %i\n", cfg->audio_cache_size);
 	printf("\t}\n");
+	//ent system
+	printf("\tentity system:\n\t{\n");
+	printf("\t\tentity_pool_size = %i\n", cfg->entity_pool_size);
+	printf("\t\tcomponents_per_entity = %i\n", cfg->components_per_entity);
+	printf("\t}\n");
 	printf("}\n");
+	
 }
 
 static bool line_is_comment(const char *line)
@@ -222,6 +228,11 @@ static void set_defaults(sys_config_t *cfg)
 	cfg->audio_cache_size = 32;
 	cfg->sound_vol = 0.8;
 	cfg->music_vol = 0.5;
+	
+	//entity
+	cfg->entity_pool_size = 512;
+	cfg->components_per_entity = 32;
+
 }
 
 bool sys_config_read_config_file(sys_config_t *cfg, const char *filename)
