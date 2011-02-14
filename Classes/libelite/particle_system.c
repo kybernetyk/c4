@@ -45,13 +45,18 @@ void particle_system_update(le_particle_system_t *ps, double dt)
 		
 		if (current_ren->subid == REN_SUB_PEMITTER)
 		{
-			if (particle_emitter_should_handle(current_ren->user_data))
+			pe = current_ren->user_data; 
+			if (particle_emitter_should_handle(pe))
 			{
-				pe = (le_particle_emitter_t *)current_ren->user_data;
-				pos = entity_get_component_data(current_entity, COMP_FAMILY_POSITION);
+				pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->user_data;
 					
 				pe->ri.pos = pos->pos;
 				particle_emitter_update(pe, dt);
+				
+				if (!particle_emitter_should_handle(pe))		//handling can change state during update()
+				{
+					//mark for removal
+				}
 			}
 		}
 

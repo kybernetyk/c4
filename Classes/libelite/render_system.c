@@ -42,7 +42,6 @@ void render_system_render(le_render_system_t *rs)
 	
 	le_entity_t *current_entity = NULL;
 	le_component_t *current_ren = NULL;
-	le_component_t *current_pos = NULL;
 	
 	le_quad_t *quad = NULL;
 	le_atlas_quad_t *aquad = NULL;
@@ -54,13 +53,12 @@ void render_system_render(le_render_system_t *rs)
 	{
 		current_entity = rs->qry_resp_cache[i];
 		current_ren = entity_get_component(current_entity, COMP_FAMILY_RENDERABLE);
-		current_pos = entity_get_component(current_entity, COMP_FAMILY_POSITION);
+		pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->user_data;
 		
 		switch (current_ren->subid) 
 		{
 			case REN_SUB_QUAD:
 				quad = comp_get_userdata(current_ren, le_quad_t);
-				pos = comp_get_userdata(current_pos, comp_position_t);
 				quad->ri.pos = pos->pos;
 				quad->ri.zval = pos->z;
 				quad->ri.rot_a = pos->rot;
@@ -69,7 +67,6 @@ void render_system_render(le_render_system_t *rs)
 
 			case REN_SUB_ATLAS_QUAD:
 				aquad = comp_get_userdata(current_ren, le_atlas_quad_t);
-				pos = comp_get_userdata(current_pos, comp_position_t);
 				aquad->ri.pos = pos->pos;
 				aquad->ri.zval = pos->z;
 				aquad->ri.rot_a = pos->rot;
@@ -77,7 +74,6 @@ void render_system_render(le_render_system_t *rs)
 				break;
 			case REN_SUB_TEXT:
 				text = comp_get_userdata(current_ren, comp_text_t);
-				pos = comp_get_userdata(current_pos, comp_position_t);
 				text->font->ri.pos = pos->pos;
 				text->font->ri.zval = pos->z;
 				text->font->ri.rot_a = pos->rot;
@@ -85,7 +81,6 @@ void render_system_render(le_render_system_t *rs)
 				break;
 			case REN_SUB_PEMITTER:
 				pe = comp_get_userdata(current_ren, le_particle_emitter_t);
-				pos = comp_get_userdata(current_pos, comp_position_t);
 				pe->ri.pos = pos->pos;
 				pe->ri.zval = pos->z;
 				particle_emitter_render(pe);

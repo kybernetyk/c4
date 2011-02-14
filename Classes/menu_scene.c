@@ -27,7 +27,7 @@ static int scene_init(scene_t *scene)
 	music = audio_music_load("music.mp3");
 	sound = audio_sound_load("click.mp3");
 	
-	
+	//background
 	le_entity_t *ent = em_create_entity(&mgr);
 	le_component_t *comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -4.0);
@@ -36,6 +36,7 @@ static int scene_init(scene_t *scene)
 	comp_quad_init(comp, "menu_back.png");
 
 
+	//bubble
 	ent = em_create_entity(&mgr);
 	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(100, 100), -3.0);
@@ -44,6 +45,7 @@ static int scene_init(scene_t *scene)
 	comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
 	
 
+	//text label
 	ent = em_create_entity(&mgr);
 	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -2.0);
@@ -53,8 +55,7 @@ static int scene_init(scene_t *scene)
 	comp_text_set_text(comp, "fick dich k?");
 
 	
-	//partikels
-
+	//particle left
 	ent = em_create_entity(&mgr);
 	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(0,0), -1.0);
@@ -62,7 +63,7 @@ static int scene_init(scene_t *scene)
 	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
 	comp_pe_init(comp, "stars.pex");
 	
-	
+	//particle right
 	ent = em_create_entity(&mgr);
 	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w,0), -1.0);
