@@ -95,8 +95,9 @@ comp_text_t *comp_text_init(le_component_t *comp, const char *filename, const ch
 	return ret;
 }
 
-void comp_text_set_text(comp_text_t *ctxt, const char *text)
+void comp_text_set_text(le_component_t *comp, const char *text)
 {
+	comp_text_t *ctxt = comp->user_data;
 	if (ctxt->string)
 	{
 		if (strlen(ctxt->string) > strlen(text))

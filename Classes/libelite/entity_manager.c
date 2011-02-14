@@ -91,79 +91,19 @@ le_entity_t *em_get_entity_by_guid(le_entity_manager_t *manager, guid_t guid)
 	return NULL;
 }
 
-void em_free_entity(le_entity_manager_t *manager, le_entity_t *entity)
+void em_remove_entity(le_entity_manager_t *manager, le_entity_t *entity)
 {
 	manager->is_dirty = true;
 
-	em_remove_all_components_from_entity(manager, &manager->entities[entity->manager_id]);
+	entity_remove_all_components(&manager->entities[entity->manager_id]);
 	
 	manager->entities[entity->manager_id].guid = 0;
 	manager->entities[entity->manager_id].in_use = false;
 }
 
-#pragma mark -
-#pragma mark component management
-le_component_t *em_add_component_to_entity(le_entity_manager_t *manager, le_entity_t *entity, component_family_id_t fam_id)
-{
-	manager->is_dirty = true;
-
-	le_component_t *ret = &manager->components[entity->manager_id][fam_id];
-	if (ret->in_use)
-	{
-		printf("[entity %i]: replacing component %i.%i with %i.%i\n",
-			   entity->guid,
-			   ret->family,
-			   ret->subid,
-			   ret->family,
-			   0);
-		em_remove_component_from_entity(manager, entity, ret);
-	}
-	
-	ret->in_use = true;
-	ret->family = fam_id;
-	ret->user_data = NULL;
-	ret->subid = 0;
-	ret->user_data_deallocator = NULL;
-	return ret;
-}
-
-void em_remove_component_from_entity(le_entity_manager_t *manager, le_entity_t *entity, le_component_t *component)
-{
-	if (!component->in_use)
-		return;
-	
-	manager->is_dirty = true;
-
-	if (component->user_data_deallocator)
-		component->user_data_deallocator(component->user_data);
-
-	component->user_data_deallocator = NULL;
-	component->user_data = NULL;
-	component->family = 0;
-	component->subid = 0;
-	component->in_use = false;
-}
-
-void em_remove_all_components_from_entity(le_entity_manager_t *manager, le_entity_t *entity)
-{
-	manager->is_dirty = true;
-	
-	for (int i = 0; i < COMPONENTS; i++)
-		if (manager->components[entity->manager_id][i].in_use)
-			em_remove_component_from_entity(manager, entity, &manager->components[entity->manager_id][i]);
-}
 
 #pragma mark -
 #pragma mark component querieng
-le_component_t *em_get_component_from_entity(le_entity_manager_t *manager, le_entity_t *entity, component_family_id_t fam_id)
-{
-	le_component_t *ret = &manager->components[entity->manager_id][fam_id];
-	if (!ret->in_use)
-		return NULL;
-
-	return ret;
-}
-
 size_t em_get_entities_with_component(le_entity_manager_t *manager, component_family_id_t fam_id, le_entity_t **outarr, size_t max_count)
 {
 	size_t out_counter = 0;
@@ -208,29 +148,3 @@ size_t em_get_entities_with_components(le_entity_manager_t *manager, component_f
 	return out_counter;
 }
 
-#pragma mark -
-#pragma mark dumping
-
-void em_dump_component(le_entity_manager_t *manager, le_component_t *component)
-{
-	printf("component [fam: %i, sub: %i] @ %p (%s)\n", component->family, component->subid, component, component->name);	
-}
-
-void em_dump_components(le_entity_manager_t *manager, le_entity_t *entity)
-{
-	for (int i = 0; i < COMPONENTS; i++)
-	{	
-		if (manager->components[entity->manager_id][i].in_use)
-		{	
-			printf("\t");
-			em_dump_component(manager, &manager->components[entity->manager_id][i]);
-			
-		}
-	}
-}
-
-void em_dump_entity(le_entity_manager_t *manager, le_entity_t *entity)
-{
-	printf("entity [mid: %i, guid: %i] @ %p:\n", entity->manager_id, entity->guid, entity);
-	em_dump_components(manager, entity);
-}

@@ -48,11 +48,13 @@ void render_system_render(le_render_system_t *rs)
 	le_atlas_quad_t *aquad = NULL;
 	comp_position_t *pos = NULL;
 	comp_text_t *text = NULL;
+	le_particle_emitter_t *pe = NULL;
+	
 	for (size_t i = 0; i < res; i++)
 	{
 		current_entity = rs->qry_resp_cache[i];
-		current_ren = em_get_component_from_entity(rs->e_manager, current_entity, COMP_FAMILY_RENDERABLE);
-		current_pos = em_get_component_from_entity(rs->e_manager, current_entity, COMP_FAMILY_POSITION);
+		current_ren = entity_get_component(current_entity, COMP_FAMILY_RENDERABLE);
+		current_pos = entity_get_component(current_entity, COMP_FAMILY_POSITION);
 		
 		switch (current_ren->subid) 
 		{
@@ -81,6 +83,15 @@ void render_system_render(le_render_system_t *rs)
 				text->font->ri.rot_a = pos->rot;
 				font_render(text->font, text->string);
 				break;
+			case REN_SUB_PEMITTER:
+				pe = comp_get_userdata(current_ren, le_particle_emitter_t);
+				pos = comp_get_userdata(current_pos, comp_position_t);
+				pe->ri.pos = pos->pos;
+				pe->ri.zval = pos->z;
+				particle_emitter_render(pe);
+				break;
+				
+			
 			default:
 				break;
 		}

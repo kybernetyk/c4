@@ -13,6 +13,7 @@
 
 static le_entity_manager_t mgr;
 static le_render_system_t rs;
+static le_particle_system_t ps;
 
 static audio_id music;
 static audio_id sound;
@@ -21,34 +22,56 @@ static int scene_init(scene_t *scene)
 {
 	em_init(&mgr);
 	render_system_init(&rs, &mgr);
+	particle_system_init(&ps, &mgr);
 	
 	music = audio_music_load("music.mp3");
 	sound = audio_sound_load("click.mp3");
 	
 	
 	le_entity_t *ent = em_create_entity(&mgr);
-	le_component_t *comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_POSITION);
+	le_component_t *comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -4.0);
 	
-	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_RENDERABLE);
+	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
 	comp_quad_init(comp, "menu_back.png");
 
 
 	ent = em_create_entity(&mgr);
-	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_POSITION);
+	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(100, 100), -3.0);
 	
-	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_RENDERABLE);
+	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
 	comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
 	
 
 	ent = em_create_entity(&mgr);
-	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_POSITION);
+	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -2.0);
 	
-	comp = em_add_component_to_entity(&mgr, ent, COMP_FAMILY_RENDERABLE);
+	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
 	comp_text_init(comp, "impact20.fnt", "oh hai!");
-	comp_text_set_text(comp_get_userdata(comp, comp_text_t), "fick dich k?");
+	comp_text_set_text(comp, "fick dich k?");
+
+	
+	//partikels
+
+	ent = em_create_entity(&mgr);
+	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(0,0), -1.0);
+	
+	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
+	comp_pe_init(comp, "stars.pex");
+	
+	
+	ent = em_create_entity(&mgr);
+	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w,0), -1.0);
+	
+	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
+	comp_pe_init(comp, "stars.pex");
+	
+	
+	
 	
 	audio_music_play(music);
 	
@@ -57,6 +80,7 @@ static int scene_init(scene_t *scene)
 
 static void scene_update(scene_t *scene, double dt)
 {
+	particle_system_update(&ps, dt);
 	render_system_update(&rs, dt);
 	
 	if (input_touch_up_received())
@@ -83,7 +107,7 @@ static void scene_render(scene_t *scene)
 
 static int scene_free(scene_t *scene)
 {
-	
+	particle_system_shutdown(&ps);
 	render_system_shutdown(&rs);
 	printf("menuscene free\n");
 	
