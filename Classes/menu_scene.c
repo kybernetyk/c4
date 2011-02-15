@@ -145,7 +145,7 @@ static void scene_update(scene_t *scene, double dt)
 			printf("playing sound %i ...\n", sound);
 			fs_audio_sound_play(sound);
 			
-			entity_add_component(bubble, COMP_FAMILY_GARBAGE);
+			//entity_add_component(bubble, COMP_FAMILY_GARBAGE);
 		}
 	}
 
