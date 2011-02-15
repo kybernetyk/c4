@@ -23,6 +23,8 @@ static fs_audio_id sound;
 static le_entity_t *bubble;
 static le_entity_t *minyx;
 
+static le_entity_t *firetail;
+
 static int scene_init(scene_t *scene)
 {
 	em_init(&mgr);
@@ -40,7 +42,6 @@ static int scene_init(scene_t *scene)
 	
 	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
 	comp_quad_init(comp, "menu_back.png");
-
 
 
 	//text label
@@ -86,6 +87,24 @@ static int scene_init(scene_t *scene)
 	comp = entity_add_component(minyx, COMP_FAMILY_RENDERABLE);
 	comp_quad_init(comp, "minyx_bw.png");
 	
+	
+	//firetail
+	firetail = em_create_entity(&mgr);
+	comp = entity_add_component(firetail, COMP_FAMILY_RENDERABLE);
+	comp_pe_init(comp, "cool.pex");
+	
+	comp = entity_add_component(firetail, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_w/2), 0.0);
+	
+	//rainshit
+	ent = em_create_entity(&mgr);
+	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
+	comp_pe_init(comp, "tss.pex");
+	
+	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h), 0.0);
+	
+	
 	fs_audio_music_play(music);
 	
 	return 0;
@@ -101,6 +120,11 @@ static void scene_update(scene_t *scene, double dt)
 	
 	cd_position_t *pos = entity_get_component_data(minyx, COMP_FAMILY_POSITION);
 	pos->rot += dt * 360.0;
+	
+	pos = entity_get_component_data(firetail, COMP_FAMILY_POSITION);
+
+	pos->pos.x = g_sysconfig.screen_w/2 +  100.0 * sin(timer_get_double_time()*5.0);
+	pos->pos.y = g_sysconfig.screen_h/2 +  100.0 * cos(timer_get_double_time()*5.0);
 	
 	if (fs_input_touch_up_received())
 	{	
