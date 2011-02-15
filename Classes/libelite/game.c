@@ -80,23 +80,28 @@ void game_tick(void)
 	timer_get_fps(&timer);
 	sprintf(fps_str, "fps: %.2f", timer.fps);
 
-	fs_input_update();
-	current_scene.pre_frame_func(&current_scene);
-	current_scene.update_func(&current_scene, timer.delta);
+	//delta based loop (don't use)
+//	fs_input_update();
+//	current_scene.pre_frame_func(&current_scene);
+//	current_scene.update_func(&current_scene, timer.delta);
 	
-//	printf("%f\n", timer_get_tick_count());
-	//printf("%f\n", timer_get_double_time());
-	//printf("%f\n", timer.delta);
-//	loops = 0;
-//	while (timer_get_tick_count() > next_game_tick && loops < MAX_FRAMESKIP)
-//	{
-//		fs_input_update();
-//		current_scene.pre_frame_func(&current_scene);
-//		current_scene.update_func(&current_scene, FIXED_DELTA);
-//		next_game_tick += SKIP_TICKS;
-//		loops++;
-//	}
-//		printf("loops: %i\n", loops);
+
+	/* do while instead of just while will remove the jerkiness if we get 0 loops.
+	 on the other hand it won't allow for eg. 30fps gameplay on a 60fps device :( 
+	 
+	 while(t > ...) instead of (while timer_get_tick_count() > ...) seems to work ... time will tell
+	 */
+	
+	loops = 0;
+	double t = timer_get_tick_count();
+	while (t > next_game_tick && loops < MAX_FRAMESKIP)
+	{
+		fs_input_update();
+		current_scene.pre_frame_func(&current_scene);
+		current_scene.update_func(&current_scene, FIXED_DELTA);
+		next_game_tick += SKIP_TICKS;
+		loops++;
+	}
 }
 
 void game_render(void)

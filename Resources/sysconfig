@@ -4,7 +4,7 @@ screen.w = 320								#screen width
 screen.h = 480								#screen height
 screen.scale = 1.0							#debugging scale
 screen.texture_cache_size = 64				#texture_cache_size
-screen.desired_fps = 30						#desired fps the game wishes to run at
+screen.desired_fps = 60						#desired fps the game wishes to run at
 screen.orientation = portrait				#orientation lock for the device
 
 audio.audio_cache_size = 64
