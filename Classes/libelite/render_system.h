@@ -19,12 +19,12 @@ typedef struct le_render_system_t
 {
 	le_entity_t *qry_resp_cache[512];
 	le_entity_manager_t *e_manager;
+	size_t resp_size;
 	
 } le_render_system_t;
 
 extern void render_system_init(le_render_system_t *rs, le_entity_manager_t *mgr);
 extern void render_system_shutdown(le_render_system_t *rs);
 
-extern void render_system_update(le_render_system_t *rs, double dt);
 extern void render_system_render(le_render_system_t *rs);
 

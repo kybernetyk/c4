@@ -24,22 +24,53 @@ void render_system_shutdown(le_render_system_t *rs)
 	
 }
 
-void render_system_update(le_render_system_t *rs, double dt)
+static int z_comp(const void *ep1, const void *ep2)
 {
+	/* and now for some casting magic [we're getting pointers to pointers as simple pointers] ... stupid warnings/errors */
+//	le_entity_t *e1 = *(le_entity_t**)ep1;
+//	le_entity_t *e2 = *(le_entity_t**)ep2;
 	
+	comp_position_t *p1, *p2;
+	p1 = entity_get_component(*(le_entity_t**)ep1, COMP_FAMILY_POSITION)->user_data;
+	p2 = entity_get_component(*(le_entity_t**)ep2, COMP_FAMILY_POSITION)->user_data;
+	
+	if (p1->z < p2->z)
+		return -1;
+	if (p1->z > p2->z)
+		return 1;
+	
+	return 0;
 }
 
 void render_system_render(le_render_system_t *rs)
 {
-	memset(rs->qry_resp_cache,0x00,sizeof(le_entity_t *)*512);
+	//qry and sort only if something has changed
+	if (rs->e_manager->is_dirty)
+	{
+		memset(rs->qry_resp_cache,0x00,sizeof(le_entity_t *)*512);
+		component_family_id_t qry[] = {
+			COMP_FAMILY_RENDERABLE,
+			COMP_FAMILY_POSITION
+		};
+		rs->resp_size = em_get_entities_with_components(rs->e_manager, qry, 2, rs->qry_resp_cache, 512);
+		qsort(rs->qry_resp_cache, rs->resp_size, sizeof(le_entity_t *),z_comp);
+	}
 	
-	component_family_id_t qry[] = {
-		COMP_FAMILY_RENDERABLE,
-		COMP_FAMILY_POSITION
-	};
+//	for (int i = 0; i < res; i++)
+//	{
+//		current_entity = rs->qry_resp_cache[i];
+//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),comp_position_t)->z  );		
+//	}
+//
+//	printf("\n\n");
 	
-	size_t res = em_get_entities_with_components(rs->e_manager, qry, 2, rs->qry_resp_cache, 512);
-	
+//	for (int i = 0; i < res; i++)
+//	{
+//		current_entity = rs->qry_resp_cache[i];
+//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),comp_position_t)->z  );		
+//	}
+
+
 	le_entity_t *current_entity = NULL;
 	le_component_t *current_ren = NULL;
 	
@@ -49,7 +80,7 @@ void render_system_render(le_render_system_t *rs)
 	comp_text_t *text = NULL;
 	le_particle_emitter_t *pe = NULL;
 	
-	for (size_t i = 0; i < res; i++)
+	for (size_t i = 0; i < rs->resp_size; i++)
 	{
 		current_entity = rs->qry_resp_cache[i];
 		current_ren = entity_get_component(current_entity, COMP_FAMILY_RENDERABLE);
