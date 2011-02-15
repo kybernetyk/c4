@@ -12,15 +12,20 @@
 #include "menu_scene.h"
 
 static le_entity_manager_t mgr;
+static le_garbage_system_t gs;
 static le_render_system_t rs;
+
 static le_particle_system_t ps;
 
 static audio_id music;
 static audio_id sound;
 
+static le_entity_t *bubble;
+
 static int scene_init(scene_t *scene)
 {
 	em_init(&mgr);
+	garbage_system_init(&gs, &mgr);
 	render_system_init(&rs, &mgr);
 	particle_system_init(&ps, &mgr);
 	
@@ -36,14 +41,6 @@ static int scene_init(scene_t *scene)
 	comp_quad_init(comp, "menu_back.png");
 
 
-	//bubble
-	ent = em_create_entity(&mgr);
-	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
-	comp_position_init(comp, vec2d_make(100, 100), -3.0);
-	
-	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
-	comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
-	
 
 	//text label
 	ent = em_create_entity(&mgr);
@@ -71,6 +68,14 @@ static int scene_init(scene_t *scene)
 	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
 	comp_pe_init(comp, "stars.pex");
 	
+
+	//bubble
+	bubble = em_create_entity(&mgr);
+	comp = entity_add_component(bubble, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(100, 100), -3.0);
+	
+	comp = entity_add_component(bubble, COMP_FAMILY_RENDERABLE);
+	comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
 	
 	
 	
@@ -79,10 +84,13 @@ static int scene_init(scene_t *scene)
 	return 0;
 }
 
+static void scene_pre_frame(scene_t *scene)
+{
+}
+
 static void scene_update(scene_t *scene, double dt)
 {
 	particle_system_update(&ps, dt);
-	render_system_update(&rs, dt);
 	
 	if (input_touch_up_received())
 	{	
@@ -96,20 +104,33 @@ static void scene_update(scene_t *scene, double dt)
 									))
 		{	
 			printf("playing sound %i ...\n", sound);
-			audio_sound_play(sound);	
+			audio_sound_play(sound);
+			
+			entity_add_component(bubble, COMP_FAMILY_GARBAGE);
 		}
 	}
+
 }
 
 static void scene_render(scene_t *scene)
 {
 	render_system_render(&rs);
+	
+}
+
+//clean up post frame
+static void scene_post_frame(scene_t *scene)
+{
+	em_update(&mgr);	//set mgr->is_dirty to false
+	garbage_system_collect(&gs); 	//collect previous frame's garbage
 }
 
 static int scene_free(scene_t *scene)
 {
+	garbage_system_shutdown(&gs);
 	particle_system_shutdown(&ps);
 	render_system_shutdown(&rs);
+	em_shutdown(&mgr);
 	printf("menuscene free\n");
 	
 	return 0;
@@ -119,8 +140,10 @@ scene_t menu_scene_create(void)
 {
 	scene_t ret;
 	ret.init_func = scene_init;
+	ret.pre_frame_func = scene_pre_frame;
 	ret.update_func = scene_update;
 	ret.render_func = scene_render;
+	ret.post_frame_func = scene_post_frame;
 	ret.free_func = scene_free;
 	ret.user_data = NULL;
 	
