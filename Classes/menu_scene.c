@@ -22,6 +22,7 @@ static fs_audio_id sound;
 
 static le_entity_t *bubble;
 static le_entity_t *minyx;
+static le_entity_t *oh_hai;
 
 static le_entity_t *firetail;
 
@@ -45,13 +46,13 @@ static int scene_init(scene_t *scene)
 
 
 	//text label
-	ent = em_create_entity(&mgr);
-	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
+	oh_hai = em_create_entity(&mgr);
+	comp = entity_add_component(oh_hai, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -2.0);
 	
-	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
+	comp = entity_add_component(oh_hai, COMP_FAMILY_RENDERABLE);
 	comp_text_init(comp, "impact20.fnt", "oh hai!");
-	comp_text_set_text(comp, "fick dich k?");
+	comp_text_set_text(comp, "minyx games");
 
 	
 	//particle left
@@ -130,6 +131,9 @@ static void scene_update(scene_t *scene, double dt)
 
 	pos->pos.x = g_sysconfig.screen_w/2 +  100.0 * sin(timer_get_double_time()*5.0);
 	pos->pos.y = g_sysconfig.screen_h/2 +  100.0 * cos(timer_get_double_time()*5.0);
+	
+	pos = entity_get_component_data(oh_hai, COMP_FAMILY_POSITION);
+	pos->rot -= dt * 360.0;
 	
 	if (fs_input_touch_up_received())
 	{	
