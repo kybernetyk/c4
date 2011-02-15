@@ -14,17 +14,17 @@
 #include "renderinfo.h"
 #include "quad.h"
 
-le_atlas_quad_t *atlas_quad_new(void)
+fs_atlas_quad_t *fs_atlas_quad_new(void)
 {
-	le_atlas_quad_t *ret = calloc(1, sizeof(le_atlas_quad_t));
+	fs_atlas_quad_t *ret = calloc(1, sizeof(fs_atlas_quad_t));
 	ret->is_dynamic = true;
 	
 	return ret;
 }
 
-bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out)
+bool fs_atlas_quad_load(const char *filename, fs_atlas_quad_t *quad_out)
 {
-	quad_out->tex_id = tex2d_load(filename);
+	quad_out->tex_id = fs_tex2d_load(filename);
 	if (quad_out->tex_id < 0)
 	{
 		printf("couldn't load quad %s ...\n", filename);
@@ -32,7 +32,7 @@ bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out)
 		return false;
 	}
 	
-	tex2d_t *tex = tex2d_get_tex_by_id(quad_out->tex_id);
+	fs_tex2d_t *tex = fs_tex2d_get_tex_by_id(quad_out->tex_id);
 	
 	quad_out->ri.alpha = 1.0;
 	quad_out->ri.rot_a = 0.0;
@@ -44,23 +44,23 @@ bool atlas_quad_load(const char *filename, le_atlas_quad_t *quad_out)
 	return true;
 }
 
-void atlas_quad_free(le_atlas_quad_t *quad)
+void fs_atlas_quad_free(fs_atlas_quad_t *quad)
 {
-	tex2d_release(quad->tex_id);
+	fs_tex2d_release(quad->tex_id);
 	quad->tex_id = -1;
 	
 	if (quad->is_dynamic)
 		free(quad);
 }
 
-void atlas_quad_render(le_atlas_quad_t *quad)
+void fs_atlas_quad_render(fs_atlas_quad_t *quad)
 {
-	tex2d_t *tex = tex2d_get_tex_by_id(quad->tex_id);
+	fs_tex2d_t *tex = fs_tex2d_get_tex_by_id(quad->tex_id);
 	if (!tex)
 		return;
 	
 	glPushMatrix();
-	renderinfo_transform(&quad->ri);
+	fs_renderinfo_transform(&quad->ri);
 	
 	GLfloat w = quad->ri.size.w;
 	GLfloat h = quad->ri.size.h;
@@ -100,7 +100,7 @@ void atlas_quad_render(le_atlas_quad_t *quad)
 	glColorPointer(4, GL_FLOAT, 0, colors);
 	
 	
-	tex2d_bind(tex->name);
+	fs_tex2d_bind(tex->name);
 	
 	
 	glVertexPointer(3, GL_FLOAT, 0, vertices);

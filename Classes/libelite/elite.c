@@ -19,11 +19,11 @@ bool elite_init(const char *configfile)
 		abort();
 	}
 	
-	if (!input_init())
+	if (!fs_input_init())
 		return false;
-	if (!audio_init())
+	if (!fs_audio_init())
 		return false;
-	if (!renderer_init())
+	if (!fs_renderer_init())
 		return false;
 	
 	return true;
@@ -31,6 +31,6 @@ bool elite_init(const char *configfile)
 
 void elite_shutdown(void)
 {
-	audio_shutdown();
-	renderer_shutdown();
+	fs_audio_shutdown();
+	fs_renderer_shutdown();
 }

@@ -36,7 +36,7 @@ void particle_system_update(le_particle_system_t *ps, double dt)
 	le_component_t *current_ren = NULL;
 	
 	cd_position_t *pos;
-	le_particle_emitter_t *pe;
+	cd_pemitter_t *pe;
 
 	for (size_t i = 0; i < res; i++)
 	{
@@ -46,14 +46,14 @@ void particle_system_update(le_particle_system_t *ps, double dt)
 		if (current_ren->subid == REN_SUB_PEMITTER)
 		{
 			pe = current_ren->comp_data; 
-			if (particle_emitter_should_handle(pe))
+			if (fs_particle_emitter_should_handle(pe->pemitter))
 			{
 				pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->comp_data;
 					
-				pe->ri.pos = pos->pos;
-				particle_emitter_update(pe, dt);
+				pe->pemitter->ri.pos = pos->pos;
+				fs_particle_emitter_update(pe->pemitter, dt);
 				
-				if (!particle_emitter_should_handle(pe))		//handling can change state during update()
+				if (!fs_particle_emitter_should_handle(pe->pemitter))		//handling can change state during update()
 				{
 					//mark for removal
 				}

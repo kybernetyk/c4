@@ -16,16 +16,16 @@
 #include "util.h"
 
 
-le_font_t *font_new(void)
+fs_font_t *fs_font_new(void)
 {
-	le_font_t *ret = calloc(1, sizeof(le_font_t));
+	fs_font_t *ret = calloc(1, sizeof(fs_font_t));
 	ret->is_dynamic = true;
 	
 	return ret;
 }
 
 
-bool font_load(const char *filename, le_font_t *font_out)
+bool fs_font_load(const char *filename, fs_font_t *font_out)
 {
 	const char *fn = path_for_file(filename);
 	
@@ -36,7 +36,7 @@ bool font_load(const char *filename, le_font_t *font_out)
 		return false;
 	}
 	
-	font_out->tex_id = tex2d_load(font_out->fnt.tex_filename);
+	font_out->tex_id = fs_tex2d_load(font_out->fnt.tex_filename);
 	if (font_out->tex_id < 0)
 	{
 		printf("couldn't load font texture %s ...\n", font_out->fnt.tex_filename);
@@ -44,7 +44,7 @@ bool font_load(const char *filename, le_font_t *font_out)
 		return false;
 	}
 
-	tex2d_t *tex = tex2d_get_tex_by_id(font_out->tex_id);
+	fs_tex2d_t *tex = fs_tex2d_get_tex_by_id(font_out->tex_id);
 	font_out->ri.alpha = 1.0;
 	font_out->ri.rot_a = 0.0;
 	font_out->ri.scale = vec2d_make(1.0, 1.0);
@@ -54,7 +54,7 @@ bool font_load(const char *filename, le_font_t *font_out)
 }
 
 
-static void font_transform(le_font_t *fnt, const char *text)
+static void font_transform(fs_font_t *fnt, const char *text)
 {
 	int w = bm_width(&fnt->fnt, text);
 	float h = fnt->fnt.line_h*.75; //bm_height(&font, text);
@@ -72,9 +72,9 @@ static void font_transform(le_font_t *fnt, const char *text)
 	
 }
 
-void font_render(le_font_t *fnt, const char *text)
+void fs_font_render(fs_font_t *fnt, const char *text)
 {
-	tex2d_t *texture = tex2d_get_tex_by_id(fnt->tex_id);
+	fs_tex2d_t *texture = fs_tex2d_get_tex_by_id(fnt->tex_id);
 	if (!texture)
 		return;
 	
@@ -84,7 +84,7 @@ void font_render(le_font_t *fnt, const char *text)
 	GLfloat alpha = fnt->ri.alpha;
 	int l = strlen(text);
 	
-	tex2d_bind(texture->name);
+	fs_tex2d_bind(texture->name);
 
 	GLfloat colors[] = 
 	{
@@ -140,9 +140,9 @@ void font_render(le_font_t *fnt, const char *text)
 	glPopMatrix();
 }
 
-void font_free(le_font_t *fnt)
+void fs_font_free(fs_font_t *fnt)
 {
-	tex2d_release(fnt->tex_id);
+	fs_tex2d_release(fnt->tex_id);
 	fnt->tex_id = -1;
 	
 	if (fnt->is_dynamic)

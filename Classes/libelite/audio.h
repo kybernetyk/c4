@@ -10,29 +10,29 @@
 #pragma once
 #include <stdbool.h>
 
-typedef int audio_id;
+typedef int fs_audio_id;
 
 //
-extern bool audio_init(void);
-extern void audio_empty_caches(void);
-extern void audio_shutdown(void);
+extern bool fs_audio_init(void);
+extern void fs_audio_empty_caches(void);
+extern void fs_audio_shutdown(void);
 
 //
-extern audio_id audio_sound_load(const char *filename);
-extern void audio_sound_play(audio_id sound);
-extern void audio_sound_release(audio_id sound);
+extern fs_audio_id fs_audio_sound_load(const char *filename);
+extern void fs_audio_sound_play(fs_audio_id sound);
+extern void fs_audio_sound_release(fs_audio_id sound);
 
 //
-extern audio_id audio_music_load(const char *filename);
-extern void audio_music_play(audio_id music);
-extern void audio_music_pause(audio_id music);
-extern void audio_music_resume(audio_id music);
-extern void audio_music_stop(audio_id music);
-extern void audio_music_release(audio_id music);
+extern fs_audio_id fs_audio_music_load(const char *filename);
+extern void fs_audio_music_play(fs_audio_id music);
+extern void fs_audio_music_pause(fs_audio_id music);
+extern void fs_audio_music_resume(fs_audio_id music);
+extern void fs_audio_music_stop(fs_audio_id music);
+extern void fs_audio_music_release(fs_audio_id music);
 
 //
-extern void audio_set_sound_vol(float sfx_vol);
-extern float audio_get_sound_vol(void);
+extern void fs_audio_set_sound_vol(float sfx_vol);
+extern float fs_audio_get_sound_vol(void);
 
-extern void audio_set_music_vol(float mus_vol);
-extern float audio_get_music_vol(void);
+extern void fs_audio_set_music_vol(float mus_vol);
+extern float fs_audio_get_music_vol(void);

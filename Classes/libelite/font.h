@@ -13,16 +13,16 @@
 #include "texture.h"
 #include "bm_font.h"
 
-typedef struct le_font_t
+typedef struct fs_font_t
 {
-	renderinfo_t ri;
+	fs_renderinfo_t ri;
 	bm_font fnt;
-	tex2d_id tex_id;
+	fs_tex2d_id tex_id;
 	
 	bool is_dynamic;
-} le_font_t;
+} fs_font_t;
 
-extern le_font_t *font_new(void);
-extern bool font_load(const char *filename, le_font_t *font_out);
-extern void font_render(le_font_t *fnt, const char *text);
-extern void font_free(le_font_t *fnt);
+extern fs_font_t *fs_font_new(void);
+extern bool fs_font_load(const char *filename, fs_font_t *font_out);
+extern void fs_font_render(fs_font_t *fnt, const char *text);
+extern void fs_font_free(fs_font_t *fnt);

@@ -10,7 +10,7 @@
 //generic render info for stuff that needs to be rendered
 #include "vec2d.h"
 
-typedef struct renderinfo_t
+typedef struct fs_renderinfo_t
 {
 	vec2d_t pos;			//position on screen
 	size2d_t size;			//size of the underlying resource [how big shall the object be on the screen]
@@ -19,7 +19,7 @@ typedef struct renderinfo_t
 	double rot_a;			//rotation angle
 	vec2d_t scale;			//scale in x,y
 	vec2d_t anchor_point;	//anchor point 0,0 = lower left, 0.5,0.5 = center, 1.0,1.0 = upper right
-} renderinfo_t;
+} fs_renderinfo_t;
 
 /* set ups render matrix for the given renderinfo */
-extern void renderinfo_transform(renderinfo_t *ri);
+extern void fs_renderinfo_transform(fs_renderinfo_t *ri);

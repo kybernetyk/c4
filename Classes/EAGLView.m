@@ -178,11 +178,11 @@
 	
 	loc = [self convertToGL: loc];
 	
-	vec2d_t v = renderer_screen_to_world(vec2d_make(loc.x, loc.y));
+	vec2d_t v = fs_renderer_screen_to_world(vec2d_make(loc.x, loc.y));
 	
-	input_set_touch_active(true);
-	input_set_touch_location(v);
-	input_set_initial_touch_location(v);
+	fs_input_set_touch_active(true);
+	fs_input_set_touch_location(v);
+	fs_input_set_initial_touch_location(v);
 	[super touchesBegan: touches withEvent: event];
 }
 
@@ -193,10 +193,10 @@
 	CGPoint loc = [touch locationInView: self];
 	
 	loc = [self convertToGL: loc];
-	vec2d_t v = renderer_screen_to_world(vec2d_make(loc.x, loc.y));
+	vec2d_t v = fs_renderer_screen_to_world(vec2d_make(loc.x, loc.y));
 	
-	input_set_touch_active(true);
-	input_set_touch_location(v);
+	fs_input_set_touch_active(true);
+	fs_input_set_touch_location(v);
 	[super touchesMoved: touches withEvent: event];
 }
 
@@ -206,11 +206,11 @@
 	CGPoint loc = [touch locationInView: self];
 	loc = [self convertToGL: loc];
 	
-	vec2d_t v = renderer_screen_to_world(vec2d_make(loc.x, loc.y));
+	vec2d_t v = fs_renderer_screen_to_world(vec2d_make(loc.x, loc.y));
 	
-	input_set_touch_location(v);
-	input_set_touch_active(false);
-	input_set_touch_up_received(true);
+	fs_input_set_touch_location(v);
+	fs_input_set_touch_active(false);
+	fs_input_set_touch_up_received(true);
 	
 	[super touchesEnded: touches withEvent: event];
 }

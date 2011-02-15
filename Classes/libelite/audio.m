@@ -20,8 +20,8 @@
 #import "SimpleAudioEngine.h"
 #import "hash.h"
 
-static audio_id current_sound_id = 0;
-static audio_id current_music_id = 0;
+static fs_audio_id current_sound_id = 0;
+static fs_audio_id current_music_id = 0;
 
 typedef struct audio_cache_element
 {
@@ -35,7 +35,7 @@ static audio_cache_element *sound_cache = NULL;
 static audio_cache_element *music_cache = NULL;
 static float *sound_delays = NULL;
 
-bool audio_init(void)
+bool fs_audio_init(void)
 {
 	[SimpleAudioEngine sharedEngine];
 	
@@ -50,20 +50,20 @@ bool audio_init(void)
 	if (!sound_delays)
 		sound_delays = calloc(g_sysconfig.audio_cache_size, sizeof(float));
 	
-	audio_set_sound_vol(g_sysconfig.sound_vol);
-	audio_set_music_vol(g_sysconfig.music_vol);
+	fs_audio_set_sound_vol(g_sysconfig.sound_vol);
+	fs_audio_set_music_vol(g_sysconfig.music_vol);
 	
 	return true;
 }
 
-void audio_empty_caches(void)
+void fs_audio_empty_caches(void)
 {
 	for (int i = 0; i < g_sysconfig.audio_cache_size; i++)
 	{
 		if (sound_cache[i].retain_count > 0)
 		{
 			sound_cache[i].retain_count = 1;
-			audio_sound_release(i);
+			fs_audio_sound_release(i);
 		}
 	}
 
@@ -72,12 +72,12 @@ void audio_empty_caches(void)
 		if (music_cache[i].retain_count > 0)
 		{
 			music_cache[i].retain_count = 1;
-			audio_music_release(i);
+			fs_audio_music_release(i);
 		}
 	}
 }
 
-void audio_shutdown(void)
+void fs_audio_shutdown(void)
 {
 	if (sound_cache)
 	{
@@ -98,7 +98,7 @@ void audio_shutdown(void)
 	}
 }
 
-audio_id audio_sound_load(const char *filename)
+fs_audio_id fs_audio_sound_load(const char *filename)
 {
 	NSString *fn = [NSString stringWithCString: filename encoding: NSASCIIStringEncoding];
 	[[SimpleAudioEngine sharedEngine] preloadEffect: fn];
@@ -114,7 +114,7 @@ audio_id audio_sound_load(const char *filename)
 		}
 	}
 	
-	audio_id the_id = current_sound_id++;
+	fs_audio_id the_id = current_sound_id++;
 	sound_cache[the_id].hash = testhash;
 	sound_cache[the_id].retain_count = 1;
 	sprintf(sound_cache[the_id].filename, "%s", filename);
@@ -122,7 +122,7 @@ audio_id audio_sound_load(const char *filename)
 	return the_id;
 }
 
-void audio_sound_release(audio_id sound)
+void fs_audio_sound_release(fs_audio_id sound)
 {
 	if (sound_cache[sound].retain_count == 0)
 		return;
@@ -138,13 +138,13 @@ void audio_sound_release(audio_id sound)
 	}
 }
 
-void audio_sound_play(audio_id sound)
+void fs_audio_sound_play(fs_audio_id sound)
 {
 	NSString *fn = [NSString stringWithCString: sound_cache[sound].filename encoding: NSASCIIStringEncoding];
 	[[SimpleAudioEngine sharedEngine] playEffect: fn];
 }
 
-audio_id audio_music_load(const char *filename)
+fs_audio_id fs_audio_music_load(const char *filename)
 {
 	NSString *fn = [NSString stringWithCString: filename encoding: NSASCIIStringEncoding];
 	[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic: fn];
@@ -160,7 +160,7 @@ audio_id audio_music_load(const char *filename)
 		}
 	}
 	
-	audio_id the_id = current_music_id++;
+	fs_audio_id the_id = current_music_id++;
 	music_cache[the_id].hash = testhash;
 	music_cache[the_id].retain_count = 1;
 	sprintf(music_cache[the_id].filename, "%s", filename);
@@ -168,7 +168,7 @@ audio_id audio_music_load(const char *filename)
 	return the_id;
 }
 
-void audio_music_release(audio_id music)
+void fs_audio_music_release(fs_audio_id music)
 {
 	if (music_cache[music].retain_count == 0)
 		return;
@@ -185,45 +185,45 @@ void audio_music_release(audio_id music)
 	}
 }
 
-void audio_music_play(audio_id music)
+void fs_audio_music_play(fs_audio_id music)
 {
 	NSString *fn = [NSString stringWithCString: music_cache[music].filename encoding: NSASCIIStringEncoding];
 	[[SimpleAudioEngine sharedEngine] playBackgroundMusic: fn loop: YES];
 }
 
-void audio_music_pause(audio_id sound)
+void fs_audio_music_pause(fs_audio_id sound)
 {
 //	NSString *fn = [NSString stringWithCString: music_cache[music].filename encoding: NSASCIIStringEncoding];
 	[[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
 }
 
-void audio_music_resume(audio_id music)
+void fs_audio_music_resume(fs_audio_id music)
 {
 	[[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
 }
 
-void audio_music_stop(audio_id music)
+void fs_audio_music_stop(fs_audio_id music)
 {
 	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 }
 
 
-void audio_set_sound_vol(float sfx_vol)
+void fs_audio_set_sound_vol(float sfx_vol)
 {
 	[[SimpleAudioEngine sharedEngine] setEffectsVolume: sfx_vol];	
 }
 
-float audio_get_sound_vol(void)
+float fs_audio_get_sound_vol(void)
 {
 	return [[SimpleAudioEngine sharedEngine] effectsVolume];
 }
 
-void audio_set_music_vol(float mus_vol)
+void fs_audio_set_music_vol(float mus_vol)
 {
 	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: mus_vol];
 }
 
-float audio_get_music_vol(void)
+float fs_audio_get_music_vol(void)
 {
 	return [[SimpleAudioEngine sharedEngine] backgroundMusicVolume];
 }

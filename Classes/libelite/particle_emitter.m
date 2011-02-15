@@ -13,15 +13,15 @@
 #include "renderinfo.h"
 #import "ParticleEmitter.h"
 
-le_particle_emitter_t *particle_emitter_new(void)
+fs_particle_emitter_t *particle_emitter_new(void)
 {
-	le_particle_emitter_t *ret = calloc(1, sizeof(le_particle_emitter_t));
+	fs_particle_emitter_t *ret = calloc(1, sizeof(fs_particle_emitter_t));
 	ret->is_dynamic = true;
 	
 	return ret;
 }
 
-bool particle_emitter_load(const char *filename, le_particle_emitter_t *pe)
+bool fs_particle_emitter_load(const char *filename, fs_particle_emitter_t *pe)
 {
 	ParticleEmitter *pm = [[ParticleEmitter alloc] initParticleEmitterWithFile: [NSString stringWithCString: filename
 																								   encoding: NSASCIIStringEncoding]];
@@ -39,7 +39,7 @@ bool particle_emitter_load(const char *filename, le_particle_emitter_t *pe)
 	return true;
 }
 
-void particle_emitter_render(le_particle_emitter_t *pe)
+void fs_particle_emitter_render(fs_particle_emitter_t *pe)
 {
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, pe->ri.zval);		//the pe system will do further transforms
@@ -47,7 +47,7 @@ void particle_emitter_render(le_particle_emitter_t *pe)
 	glPopMatrix();
 }
 
-void particle_emitter_update(le_particle_emitter_t *pe, float delta)
+void fs_particle_emitter_update(fs_particle_emitter_t *pe, float delta)
 {
 	Vector2f pos;
 	pos.x = pe->ri.pos.x;
@@ -58,7 +58,7 @@ void particle_emitter_update(le_particle_emitter_t *pe, float delta)
 }
 
 
-void particle_emitter_free(le_particle_emitter_t *pe)
+void fs_particle_emitter_free(fs_particle_emitter_t *pe)
 {
 	if (pe->pe)
 	{
@@ -71,39 +71,39 @@ void particle_emitter_free(le_particle_emitter_t *pe)
 }
 
 
-void particle_emitter_start(le_particle_emitter_t *pe)
+void fs_particle_emitter_start(fs_particle_emitter_t *pe)
 {
 	[(ParticleEmitter *)pe->pe startParticleEmitter];
 }
 
-void particle_emitter_reset(le_particle_emitter_t *pe)
+void fs_particle_emitter_reset(fs_particle_emitter_t *pe)
 {
 	[(ParticleEmitter *)pe->pe reset];
 }
 
-void particle_emitter_stop(le_particle_emitter_t *pe)
+void fs_particle_emitter_stop(fs_particle_emitter_t *pe)
 {
 	[(ParticleEmitter *)pe->pe stopParticleEmitter];
 }
 
-bool particle_emitter_is_active(le_particle_emitter_t *pe)
+bool fs_particle_emitter_is_active(fs_particle_emitter_t *pe)
 {
 	return [(ParticleEmitter *)pe->pe active];	
 }
 
-bool particle_emitter_should_handle(le_particle_emitter_t *pe)
+bool fs_particle_emitter_should_handle(fs_particle_emitter_t *pe)
 {
 	if (![(ParticleEmitter *)pe->pe active] && [(ParticleEmitter *)pe->pe particleCount] == 0)
 		return false;
 	return true;
 }
 
-double particle_emitter_get_duration(le_particle_emitter_t *pe)
+double fs_particle_emitter_get_duration(fs_particle_emitter_t *pe)
 {
 	return [(ParticleEmitter *)pe->pe duration];
 }
 
-void particle_emitter_set_duration(le_particle_emitter_t *pe, double dur)
+void fs_particle_emitter_set_duration(fs_particle_emitter_t *pe, double dur)
 {
 	[(ParticleEmitter *)pe->pe setDuration: dur];
 }

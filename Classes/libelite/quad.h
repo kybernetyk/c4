@@ -18,15 +18,15 @@
 #include "renderinfo.h"
 #include "texture.h"
 
-typedef struct le_quad_t
+typedef struct fs_quad_t
 {
-	renderinfo_t ri;
-	tex2d_id tex_id;
+	fs_renderinfo_t ri;
+	fs_tex2d_id tex_id;
 	
 	bool is_dynamic;
-} le_quad_t;
+} fs_quad_t;
 
-extern le_quad_t *quad_new(void);
-extern bool quad_load(const char *filename, le_quad_t *quad_out);
-extern void quad_render(le_quad_t *quad);
-extern void quad_free(le_quad_t *quad);
+extern fs_quad_t *quad_new(void);
+extern bool fs_quad_load(const char *filename, fs_quad_t *quad_out);
+extern void fs_quad_render(fs_quad_t *quad);
+extern void fs_quad_free(fs_quad_t *quad);

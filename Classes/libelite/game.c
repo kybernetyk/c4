@@ -29,7 +29,7 @@ static scene_t next_scene;
 static bool next_scene_queued = false;
 
 static char fps_str[255];
-static le_font_t fps_font;
+static fs_font_t fps_font;
 
 void game_set_next_scene(scene_t scene)
 {
@@ -48,7 +48,7 @@ bool game_init(scene_t initial_scene)
 	next_game_tick = timer_get_tick_count();
 	timer_update(&timer);
 	
-	font_load("impact20.fnt", &fps_font);
+	fs_font_load("impact20.fnt", &fps_font);
 	fps_font.ri.pos = vec2d_make(0.0, g_sysconfig.screen_h);
 	fps_font.ri.anchor_point = vec2d_make(0.0, 1.0);
 	
@@ -78,7 +78,7 @@ void game_tick(void)
 	loops = 0;
 	while (timer_get_tick_count() > next_game_tick && loops < MAX_FRAMESKIP)
 	{
-		input_update();
+		fs_input_update();
 		current_scene.pre_frame_func(&current_scene);
 		current_scene.update_func(&current_scene, FIXED_DELTA);
 		next_game_tick += SKIP_TICKS;
@@ -111,20 +111,20 @@ void game_render(void)
 	RenderDevice::sharedInstance()->endRender();
 #endif
 */	
-	renderer_begin_frame();
+	fs_renderer_begin_frame();
 	current_scene.render_func(&current_scene);
-	font_render(&fps_font, fps_str);
+	fs_font_render(&fps_font, fps_str);
 	
 	current_scene.post_frame_func(&current_scene);
 	
-	renderer_end_frame();
+	fs_renderer_end_frame();
 }
 
 void game_end(void)
 {
 	//current scene end
 	current_scene.free_func(&current_scene);
-	font_free(&fps_font);
-	renderer_shutdown();
-	audio_shutdown();
+	fs_font_free(&fps_font);
+	fs_renderer_shutdown();
+	fs_audio_shutdown();
 }

@@ -11,9 +11,9 @@
 
 #include "vec2d.h"
 
-extern bool renderer_init(void);
-extern void renderer_begin_frame(void);
-extern void renderer_end_frame(void);
-extern void renderer_shutdown(void);
+extern bool fs_renderer_init(void);
+extern void fs_renderer_begin_frame(void);
+extern void fs_renderer_end_frame(void);
+extern void fs_renderer_shutdown(void);
 
-extern vec2d_t renderer_screen_to_world(vec2d_t vec);
+extern vec2d_t fs_renderer_screen_to_world(vec2d_t vec);

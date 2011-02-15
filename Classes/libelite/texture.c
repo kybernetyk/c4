@@ -21,13 +21,13 @@ typedef struct tex_cache_element
 {
 	unsigned int hash;				//32bit hash value for the filename
 	int retain_count;
-	tex2d_t texture;
+	fs_tex2d_t texture;
 } tex_cache_element;
 
 GLuint texture_current_bound_texture = 0;
 static tex_cache_element *tex_cache = 0;
 
-bool tex_manager_init(void)
+bool fs_tex_manager_init(void)
 {
 	if (!tex_cache)
 		tex_cache = calloc(g_sysconfig.texture_cache_size, sizeof(tex_cache_element));
@@ -35,7 +35,7 @@ bool tex_manager_init(void)
 	return true;
 }
 
-void tex_manager_shutdown(void)
+void fs_tex_manager_shutdown(void)
 {
 	if (tex_cache)
 	{
@@ -44,7 +44,7 @@ void tex_manager_shutdown(void)
 	}
 }
 
-tex2d_id tex2d_load(const char *filename)
+fs_tex2d_id fs_tex2d_load(const char *filename)
 {
 	
 	
@@ -86,7 +86,7 @@ tex2d_id tex2d_load(const char *filename)
 	}
 	
 	//find free texture slot
-	tex2d_id ti = -1;
+	fs_tex2d_id ti = -1;
 	for (int i = 0; i < g_sysconfig.texture_cache_size; i++)
 	{
 		if (tex_cache[i].retain_count == 0)
@@ -104,20 +104,20 @@ tex2d_id tex2d_load(const char *filename)
 	
 	tex_cache[ti].retain_count = 1;
 	tex_cache[ti].hash = fnhash;
-	tex_cache[ti].texture = (tex2d_t){
+	tex_cache[ti].texture = (fs_tex2d_t){
 		.name = texname,
 		.w = w,
 		.h = h
 	};
 	
 	//for 2d we most probably don't want anti aliased textures as they look blurry
-	tex2d_set_alias_texparams(&tex_cache[ti].texture);
+	fs_tex2d_set_alias_texparams(&tex_cache[ti].texture);
 	
 	//printf("new file loaded to cache[%i]! 0x%x -> %i\n",ti,tex_cache[ti].hash, tex_cache[ti].texture.name );
 	return ti;
 }
 
-tex2d_t *tex2d_get_tex_by_id(tex2d_id tex_id)
+fs_tex2d_t *fs_tex2d_get_tex_by_id(fs_tex2d_id tex_id)
 {
 	if (tex_id < 0 || tex_id >= g_sysconfig.texture_cache_size)
 	{
@@ -129,7 +129,7 @@ tex2d_t *tex2d_get_tex_by_id(tex2d_id tex_id)
 	return &tex_cache[tex_id].texture;
 }
 
-void tex2d_bind(GLuint texname)
+void fs_tex2d_bind(GLuint texname)
 {
 	if (texname == texture_current_bound_texture)
 		return;
@@ -138,7 +138,7 @@ void tex2d_bind(GLuint texname)
 	glBindTexture(GL_TEXTURE_2D, texname);
 }
 
-void tex2d_release(tex2d_id tex_id)
+void fs_tex2d_release(fs_tex2d_id tex_id)
 {
 	tex_cache[tex_id].retain_count --;
 	if (tex_cache[tex_id].retain_count <= 0)
@@ -148,7 +148,7 @@ void tex2d_release(tex2d_id tex_id)
 		
 		glDeleteTextures(1, &tex_cache[tex_id].texture.name);
 		
-		tex_cache[tex_id].texture = (tex2d_t){
+		tex_cache[tex_id].texture = (fs_tex2d_t){
 			.name = 0,
 			.w = 0,
 			.h = 0
@@ -159,23 +159,23 @@ void tex2d_release(tex2d_id tex_id)
 	}
 }
 
-extern void tex2d_set_texparams(tex2d_t *tex, texparams_t *params)
+extern void fs_tex2d_set_texparams(fs_tex2d_t *tex, fs_texparams_t *params)
 {
-	tex2d_bind(tex->name);
+	fs_tex2d_bind(tex->name);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, params->minFilter );
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, params->magFilter );
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, params->wrapS );
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, params->wrapT );
 }
 
-extern void tex2d_set_alias_texparams(tex2d_t *tex)
+extern void fs_tex2d_set_alias_texparams(fs_tex2d_t *tex)
 {
-	texparams_t t = { GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE };
-	tex2d_set_texparams(tex, &t);
+	fs_texparams_t t = { GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE };
+	fs_tex2d_set_texparams(tex, &t);
 }
 
-extern void tex2d_set_antialias_texparams(tex2d_t *tex)
+extern void fs_tex2d_set_antialias_texparams(fs_tex2d_t *tex)
 {
-	texparams_t t = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE };
-	tex2d_set_texparams(tex, &t);
+	fs_texparams_t t = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE };
+	fs_tex2d_set_texparams(tex, &t);
 }

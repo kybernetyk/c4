@@ -19,7 +19,7 @@ static bool _touchup_handled;
 static bool _touchdown_handled;
 
 
-bool input_init(void)
+bool fs_input_init(void)
 {
 	_is_touch_active = false;
 	_is_touchup_active = false;
@@ -27,13 +27,13 @@ bool input_init(void)
 	return true;
 }
 
-void input_shutdown(void)
+void fs_input_shutdown(void)
 {
 	
 }
 
 #if LE_TARGET_IPHONE
-void input_update(void)
+void fs_input_update(void)
 {
 	if (_touchup_handled)
 	{
@@ -94,52 +94,52 @@ void input_update(void)
 }
 #endif
 
-void input_set_touch_active(bool b)
+void fs_input_set_touch_active(bool b)
 {
 	_touchup_handled = false;
 	_is_touch_active = b;
 }
 
-bool input_is_touch_active(void)
+bool fs_input_is_touch_active(void)
 {
 	return _is_touch_active;
 }
 
-void input_set_touch_up_received(bool b)
+void fs_input_set_touch_up_received(bool b)
 {
 	_is_touchup_active = b;
 	_touchup_handled = false;
 }
 
-bool input_touch_up_received(void)
+bool fs_input_touch_up_received(void)
 {
 	_touchup_handled = true;
 	return _is_touchup_active;
 }
 
-void input_set_touch_location(vec2d_t vec)
+void fs_input_set_touch_location(vec2d_t vec)
 {
 	_touch_location = vec;	
 	//printf("touch loc: %f,%f\n",vec.x,vec.y);
 }
 
-void input_get_touch_location(vec2d_t *outvec)
+void fs_input_get_touch_location(vec2d_t *outvec)
 {
 	*outvec = _touch_location;	
 }
 
-void input_set_initial_touch_location(vec2d_t vec)
+void fs_input_set_initial_touch_location(vec2d_t vec)
 {
 	_initial_touch_location = vec;	
 }
 
-void input_get_initial_touch_location(vec2d_t *outvec)
+void fs_input_get_initial_touch_location(vec2d_t *outvec)
 {
 	*outvec = _initial_touch_location;	
 }
 
 
-bool input_touch_inside_rect(rect_t *rc)
+bool fs_input_touch_inside_rect(rect_t *rc)
 {
 //	printf("touch loc: %f,%f\n",_touch_location.x,_touch_location.y);
 	return vec2d_inside_rect(&_touch_location, rc);

@@ -77,7 +77,7 @@ static void setup_viewport_and_projection(int vp_w_pixels, int vp_h_pixels, floa
 }
 
 
-bool renderer_init(void)
+bool fs_renderer_init(void)
 {
 	viewport.scale = g_sysconfig.screen_scale;
 	
@@ -93,12 +93,12 @@ bool renderer_init(void)
 	camera.x = screen_size_x/2.0;
 	camera.y = screen_size_y/2.0;
 
-	tex_manager_init();
+	fs_tex_manager_init();
 	
 	return true;
 }
 
-void renderer_begin_frame(void)
+void fs_renderer_begin_frame(void)
 {
 	glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -118,19 +118,19 @@ void renderer_begin_frame(void)
 
 }
 
-void renderer_end_frame(void)
+void fs_renderer_end_frame(void)
 {
 	
 }
 
-void renderer_shutdown(void)
+void fs_renderer_shutdown(void)
 {
-	tex_manager_shutdown();
+	fs_tex_manager_shutdown();
 }
 
 #pragma mark -
 #pragma mark coord conv
-vec2d_t renderer_screen_to_world(vec2d_t vec)
+vec2d_t fs_renderer_screen_to_world(vec2d_t vec)
 {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
 #else

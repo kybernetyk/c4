@@ -17,68 +17,82 @@
 #pragma mark quad
 static void comp_quad_free(void *data)
 {
-	quad_free(data);
+	cd_quad_t *q = data;
+	fs_quad_free(q->quad);
+	free(data);
 }
 
-le_quad_t *comp_quad_init(le_component_t *comp, const char *filename)
+cd_quad_t *comp_quad_init(le_component_t *comp, const char *filename)
 {
-	le_quad_t *q = quad_new();
+	fs_quad_t *q = quad_new();
 	
-	if (!quad_load(filename, q))
+	if (!fs_quad_load(filename, q))
 	{
-		quad_free(q);
+		fs_quad_free(q);
+		abort();
 		return NULL;
 	}
+	cd_quad_t *ret = malloc(sizeof(cd_quad_t));
+	ret->quad = q;
 	
-	comp->comp_data = q;
+	comp->comp_data = ret;
 	comp->comp_data_deallocator = comp_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_QUAD;
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_QUAD");
-	return q;
+	return ret;
 }
 
 #pragma mark atlas quad
 static void comp_atlas_quad_free(void *data)
 {
-	atlas_quad_free(data);
+	cd_atlas_quad_t *aq = data;
+	
+	fs_atlas_quad_free(aq->atlas_quad);
+	free(data);
 }
 
-le_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename, rect_t src)
+cd_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename, rect_t src)
 {
-	le_atlas_quad_t *aq = atlas_quad_new();
-	if (!atlas_quad_load(filename, aq))
+	fs_atlas_quad_t *aq = fs_atlas_quad_new();
+	if (!fs_atlas_quad_load(filename, aq))
 	{
-		atlas_quad_free(aq);
+		fs_atlas_quad_free(aq);
+		abort();
 		return NULL;
 	}
+
+	cd_atlas_quad_t *ret = malloc(sizeof(cd_atlas_quad_t));
+	ret->atlas_quad = aq;
+	
 	aq->src_rect = src;
 	aq->ri.size = size2d_make(src.w, src.h);
 
-	comp->comp_data = aq;
+	comp->comp_data = ret;
 	comp->comp_data_deallocator = comp_atlas_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_ATLAS_QUAD;
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_ATLAS_QUAD");
 	
-	return aq;
+	return ret;
 }
 
 #pragma mark font
 void comp_text_free(void *data)
 {
-	font_free(((cd_text_t*)data)->font);
+	fs_font_free(((cd_text_t*)data)->font);
 	free(((cd_text_t*)data)->string);
 	free(data);
 }
 
 cd_text_t *comp_text_init(le_component_t *comp, const char *filename, const char *text)
 {
-	le_font_t *fnt = font_new();
+	fs_font_t *fnt = fs_font_new();
 	
-	if (!font_load(filename, fnt))
+	if (!fs_font_load(filename, fnt))
 	{
-		font_free(fnt);
+		fs_font_free(fnt);
+		abort();
 		return NULL;
 	}
 
@@ -116,18 +130,21 @@ void comp_text_set_text(le_component_t *comp, const char *text)
 #pragma mark particle emitter
 void comp_pe_free(void *data)
 {
-	particle_emitter_free(data);
+	fs_particle_emitter_free(data);
 }
 
-le_particle_emitter_t *comp_pe_init(le_component_t *comp, const char *filename)
+cd_pemitter_t *comp_pe_init(le_component_t *comp, const char *filename)
 {
-	le_particle_emitter_t *ret = particle_emitter_new();
+	fs_particle_emitter_t *pe = particle_emitter_new();
 	
-	if (!particle_emitter_load(filename, ret))
+	if (!fs_particle_emitter_load(filename, pe))
 	{
-		particle_emitter_free(ret);
+		fs_particle_emitter_free(pe);
+		abort();
 		return NULL;
 	}
+	cd_pemitter_t *ret = malloc(sizeof(cd_pemitter_t));
+	ret->pemitter = pe;
 	
 	comp->comp_data = ret;
 	comp->comp_data_deallocator = comp_pe_free;
@@ -149,7 +166,7 @@ le_particle_emitter_t *comp_pe_init(le_component_t *comp, const char *filename)
  
  void render_system_make_quad(le_component_t *component)
  {
- component->user_data = malloc(sizeof(le_quad_t));
+ component->user_data = malloc(sizeof(fs_quad_t));
  component->comp_data_deallocator = (void(*)(void*))quad_free;
  
  qaddr_t

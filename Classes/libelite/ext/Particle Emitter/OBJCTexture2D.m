@@ -193,7 +193,7 @@
         glGenTextures(1, &name);
         //glBindTexture(GL_TEXTURE_2D, name);
 		//mx3::Texture2D::boundTexture = name;
-		tex2d_bind(name);
+		fs_tex2d_bind(name);
         
         // Configure the textures min and mag filters.  This MUST happen for textures to show up on the iPhone
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, aFilter);

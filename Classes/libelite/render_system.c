@@ -74,11 +74,11 @@ void render_system_render(le_render_system_t *rs)
 	le_entity_t *current_entity = NULL;
 	le_component_t *current_ren = NULL;
 	
-	le_quad_t *quad = NULL;
-	le_atlas_quad_t *aquad = NULL;
+	cd_quad_t *quad = NULL;
+	cd_atlas_quad_t *aquad = NULL;
 	cd_position_t *pos = NULL;
 	cd_text_t *text = NULL;
-	le_particle_emitter_t *pe = NULL;
+	cd_pemitter_t *pe = NULL;
 	
 	for (size_t i = 0; i < rs->resp_size; i++)
 	{
@@ -90,31 +90,31 @@ void render_system_render(le_render_system_t *rs)
 		{
 			case REN_SUB_QUAD:
 				quad = current_ren->comp_data;
-				quad->ri.pos = pos->pos;
-				quad->ri.zval = pos->z;
-				quad->ri.rot_a = pos->rot;
-				quad_render(quad);
+				quad->quad->ri.pos = pos->pos;
+				quad->quad->ri.zval = pos->z;
+				quad->quad->ri.rot_a = pos->rot;
+				fs_quad_render(quad->quad);
 				break;
 
 			case REN_SUB_ATLAS_QUAD:
 				aquad = current_ren->comp_data;
-				aquad->ri.pos = pos->pos;
-				aquad->ri.zval = pos->z;
-				aquad->ri.rot_a = pos->rot;
-				atlas_quad_render(aquad);
+				aquad->atlas_quad->ri.pos = pos->pos;
+				aquad->atlas_quad->ri.zval = pos->z;
+				aquad->atlas_quad->ri.rot_a = pos->rot;
+				fs_atlas_quad_render(aquad->atlas_quad);
 				break;
 			case REN_SUB_TEXT:
 				text = current_ren->comp_data;
 				text->font->ri.pos = pos->pos;
 				text->font->ri.zval = pos->z;
 				text->font->ri.rot_a = pos->rot;
-				font_render(text->font, text->string);
+				fs_font_render(text->font, text->string);
 				break;
 			case REN_SUB_PEMITTER:
 				pe = current_ren->comp_data;
-				pe->ri.pos = pos->pos;
-				pe->ri.zval = pos->z;
-				particle_emitter_render(pe);
+				pe->pemitter->ri.pos = pos->pos;
+				pe->pemitter->ri.zval = pos->z;
+				fs_particle_emitter_render(pe->pemitter);
 				break;
 				
 			

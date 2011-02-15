@@ -10,7 +10,7 @@
 #include "renderinfo.h"
 #include "ogl.h"
 
-void renderinfo_transform(renderinfo_t *ri)
+void fs_renderinfo_transform(fs_renderinfo_t *ri)
 {
 	glTranslatef(ri->pos.x, ri->pos.y, ri->zval);
 	

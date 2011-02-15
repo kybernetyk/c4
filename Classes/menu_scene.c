@@ -17,8 +17,8 @@ static le_render_system_t rs;
 
 static le_particle_system_t ps;
 
-static audio_id music;
-static audio_id sound;
+static fs_audio_id music;
+static fs_audio_id sound;
 
 static le_entity_t *bubble;
 static le_entity_t *minyx;
@@ -30,8 +30,8 @@ static int scene_init(scene_t *scene)
 	render_system_init(&rs, &mgr);
 	particle_system_init(&ps, &mgr);
 	
-	music = audio_music_load("music.mp3");
-	sound = audio_sound_load("click.mp3");
+	music = fs_audio_music_load("music.mp3");
+	sound = fs_audio_sound_load("click.mp3");
 	
 	//background
 	le_entity_t *ent = em_create_entity(&mgr);
@@ -86,7 +86,7 @@ static int scene_init(scene_t *scene)
 	comp = entity_add_component(minyx, COMP_FAMILY_RENDERABLE);
 	comp_quad_init(comp, "minyx_bw.png");
 	
-	audio_music_play(music);
+	fs_audio_music_play(music);
 	
 	return 0;
 }
@@ -102,9 +102,9 @@ static void scene_update(scene_t *scene, double dt)
 	cd_position_t *pos = entity_get_component_data(minyx, COMP_FAMILY_POSITION);
 	pos->rot += dt * 360.0;
 	
-	if (input_touch_up_received())
+	if (fs_input_touch_up_received())
 	{	
-		if (input_touch_inside_rect(&(rect_t)
+		if (fs_input_touch_inside_rect(&(rect_t)
 									{
 										.x = 0,
 										.y = 0,
@@ -114,7 +114,7 @@ static void scene_update(scene_t *scene, double dt)
 									))
 		{	
 			printf("playing sound %i ...\n", sound);
-			audio_sound_play(sound);
+			fs_audio_sound_play(sound);
 			
 			entity_add_component(bubble, COMP_FAMILY_GARBAGE);
 		}

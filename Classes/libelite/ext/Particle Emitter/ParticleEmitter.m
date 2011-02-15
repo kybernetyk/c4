@@ -328,7 +328,7 @@
 	//mx3::Texture2D::boundTexture = texture.name;
 	// Bind to the particles texture
 	//glBindTexture(GL_TEXTURE_2D, texture.name);
-	tex2d_bind(texture.name);
+	fs_tex2d_bind(texture.name);
 	// Enable the point size array
 	glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
 	
