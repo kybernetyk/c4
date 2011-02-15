@@ -44,7 +44,6 @@ bool game_init(scene_t initial_scene)
 	MAX_FRAMESKIP = 5;
 	FIXED_DELTA = (1.0/TICKS_PER_SECOND);
 	paused = 0;
-
 		
 	next_game_tick = timer_get_tick_count();
 	timer_update(&timer);
@@ -80,6 +79,7 @@ void game_tick(void)
 	while (timer_get_tick_count() > next_game_tick && loops < MAX_FRAMESKIP)
 	{
 		input_update();
+		current_scene.pre_frame_func(&current_scene);
 		current_scene.update_func(&current_scene, FIXED_DELTA);
 		next_game_tick += SKIP_TICKS;
 		loops++;
@@ -113,8 +113,9 @@ void game_render(void)
 */	
 	renderer_begin_frame();
 	current_scene.render_func(&current_scene);
-	
 	font_render(&fps_font, fps_str);
+	
+	current_scene.post_frame_func(&current_scene);
 	
 	renderer_end_frame();
 }

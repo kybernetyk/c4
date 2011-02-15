@@ -53,6 +53,7 @@
 		034375DA1309712F00925536 /* comp_renderable.c in Sources */ = {isa = PBXBuildFile; fileRef = 034375D91309712F00925536 /* comp_renderable.c */; };
 		0343766D130981E600925536 /* comp_position.c in Sources */ = {isa = PBXBuildFile; fileRef = 0343766C130981E600925536 /* comp_position.c */; };
 		0343784E13099A4F00925536 /* particle_system.c in Sources */ = {isa = PBXBuildFile; fileRef = 0343784D13099A4F00925536 /* particle_system.c */; };
+		03437960130A814500925536 /* garbage_system.c in Sources */ = {isa = PBXBuildFile; fileRef = 0343795F130A814500925536 /* garbage_system.c */; };
 		0349A7FE1307FB9700411EA7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A7FD1307FB9700411EA7 /* OpenAL.framework */; };
 		0349A8021307FBA500411EA7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A8011307FBA500411EA7 /* AudioToolbox.framework */; };
 		0349A8061307FBA500411EA7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0349A8051307FBA500411EA7 /* AVFoundation.framework */; };
@@ -173,6 +174,8 @@
 		0343766C130981E600925536 /* comp_position.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = comp_position.c; sourceTree = "<group>"; };
 		0343784C13099A4F00925536 /* particle_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = particle_system.h; sourceTree = "<group>"; };
 		0343784D13099A4F00925536 /* particle_system.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = particle_system.c; sourceTree = "<group>"; };
+		0343795E130A814500925536 /* garbage_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = garbage_system.h; sourceTree = "<group>"; };
+		0343795F130A814500925536 /* garbage_system.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = garbage_system.c; sourceTree = "<group>"; };
 		0349A7FD1307FB9700411EA7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		0349A8011307FBA500411EA7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0349A8051307FBA500411EA7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -414,6 +417,7 @@
 		034375CF1309700A00925536 /* systems */ = {
 			isa = PBXGroup;
 			children = (
+				0343795D130A812900925536 /* garbage_system */,
 				0343784B13099A4600925536 /* particle_system */,
 				0343766A130981D900925536 /* position_system */,
 				034375D01309700F00925536 /* render_system */,
@@ -448,6 +452,15 @@
 				0343784D13099A4F00925536 /* particle_system.c */,
 			);
 			name = particle_system;
+			sourceTree = "<group>";
+		};
+		0343795D130A812900925536 /* garbage_system */ = {
+			isa = PBXGroup;
+			children = (
+				0343795E130A814500925536 /* garbage_system.h */,
+				0343795F130A814500925536 /* garbage_system.c */,
+			);
+			name = garbage_system;
 			sourceTree = "<group>";
 		};
 		034D2E561301CB84004A32A0 /* Resources */ = {
@@ -665,6 +678,7 @@
 				034375DA1309712F00925536 /* comp_renderable.c in Sources */,
 				0343766D130981E600925536 /* comp_position.c in Sources */,
 				0343784E13099A4F00925536 /* particle_system.c in Sources */,
+				03437960130A814500925536 /* garbage_system.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
