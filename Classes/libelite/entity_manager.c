@@ -45,13 +45,15 @@ void em_init(le_entity_manager_t *manager)
 	}
 }
 
-void em_prepare_frame(le_entity_manager_t *manager)
+void em_update(le_entity_manager_t *manager)
 {
 	manager->is_dirty = false;
 }
 
-void em_free(le_entity_manager_t *manager)
+void em_shutdown(le_entity_manager_t *manager)
 {
+	em_remove_all_entities(manager);
+	
 	free(manager->entities);
 	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 		free(manager->components[i]);
@@ -97,6 +99,13 @@ void em_remove_entity(le_entity_manager_t *manager, le_entity_t *entity)
 	
 	manager->entities[entity->manager_id].guid = 0;
 	manager->entities[entity->manager_id].in_use = false;
+}
+
+void em_remove_all_entities(le_entity_manager_t *manager)
+{
+	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
+		if (manager->entities[i].in_use)
+			em_remove_entity(manager, &manager->entities[i]);
 }
 
 

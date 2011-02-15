@@ -24,11 +24,12 @@ typedef struct le_entity_manager_t
 } le_entity_manager_t;
 
 extern 		void 			em_init(le_entity_manager_t *manager);
-extern 		void 			em_prepare_frame(le_entity_manager_t *manager);				///call this on each frame enter
-extern 		void 			em_free(le_entity_manager_t *manager);
+extern 		void 			em_update(le_entity_manager_t *manager);				///call this on each frame enter
+extern 		void 			em_shutdown(le_entity_manager_t *manager);
 
 extern 		le_entity_t *	em_create_entity(le_entity_manager_t *manager);
 extern 		void 			em_remove_entity(le_entity_manager_t *manager, le_entity_t *entity);
+extern 		void 			em_remove_all_entities(le_entity_manager_t *manager);
 
 extern 		le_entity_t *	em_get_entity_by_guid(le_entity_manager_t *manager, guid_t guid);
 

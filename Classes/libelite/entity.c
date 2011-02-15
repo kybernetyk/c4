@@ -10,12 +10,19 @@
 #include "entity.h"
 #include "elite.h"
 #include <stdio.h>
-
+#include <stdlib.h>
 
 #pragma mark -
 #pragma mark component management
 le_component_t *entity_add_component(le_entity_t *entity, component_family_id_t fam_id)
 {
+	if (!entity->in_use)
+	{
+		printf("trying to add a component to a not existing entity!\n");
+		abort();
+		return NULL;
+	}
+	
 	le_entity_manager_t *manager = entity->entity_manager;
 	
 	manager->is_dirty = true;
@@ -44,6 +51,13 @@ le_component_t *entity_add_component(le_entity_t *entity, component_family_id_t 
 
 void entity_remove_component(le_entity_t *entity, le_component_t *component)
 {
+	if (!entity->in_use)
+	{
+		printf("trying to remove a component from a not existing entity!\n");
+		abort();
+		return;
+	}
+	
 	le_entity_manager_t *manager = entity->entity_manager;
 	
 	if (!component->in_use)
