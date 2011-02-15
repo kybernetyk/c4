@@ -35,7 +35,7 @@ void particle_system_update(le_particle_system_t *ps, double dt)
 	le_entity_t *current_entity = NULL;
 	le_component_t *current_ren = NULL;
 	
-	comp_position_t *pos;
+	cd_position_t *pos;
 	le_particle_emitter_t *pe;
 
 	for (size_t i = 0; i < res; i++)
@@ -45,10 +45,10 @@ void particle_system_update(le_particle_system_t *ps, double dt)
 		
 		if (current_ren->subid == REN_SUB_PEMITTER)
 		{
-			pe = current_ren->user_data; 
+			pe = current_ren->comp_data; 
 			if (particle_emitter_should_handle(pe))
 			{
-				pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->user_data;
+				pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->comp_data;
 					
 				pe->ri.pos = pos->pos;
 				particle_emitter_update(pe, dt);

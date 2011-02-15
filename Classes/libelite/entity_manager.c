@@ -38,8 +38,8 @@ void em_init(le_entity_manager_t *manager)
 		{
 			manager->components[i][j].family = 0;
 			manager->components[i][j].subid = 0;
-			manager->components[i][j].user_data_deallocator = NULL;
-			manager->components[i][j].user_data = NULL;
+			manager->components[i][j].comp_data_deallocator = NULL;
+			manager->components[i][j].comp_data = NULL;
 			manager->components[i][j].in_use = false;
 		}
 	}

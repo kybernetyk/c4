@@ -30,9 +30,9 @@ static int z_comp(const void *ep1, const void *ep2)
 //	le_entity_t *e1 = *(le_entity_t**)ep1;
 //	le_entity_t *e2 = *(le_entity_t**)ep2;
 	
-	comp_position_t *p1, *p2;
-	p1 = entity_get_component(*(le_entity_t**)ep1, COMP_FAMILY_POSITION)->user_data;
-	p2 = entity_get_component(*(le_entity_t**)ep2, COMP_FAMILY_POSITION)->user_data;
+	cd_position_t *p1, *p2;
+	p1 = entity_get_component(*(le_entity_t**)ep1, COMP_FAMILY_POSITION)->comp_data;
+	p2 = entity_get_component(*(le_entity_t**)ep2, COMP_FAMILY_POSITION)->comp_data;
 	
 	if (p1->z < p2->z)
 		return -1;
@@ -59,7 +59,7 @@ void render_system_render(le_render_system_t *rs)
 //	for (int i = 0; i < res; i++)
 //	{
 //		current_entity = rs->qry_resp_cache[i];
-//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),comp_position_t)->z  );		
+//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t)->z  );		
 //	}
 //
 //	printf("\n\n");
@@ -67,7 +67,7 @@ void render_system_render(le_render_system_t *rs)
 //	for (int i = 0; i < res; i++)
 //	{
 //		current_entity = rs->qry_resp_cache[i];
-//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),comp_position_t)->z  );		
+//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t)->z  );		
 //	}
 
 
@@ -76,20 +76,20 @@ void render_system_render(le_render_system_t *rs)
 	
 	le_quad_t *quad = NULL;
 	le_atlas_quad_t *aquad = NULL;
-	comp_position_t *pos = NULL;
-	comp_text_t *text = NULL;
+	cd_position_t *pos = NULL;
+	cd_text_t *text = NULL;
 	le_particle_emitter_t *pe = NULL;
 	
 	for (size_t i = 0; i < rs->resp_size; i++)
 	{
 		current_entity = rs->qry_resp_cache[i];
 		current_ren = entity_get_component(current_entity, COMP_FAMILY_RENDERABLE);
-		pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->user_data;
+		pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->comp_data;
 		
 		switch (current_ren->subid) 
 		{
 			case REN_SUB_QUAD:
-				quad = current_ren->user_data;
+				quad = current_ren->comp_data;
 				quad->ri.pos = pos->pos;
 				quad->ri.zval = pos->z;
 				quad->ri.rot_a = pos->rot;
@@ -97,21 +97,21 @@ void render_system_render(le_render_system_t *rs)
 				break;
 
 			case REN_SUB_ATLAS_QUAD:
-				aquad = current_ren->user_data;
+				aquad = current_ren->comp_data;
 				aquad->ri.pos = pos->pos;
 				aquad->ri.zval = pos->z;
 				aquad->ri.rot_a = pos->rot;
 				atlas_quad_render(aquad);
 				break;
 			case REN_SUB_TEXT:
-				text = current_ren->user_data;
+				text = current_ren->comp_data;
 				text->font->ri.pos = pos->pos;
 				text->font->ri.zval = pos->z;
 				text->font->ri.rot_a = pos->rot;
 				font_render(text->font, text->string);
 				break;
 			case REN_SUB_PEMITTER:
-				pe = current_ren->user_data;
+				pe = current_ren->comp_data;
 				pe->ri.pos = pos->pos;
 				pe->ri.zval = pos->z;
 				particle_emitter_render(pe);

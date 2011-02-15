@@ -30,8 +30,8 @@ le_quad_t *comp_quad_init(le_component_t *comp, const char *filename)
 		return NULL;
 	}
 	
-	comp->user_data = q;
-	comp->user_data_deallocator = comp_quad_free;
+	comp->comp_data = q;
+	comp->comp_data_deallocator = comp_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_QUAD;
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_QUAD");
@@ -55,8 +55,8 @@ le_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename
 	aq->src_rect = src;
 	aq->ri.size = size2d_make(src.w, src.h);
 
-	comp->user_data = aq;
-	comp->user_data_deallocator = comp_atlas_quad_free;
+	comp->comp_data = aq;
+	comp->comp_data_deallocator = comp_atlas_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_ATLAS_QUAD;
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_ATLAS_QUAD");
@@ -67,12 +67,12 @@ le_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename
 #pragma mark font
 void comp_text_free(void *data)
 {
-	font_free(((comp_text_t*)data)->font);
-	free(((comp_text_t*)data)->string);
+	font_free(((cd_text_t*)data)->font);
+	free(((cd_text_t*)data)->string);
 	free(data);
 }
 
-comp_text_t *comp_text_init(le_component_t *comp, const char *filename, const char *text)
+cd_text_t *comp_text_init(le_component_t *comp, const char *filename, const char *text)
 {
 	le_font_t *fnt = font_new();
 	
@@ -82,13 +82,13 @@ comp_text_t *comp_text_init(le_component_t *comp, const char *filename, const ch
 		return NULL;
 	}
 
-	comp_text_t *ret = malloc(sizeof(comp_text_t));
+	cd_text_t *ret = malloc(sizeof(cd_text_t));
 	ret->font = fnt;
 	ret->string = malloc(strlen(text)+1);
 	sprintf(ret->string,"%s", text);
 		
-	comp->user_data = ret;
-	comp->user_data_deallocator = comp_text_free;
+	comp->comp_data = ret;
+	comp->comp_data_deallocator = comp_text_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_TEXT;
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_TEXT");
@@ -97,7 +97,7 @@ comp_text_t *comp_text_init(le_component_t *comp, const char *filename, const ch
 
 void comp_text_set_text(le_component_t *comp, const char *text)
 {
-	comp_text_t *ctxt = comp->user_data;
+	cd_text_t *ctxt = comp->comp_data;
 	if (ctxt->string)
 	{
 		if (strlen(ctxt->string) > strlen(text))
@@ -129,8 +129,8 @@ le_particle_emitter_t *comp_pe_init(le_component_t *comp, const char *filename)
 		return NULL;
 	}
 	
-	comp->user_data = ret;
-	comp->user_data_deallocator = comp_pe_free;
+	comp->comp_data = ret;
+	comp->comp_data_deallocator = comp_pe_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_PEMITTER;
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_PEMITTER");
@@ -150,7 +150,7 @@ le_particle_emitter_t *comp_pe_init(le_component_t *comp, const char *filename)
  void render_system_make_quad(le_component_t *component)
  {
  component->user_data = malloc(sizeof(le_quad_t));
- component->user_data_deallocator = (void(*)(void*))quad_free;
+ component->comp_data_deallocator = (void(*)(void*))quad_free;
  
  qaddr_t
  }*/

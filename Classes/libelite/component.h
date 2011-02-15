@@ -19,8 +19,8 @@ typedef struct le_component_t
 	component_family_id_t family;
 	component_sub_id_t subid;
 
-	void *user_data;
-	void (*user_data_deallocator)(void *);
+	void *comp_data;
+	void (*comp_data_deallocator)(void *);
 	bool in_use;
 	
 	char name[128];

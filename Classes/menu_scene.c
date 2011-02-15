@@ -21,6 +21,7 @@ static audio_id music;
 static audio_id sound;
 
 static le_entity_t *bubble;
+static le_entity_t *minyx;
 
 static int scene_init(scene_t *scene)
 {
@@ -77,7 +78,13 @@ static int scene_init(scene_t *scene)
 	comp = entity_add_component(bubble, COMP_FAMILY_RENDERABLE);
 	comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
 	
-	
+	//das minyx
+	minyx = em_create_entity(&mgr);
+	comp = entity_add_component(minyx, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -3.5);
+
+	comp = entity_add_component(minyx, COMP_FAMILY_RENDERABLE);
+	comp_quad_init(comp, "minyx_bw.png");
 	
 	audio_music_play(music);
 	
@@ -91,6 +98,9 @@ static void scene_pre_frame(scene_t *scene)
 static void scene_update(scene_t *scene, double dt)
 {
 	particle_system_update(&ps, dt);
+	
+	cd_position_t *pos = entity_get_component_data(minyx, COMP_FAMILY_POSITION);
+	pos->rot += dt * 360.0;
 	
 	if (input_touch_up_received())
 	{	

@@ -41,9 +41,9 @@ le_component_t *entity_add_component(le_entity_t *entity, component_family_id_t 
 	
 	ret->in_use = true;
 	ret->family = fam_id;
-	ret->user_data = NULL;
+	ret->comp_data = NULL;
 	ret->subid = 0;
-	ret->user_data_deallocator = NULL;
+	ret->comp_data_deallocator = NULL;
 	return ret;
 }
 
@@ -65,11 +65,11 @@ void entity_remove_component(le_entity_t *entity, le_component_t *component)
 	
 	manager->is_dirty = true;
 	
-	if (component->user_data_deallocator)
-		component->user_data_deallocator(component->user_data);
+	if (component->comp_data_deallocator)
+		component->comp_data_deallocator(component->comp_data);
 	
-	component->user_data_deallocator = NULL;
-	component->user_data = NULL;
+	component->comp_data_deallocator = NULL;
+	component->comp_data = NULL;
 	component->family = 0;
 	component->subid = 0;
 	component->in_use = false;
@@ -100,7 +100,7 @@ le_component_t *entity_get_component(le_entity_t *entity, component_family_id_t 
 
 void *entity_get_component_data(le_entity_t *entity, component_family_id_t fam_id)
 {
-	return entity_get_component(entity, fam_id)->user_data;
+	return entity_get_component(entity, fam_id)->comp_data;
 }
 
 

@@ -12,9 +12,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static comp_position_t *comp_position_new(void)
+static cd_position_t *comp_position_new(void)
 {
-	return calloc(1, sizeof(comp_position_t));
+	return calloc(1, sizeof(cd_position_t));
 }
 
 static void comp_position_free(void *data)
@@ -22,17 +22,17 @@ static void comp_position_free(void *data)
 	free(data);
 }
 
-comp_position_t *comp_position_init(le_component_t *comp, vec2d_t pos, double z)
+cd_position_t *comp_position_init(le_component_t *comp, vec2d_t pos, double z)
 {
-	comp_position_t *ret = comp_position_new();
+	cd_position_t *ret = comp_position_new();
 	ret->pos = pos;
 	ret->z = z;
 	ret->rot = 0.0;
 	
 	comp->family = COMP_FAMILY_POSITION;
 	comp->subid = POS_SUB_ROTPOS;
-	comp->user_data = ret;
-	comp->user_data_deallocator = comp_position_free;
+	comp->comp_data = ret;
+	comp->comp_data_deallocator = comp_position_free;
 	sprintf(comp->name, "%s", "COMP_FAMILY_POSITION.POS_SUB_ROTPOS");
 	return ret;
 }
