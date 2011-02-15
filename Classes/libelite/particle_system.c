@@ -8,29 +8,31 @@
  */
 
 #include "particle_system.h"
+#include <stdlib.h>
 #include <memory.h>
 
 void particle_system_init(le_particle_system_t *ps, le_entity_manager_t *mgr)
 {
-	memset(ps->qry_resp_cache,0x00,sizeof(le_entity_t *)*512);
+	ps->qry_resp_cache = malloc(g_sysconfig.entity_pool_size * sizeof(le_entity_t *));
+	memset(ps->qry_resp_cache,0x00,sizeof(le_entity_t *)*g_sysconfig.entity_pool_size);
 	ps->e_manager = mgr;
 }
 
-void particle_system_shutdown(le_particle_system_t *s)
+void particle_system_shutdown(le_particle_system_t *ps)
 {
-	
+	free(ps->qry_resp_cache);
 }
 
 void particle_system_update(le_particle_system_t *ps, double dt)
 {
-	memset(ps->qry_resp_cache,0x00,sizeof(le_entity_t *)*512);
+	memset(ps->qry_resp_cache,0x00,sizeof(le_entity_t *)*g_sysconfig.entity_pool_size);
 	
 	component_family_id_t qry[] = {
 		COMP_FAMILY_RENDERABLE,
 		COMP_FAMILY_POSITION
 	};
 	
-	size_t res = em_get_entities_with_components(ps->e_manager, qry, 2, ps->qry_resp_cache, 512);
+	size_t res = em_get_entities_with_components(ps->e_manager, qry, 2, ps->qry_resp_cache, g_sysconfig.entity_pool_size);
 	
 	le_entity_t *current_entity = NULL;
 	le_component_t *current_ren = NULL;

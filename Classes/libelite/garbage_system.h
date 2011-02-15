@@ -19,7 +19,7 @@
 
 typedef struct le_garbage_system_t
 {
-	le_entity_t *qry_resp_cache[512];
+	le_entity_t **qry_resp_cache;
 	le_entity_manager_t *e_manager;
 } le_garbage_system_t;
 

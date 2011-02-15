@@ -12,7 +12,7 @@
 #import "EAGLView.h"
 
 #include "elite.h"
-#include "startup_scene.h"
+#include "menu_scene.h"
 
 // Uniform index.
 enum {
@@ -72,14 +72,14 @@ enum {
 		return;
 	}
 
-	if (!game_init(startup_scene_create()))
+	if (!game_init(menu_scene_create()))
 	{
 		printf("couldn't init game!\n");
 		abort();
 	}
 	
     animating = FALSE;
-    animationFrameInterval = 60/g_sysconfig.desired_fps;
+    animationFrameInterval = 1;//60/g_sysconfig.desired_fps;
 	printf("animation interval = %i\n", animationFrameInterval);
     self.displayLink = nil;
 	

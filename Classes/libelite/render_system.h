@@ -17,7 +17,7 @@
 
 typedef struct le_render_system_t
 {
-	le_entity_t *qry_resp_cache[512];
+	le_entity_t **qry_resp_cache;
 	le_entity_manager_t *e_manager;
 	size_t resp_size;
 	

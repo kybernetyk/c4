@@ -12,13 +12,13 @@
 
 typedef struct le_particle_system_t
 {
-	le_entity_t *qry_resp_cache[512];
+	le_entity_t **qry_resp_cache;
 	le_entity_manager_t *e_manager;
 
 } le_particle_system_t;
 
 extern void particle_system_init(le_particle_system_t *ps, le_entity_manager_t *mgr);
-extern void particle_system_shutdown(le_particle_system_t *s);
+extern void particle_system_shutdown(le_particle_system_t *ps);
 
 extern void particle_system_update(le_particle_system_t *ps, double dt);
 

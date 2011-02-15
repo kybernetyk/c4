@@ -15,13 +15,14 @@
 #include "elite.h"
 
 
-static int TICKS_PER_SECOND;
-static int SKIP_TICKS;
-static int MAX_FRAMESKIP= 5;
-static float FIXED_DELTA;
-static unsigned int next_game_tick;
-static int loops;
-static int paused;
+double TICKS_PER_SECOND;
+double SKIP_TICKS;
+double MAX_FRAMESKIP = 5;
+double FIXED_DELTA;
+double next_game_tick;
+unsigned int loops;
+int paused;
+
 static timer_t timer;
 static scene_t current_scene;
 static scene_t next_scene;
@@ -40,12 +41,11 @@ void game_set_next_scene(scene_t scene)
 bool game_init(scene_t initial_scene)
 {
 	TICKS_PER_SECOND = g_sysconfig.desired_fps;
-	SKIP_TICKS = 1000 / TICKS_PER_SECOND;
+	SKIP_TICKS = (1000.0 / TICKS_PER_SECOND);
 	MAX_FRAMESKIP = 5;
 	FIXED_DELTA = (1.0/TICKS_PER_SECOND);
 	paused = 0;
 		
-	next_game_tick = timer_get_tick_count();
 	timer_update(&timer);
 	
 	fs_font_load("impact20.fnt", &fps_font);
@@ -56,6 +56,8 @@ bool game_init(scene_t initial_scene)
 	current_scene.init_func(&current_scene);
 	next_scene_queued = false;
 
+	next_game_tick = timer_get_tick_count();
+	timer.delta = 0.0;
 	return true;
 }
 
@@ -67,24 +69,34 @@ void game_tick(void)
 		current_scene.free_func(&current_scene);
 
 		current_scene = next_scene;
-		next_game_tick = timer_get_tick_count();
 		current_scene.init_func(&current_scene);
+		
+		next_game_tick = timer_get_tick_count();
+		timer_update(&timer);
+		timer.delta = 0.0;
 	}
 	
 	timer_update(&timer);
 	timer_get_fps(&timer);
 	sprintf(fps_str, "fps: %.2f", timer.fps);
-	
-	loops = 0;
-	while (timer_get_tick_count() > next_game_tick && loops < MAX_FRAMESKIP)
-	{
-		fs_input_update();
-		current_scene.pre_frame_func(&current_scene);
-		current_scene.update_func(&current_scene, FIXED_DELTA);
-		next_game_tick += SKIP_TICKS;
-		loops++;
-	}
 
+	fs_input_update();
+	current_scene.pre_frame_func(&current_scene);
+	current_scene.update_func(&current_scene, timer.delta);
+	
+//	printf("%f\n", timer_get_tick_count());
+	//printf("%f\n", timer_get_double_time());
+	//printf("%f\n", timer.delta);
+//	loops = 0;
+//	while (timer_get_tick_count() > next_game_tick && loops < MAX_FRAMESKIP)
+//	{
+//		fs_input_update();
+//		current_scene.pre_frame_func(&current_scene);
+//		current_scene.update_func(&current_scene, FIXED_DELTA);
+//		next_game_tick += SKIP_TICKS;
+//		loops++;
+//	}
+//		printf("loops: %i\n", loops);
 }
 
 void game_render(void)

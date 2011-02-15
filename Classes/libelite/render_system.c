@@ -15,13 +15,14 @@
 
 void render_system_init(le_render_system_t *rs, le_entity_manager_t *mgr)
 {
-	memset(rs->qry_resp_cache,0x00,sizeof(le_entity_t *)*512);
+	rs->qry_resp_cache = malloc(g_sysconfig.entity_pool_size * sizeof(le_entity_t *));
+	memset(rs->qry_resp_cache,0x00,sizeof(le_entity_t *)*g_sysconfig.entity_pool_size);
 	rs->e_manager = mgr;
 }
 
 void render_system_shutdown(le_render_system_t *rs)
 {
-	
+	free(rs->qry_resp_cache);
 }
 
 static int z_comp(const void *ep1, const void *ep2)
@@ -38,41 +39,59 @@ static int z_comp(const void *ep1, const void *ep2)
 		return -1;
 	if (p1->z > p2->z)
 		return 1;
-	
+
 	return 0;
+/*	
+	le_entity_t *e1 = *(le_entity_t**)ep1;
+	le_entity_t *e2 = *(le_entity_t**)ep2;
+	
+	if (e1->guid < e2->guid)
+		return -1;
+	if (e1->guid > e2->guid)
+		return 1;
+	
+*/
 }
 
 void render_system_render(le_render_system_t *rs)
 {
+	
+	le_entity_t *current_entity = NULL;
+	le_component_t *current_ren = NULL;
+
+	
 	//qry and sort only if something has changed
 	if (rs->e_manager->is_dirty)
 	{
-		memset(rs->qry_resp_cache,0x00,sizeof(le_entity_t *)*512);
+		memset(rs->qry_resp_cache,0x00,sizeof(le_entity_t *)*g_sysconfig.entity_pool_size);
 		component_family_id_t qry[] = {
 			COMP_FAMILY_RENDERABLE,
 			COMP_FAMILY_POSITION
 		};
-		rs->resp_size = em_get_entities_with_components(rs->e_manager, qry, 2, rs->qry_resp_cache, 512);
+
+		rs->resp_size = em_get_entities_with_components(rs->e_manager, qry, 2, rs->qry_resp_cache, g_sysconfig.entity_pool_size);
+
+//		for (int i = 0; i < rs->resp_size; i++)
+//		{
+//			current_entity = rs->qry_resp_cache[i];
+//			printf("%p = z: %f\n", current_entity, comp_get_data(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t  )->z  );		
+//		}
+		
+//		printf("\n\n");
+		
 		qsort(rs->qry_resp_cache, rs->resp_size, sizeof(le_entity_t *),z_comp);
+
+//		for (int i = 0; i < rs->resp_size; i++)
+//		{
+//			current_entity = rs->qry_resp_cache[i];
+//			printf("%i: %p = z: %f\n",i , current_entity, comp_get_data(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t)->z  );		
+//		}
+		
 	}
 	
-//	for (int i = 0; i < res; i++)
-//	{
-//		current_entity = rs->qry_resp_cache[i];
-//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t)->z  );		
-//	}
-//
-//	printf("\n\n");
 	
-//	for (int i = 0; i < res; i++)
-//	{
-//		current_entity = rs->qry_resp_cache[i];
-//		printf("%p = z: %f\n", current_entity, comp_get_userdata(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t)->z  );		
-//	}
 
 
-	le_entity_t *current_entity = NULL;
-	le_component_t *current_ren = NULL;
 	
 	cd_quad_t *quad = NULL;
 	cd_atlas_quad_t *aquad = NULL;

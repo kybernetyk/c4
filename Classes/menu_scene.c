@@ -72,17 +72,22 @@ static int scene_init(scene_t *scene)
 	
 
 	//bubble
-	bubble = em_create_entity(&mgr);
-	comp = entity_add_component(bubble, COMP_FAMILY_POSITION);
-	comp_position_init(comp, vec2d_make(100, 100), -3.0);
-	
-	comp = entity_add_component(bubble, COMP_FAMILY_RENDERABLE);
-	comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
+
+	for (int i = 0; i < 512; i++)
+	{
+		bubble = em_create_entity(&mgr);
+		comp = entity_add_component(bubble, COMP_FAMILY_POSITION);
+		comp_position_init(comp, vec2d_make(rand()%320, rand()%480), -3.0);
+		
+		comp = entity_add_component(bubble, COMP_FAMILY_RENDERABLE);
+		comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
+		
+	}
 	
 	//das minyx
 	minyx = em_create_entity(&mgr);
 	comp = entity_add_component(minyx, COMP_FAMILY_POSITION);
-	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -3.5);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), 1.0);
 
 	comp = entity_add_component(minyx, COMP_FAMILY_RENDERABLE);
 	comp_quad_init(comp, "minyx_bw.png");
@@ -94,7 +99,7 @@ static int scene_init(scene_t *scene)
 	comp_pe_init(comp, "cool.pex");
 	
 	comp = entity_add_component(firetail, COMP_FAMILY_POSITION);
-	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_w/2), 0.0);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_w/2), 1.0);
 	
 	//rainshit
 	ent = em_create_entity(&mgr);
@@ -102,9 +107,9 @@ static int scene_init(scene_t *scene)
 	comp_pe_init(comp, "tss.pex");
 	
 	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
-	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h), 0.0);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h), 1.0);
 	
-	
+
 	fs_audio_music_play(music);
 	
 	return 0;
