@@ -26,4 +26,5 @@ typedef struct le_component_t
 	char name[128];
 } le_component_t;
 
-#define comp_get_userdata(obj, type) ((type*)obj->user_data)
+#define comp_get_data(obj, type) ((type*)obj->comp_data)
+#define comp_data(obj) (obj->comp_data)
