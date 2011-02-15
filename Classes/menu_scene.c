@@ -73,7 +73,7 @@ static int scene_init(scene_t *scene)
 
 	//bubble
 
-	for (int i = 0; i < 512; i++)
+	for (int i = 0; i < 32; i++)
 	{
 		bubble = em_create_entity(&mgr);
 		comp = entity_add_component(bubble, COMP_FAMILY_POSITION);

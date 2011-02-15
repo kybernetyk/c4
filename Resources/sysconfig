@@ -11,5 +11,5 @@ audio.audio_cache_size = 64
 audio.sound_vol = 0.8
 audio.music_vol = 0.5
 
-entity_manager.entity_pool_size = 1024
+entity_manager.entity_pool_size = 256
 entity_manager.components_per_entity = 32
