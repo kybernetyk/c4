@@ -39,7 +39,9 @@ cd_quad_t *comp_quad_init(le_component_t *comp, const char *filename)
 	comp->comp_data_deallocator = comp_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_QUAD;
+#ifdef COMP_INCLUDES_NAME 
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_QUAD");
+#endif
 	return ret;
 }
 
@@ -72,7 +74,10 @@ cd_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename
 	comp->comp_data_deallocator = comp_atlas_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_ATLAS_QUAD;
+
+#ifdef COMP_INCLUDES_NAME 	
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_ATLAS_QUAD");
+#endif
 	
 	return ret;
 }
@@ -105,7 +110,9 @@ cd_text_t *comp_text_init(le_component_t *comp, const char *filename, const char
 	comp->comp_data_deallocator = comp_text_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_TEXT;
+#ifdef COMP_INCLUDES_NAME 
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_TEXT");
+#endif
 	return ret;
 }
 
@@ -152,7 +159,9 @@ cd_pemitter_t *comp_pe_init(le_component_t *comp, const char *filename)
 	comp->comp_data_deallocator = comp_pe_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_PEMITTER;
+#ifdef COMP_INCLUDES_NAME 
 	sprintf(comp->name, "%s", "COMP_FAMILY_RENDERABLE.REN_SUB_PEMITTER");
+#endif
 	return ret;
 }
 

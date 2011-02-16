@@ -109,7 +109,11 @@ void *entity_get_component_data(le_entity_t *entity, component_family_id_t fam_i
 
 void component_dump(le_component_t *component)
 {
+#ifdef COMP_INCLUDES_NAME 
 	printf("component [fam: %i, sub: %i] @ %p (%s)\n", component->family, component->subid, component, component->name);	
+#else
+	printf("component [fam: %i, sub: %i] @ %p\n", component->family, component->subid, component);	
+#endif
 }
 
 void entity_dump_components(le_entity_t *entity)
