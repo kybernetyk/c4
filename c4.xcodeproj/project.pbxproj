@@ -71,6 +71,7 @@
 		0397CA331302A07E00FCB95C /* impact20_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0397CA311302A07E00FCB95C /* impact20_0.png */; };
 		0397CA341302A07E00FCB95C /* impact20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 0397CA321302A07E00FCB95C /* impact20.fnt */; };
 		03A2593C1302B7FE00C30AEE /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 03A2593B1302B7FE00C30AEE /* TODO */; };
+		03A383FF130C1BE700CD1E34 /* menu.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 03A383FE130C1BE700CD1E34 /* menu.m4a */; };
 		1D3623260D0F684500981E51 /* c4AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* c4AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -197,6 +198,7 @@
 		0397CA311302A07E00FCB95C /* impact20_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = impact20_0.png; sourceTree = "<group>"; };
 		0397CA321302A07E00FCB95C /* impact20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = impact20.fnt; sourceTree = "<group>"; };
 		03A2593B1302B7FE00C30AEE /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		03A383FE130C1BE700CD1E34 /* menu.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = menu.m4a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* c4AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c4AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* c4AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = c4AppDelegate.m; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 		034D2E561301CB84004A32A0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				03A383FE130C1BE700CD1E34 /* menu.m4a */,
 				034375231308556C00925536 /* tss.pex */,
 				034374EA1308545500925536 /* cool.pex */,
 				0349A8E813080AAA00411EA7 /* click.mp3 */,
@@ -629,6 +632,7 @@
 				034374EB1308545500925536 /* cool.pex in Resources */,
 				034374F4130854A300925536 /* vortex.pex in Resources */,
 				034375241308556C00925536 /* tss.pex in Resources */,
+				03A383FF130C1BE700CD1E34 /* menu.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

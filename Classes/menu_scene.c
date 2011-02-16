@@ -21,14 +21,13 @@ typedef struct menu_scene_state
 	
 	le_particle_system_t ps;
 	
-	fs_audio_id music;
-	fs_audio_id sound;
 	
 	le_entity_t *bubble;
 	le_entity_t *minyx;
 	le_entity_t *oh_hai;
 	
 	le_entity_t *firetail;
+	fs_audio_id sound;
 	
 } menu_scene_state;
 
@@ -36,15 +35,14 @@ typedef struct menu_scene_state
 static int scene_init(scene_t *scene)
 {
 	menu_scene_state *state = scene->user_data;
-	
+	state->sound = fs_audio_sound_load("click.mp3");
+
 	printf("menu scene init %p ...\n", scene);
 	em_init(&state->mgr);
 	garbage_system_init(&state->gs, &state->mgr);
 	render_system_init(&state->rs, &state->mgr);
 	particle_system_init(&state->ps, &state->mgr);
 	
-	state->music = fs_audio_music_load("music.mp3");
-	state->sound = fs_audio_sound_load("click.mp3");
 	
 	//background
 	le_entity_t *ent = em_create_entity(&state->mgr);
@@ -121,7 +119,6 @@ static int scene_init(scene_t *scene)
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h), 1.0);
 	
 
-	fs_audio_music_play(state->music);
 	
 	return 0;
 }
@@ -191,6 +188,7 @@ static int scene_free(scene_t *scene)
 	render_system_shutdown(&state->rs);
 	em_shutdown(&state->mgr);
 
+	free(scene->user_data);
 	
 	return 0;
 }

@@ -23,6 +23,8 @@ Open XCode project, click build. If you want to extract the lib don't forget to 
 
 Current State
 -------------
+2011-02-16: We've got something like scene management (with push/pop scene possibility)
+
 2011-02-15: A simple entity system is ready. I'm still working on the API so it's not too verbose
 
 2011-02-13: Yay, we got particles, sound, and input. also the API structure cleared up a little. at least I have now a

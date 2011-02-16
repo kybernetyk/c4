@@ -18,6 +18,10 @@ static bool blol = false;
 static int scene_init(scene_t *scene)
 {
 	printf("startup %p fired!\n", scene);
+
+	fs_audio_id music = fs_audio_music_load("music.mp3");
+	fs_audio_music_play(music);
+
 	return 0;
 }
 
@@ -31,6 +35,8 @@ static void scene_update(scene_t *scene, double dt)
 	//game_set_next_scene(menu_scene_create());
 	if (!blol)
 	{
+		
+		
 		game_push_scene(menu_scene_create());
 		game_push_scene(menu_scene_create());
 		game_push_scene(menu_scene_create());

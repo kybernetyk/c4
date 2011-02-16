@@ -33,6 +33,9 @@ cd_position_t *comp_position_init(le_component_t *comp, vec2d_t pos, double z)
 	comp->subid = POS_SUB_ROTPOS;
 	comp->comp_data = ret;
 	comp->comp_data_deallocator = comp_position_free;
+#ifdef COMP_INCLUDES_NAME 
 	sprintf(comp->name, "%s", "COMP_FAMILY_POSITION.POS_SUB_ROTPOS");
+#endif
+	
 	return ret;
 }

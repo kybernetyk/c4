@@ -198,9 +198,9 @@ void game_tick(void)
 	sprintf(fps_str, "fps: %.2f", timer.fps);
 
 	//delta based loop (don't use)
-//	fs_input_update();
-//	current_scene.pre_frame_func(&current_scene);
-//	current_scene.update_func(&current_scene, timer.delta);
+	fs_input_update();
+	current_scene->pre_frame_func(current_scene);
+	current_scene->update_func(current_scene, timer.delta);
 	
 
 	/* do while instead of just while will remove the jerkiness if we get 0 loops.
@@ -208,17 +208,19 @@ void game_tick(void)
 	 
 	 while(t > ...) instead of (while timer_get_tick_count() > ...) seems to work ... time will tell
 	 */
+
+	/*current_scene->pre_frame_func(current_scene);
 	
 	loops = 0;
 	double t = timer_get_tick_count();
 	while (t > next_game_tick && loops < MAX_FRAMESKIP)
 	{
 		fs_input_update();
-		current_scene->pre_frame_func(current_scene);
+	
 		current_scene->update_func(current_scene, FIXED_DELTA);
 		next_game_tick += SKIP_TICKS;
 		loops++;
-	}
+	}*/
 //	printf("%i\n", loops);
 }
 
@@ -250,8 +252,8 @@ void game_render(void)
 	current_scene->render_func(current_scene);
 	fs_font_render(&fps_font, fps_str);
 	
-	current_scene->post_frame_func(current_scene);
 	
+	current_scene->post_frame_func(current_scene);
 	fs_renderer_end_frame();
 }
 
