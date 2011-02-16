@@ -33,6 +33,8 @@ static void scene_update(scene_t *scene, double dt)
 	{
 		game_push_scene(menu_scene_create());
 		game_push_scene(menu_scene_create());
+		game_push_scene(menu_scene_create());
+		game_push_scene(menu_scene_create());
 		blol = true;
 	}
 	
