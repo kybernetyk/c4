@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <assert.h>
 #include "elite.h"
 
 
@@ -85,12 +85,18 @@ void game_set_next_scene(scene_t scene)
 
 void game_push_scene(scene_t scene)
 {
+	assert(scene_queue_state == S_NONE);
+	//make multiple pushes/pops per frame possible in the future ... for now we will just explode
+	
 	next_scene = scene;
 	scene_queue_state = S_PUSHED;
 }
 
 void game_pop_scene(void)
 {
+	assert(scene_queue_state == S_NONE);
+	//make multiple pushes/pops per frame possible in the future ... for now we will just explode
+	
 	scene_queue_state = S_POPPED;
 }
 
