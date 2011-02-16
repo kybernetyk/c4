@@ -62,8 +62,9 @@ void fs_particle_emitter_free(fs_particle_emitter_t *pe)
 {
 	if (pe->pe)
 	{
-		[(ParticleEmitter *)pe->pe release];
-		pe->pe = nil;
+		ParticleEmitter *x = pe->pe;
+		[x release];
+		pe->pe = nil;;
 	}
 	
 	if (pe->is_dynamic)

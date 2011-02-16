@@ -57,7 +57,7 @@ fs_tex2d_id fs_tex2d_load(const char *filename)
 		{
 			tex_cache[i].retain_count++;
 			
-			printf("found file[%s] in cache[0x%x]! returning texture %i with retaincount %i!\n", filename, tex_cache[i].hash, tex_cache[i].texture.name, tex_cache[i].retain_count);
+//			printf("found file[%s] in cache[0x%x]! returning texture %i with retaincount %i!\n", filename, tex_cache[i].hash, tex_cache[i].texture.name, tex_cache[i].retain_count);
 			
 			return i;
 		}

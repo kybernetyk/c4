@@ -78,7 +78,7 @@ cd_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename
 }
 
 #pragma mark font
-void comp_text_free(void *data)
+static void comp_text_free(void *data)
 {
 	fs_font_free(((cd_text_t*)data)->font);
 	free(((cd_text_t*)data)->string);
@@ -128,9 +128,11 @@ void comp_text_set_text(le_component_t *comp, const char *text)
 
 
 #pragma mark particle emitter
-void comp_pe_free(void *data)
+static void comp_pe_free(void *data)
 {
-	fs_particle_emitter_free(data);
+	cd_pemitter_t *pe = data;
+	fs_particle_emitter_free(pe->pemitter);
+	free(data);
 }
 
 cd_pemitter_t *comp_pe_init(le_component_t *comp, const char *filename)

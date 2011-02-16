@@ -13,6 +13,7 @@
 
 #include "elite.h"
 #include "menu_scene.h"
+#include "startup_scene.h"
 
 // Uniform index.
 enum {
@@ -72,7 +73,7 @@ enum {
 		return;
 	}
 
-	if (!game_init(menu_scene_create()))
+	if (!game_init(startup_scene_create()))
 	{
 		printf("couldn't init game!\n");
 		abort();

@@ -6,6 +6,7 @@
  *  Copyright 2011 Jaroslaw Szpilewski. All rights reserved.
  *
  */
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 #include "elite.h"
@@ -148,7 +149,7 @@ static void scene_update(scene_t *scene, double dt)
 		{	
 			printf("playing sound %i ...\n", sound);
 			fs_audio_sound_play(sound);
-			
+			game_pop_scene();
 			//entity_add_component(bubble, COMP_FAMILY_GARBAGE);
 		}
 	}

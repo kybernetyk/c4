@@ -8,6 +8,7 @@
 
 #import "c4AppDelegate.h"
 #import "c4ViewController.h"
+#include "game.h"
 
 @implementation c4AppDelegate
 
@@ -22,11 +23,13 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+	game_did_enter_background();
     [self.viewController stopAnimation];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+	game_did_become_active();
     [self.viewController startAnimation];
 }
 
