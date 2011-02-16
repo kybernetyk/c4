@@ -40,7 +40,10 @@ static char fps_str[255];
 static fs_font_t fps_font;
 
 static int scene_stack_pointer = 0;
+static int push_counter = 0;
+static int pop_counter = 0;
 static scene_t scene_stack[S_STACK_SIZE];
+static scene_t push_stack[S_STACK_SIZE];
 static scene_t next_scene;
 static scene_t *current_scene;
 
@@ -85,19 +88,38 @@ void game_set_next_scene(scene_t scene)
 
 void game_push_scene(scene_t scene)
 {
-	assert(scene_queue_state == S_NONE);
+	//assert(scene_queue_state == S_NONE);
 	//make multiple pushes/pops per frame possible in the future ... for now we will just explode
 	
-	next_scene = scene;
+	
+	scene_stack_pointer++;
+	if (scene_stack_pointer >= S_STACK_SIZE)
+	{
+		printf("You fucked up the stack!\n");
+		abort();
+		return;
+	}
+	scene_stack[scene_stack_pointer] = scene;
+
+	
+	scene_t *p = &scene_stack[scene_stack_pointer];
+	p->init_func(p);
+	printf("pushing scene %p\n", p);
+	
+	
+	
+
 	scene_queue_state = S_PUSHED;
 }
 
 void game_pop_scene(void)
 {
-	assert(scene_queue_state == S_NONE);
+	//assert(scene_queue_state == S_NONE);
 	//make multiple pushes/pops per frame possible in the future ... for now we will just explode
+	printf("popping scene ...\n");
 	
 	scene_queue_state = S_POPPED;
+	pop_counter++;
 }
 
 #pragma mark -
@@ -142,27 +164,22 @@ void game_tick(void)
 				current_scene->init_func(current_scene);
 				break;
 			case S_PUSHED:
-				scene_stack_pointer++;
-				if (scene_stack_pointer >= S_STACK_SIZE)
-				{
-					printf("You fucked up the stack!\n");
-					abort();
-					return;
-				}
-				scene_stack[scene_stack_pointer] = next_scene;
 				current_scene = &scene_stack[scene_stack_pointer];
-				current_scene->init_func(current_scene);
 				break;
 			case S_POPPED:
-				current_scene->free_func(current_scene);
-				scene_stack_pointer--;
-				if (scene_stack_pointer < 0)
+				for (int i = 0; i < pop_counter; i++)
 				{
-					printf("You fucked up the stack!\n");
-					abort();
-					return;
+					scene_stack_pointer--;
+					if (scene_stack_pointer < 0)
+					{
+						printf("You fucked up the stack!\n");
+						abort();
+						return;
+					}
+					current_scene->free_func(current_scene);
+					current_scene = &scene_stack[scene_stack_pointer];
 				}
-				current_scene = &scene_stack[scene_stack_pointer];
+				pop_counter = 0;
 				break;
 			default:
 				abort();
@@ -170,6 +187,7 @@ void game_tick(void)
 		}
 		scene_queue_state = S_NONE;
 	
+		printf("current scene is: %p ...\n", current_scene);
 		next_game_tick = timer_get_tick_count();
 		timer_update(&timer);
 		timer_update(&timer);
