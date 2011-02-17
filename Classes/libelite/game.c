@@ -222,7 +222,7 @@ void game_tick(void)
 		}
 		if (loops > 0)
 		{	
-			printf("%i\n", loops);
+			//printf("%i\n", loops);
 			
 		}
 	}

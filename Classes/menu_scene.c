@@ -45,7 +45,10 @@ static int scene_init(scene_t *scene)
 
 	printf("menu scene init %p ...\n", scene);
 	em_init(&state->mgr);
+	action_system_init(&state->as, &state->mgr);
+	
 	garbage_system_init(&state->gs, &state->mgr);
+	
 	render_system_init(&state->rs, &state->mgr);
 	particle_system_init(&state->ps, &state->mgr);
 	
@@ -88,7 +91,7 @@ static int scene_init(scene_t *scene)
 
 	//bubble
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		state->bubble = em_create_entity(&state->mgr);
 		comp = entity_add_component(state->bubble, COMP_FAMILY_POSITION);
@@ -136,6 +139,10 @@ static int scene_init(scene_t *scene)
 	
 	state->time_counter = 0.0;
 	
+	comp = action_system_add_action_to_entity(&state->as, state->time);
+	cd_actn_move_to_t *acn = action_move_to_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2));
+	acn->duration = 10.0;
+	
 	
 	return 0;
 }
@@ -146,10 +153,11 @@ static void scene_pre_frame(scene_t *scene)
 
 static void scene_update(scene_t *scene, double dt)
 {
-	printf("%f\n", dt);
+	//printf("%f\n", dt);
 	menu_scene_state *state = scene->user_data;
 	garbage_system_collect(&state->gs); 	//collect previous frame's garbage
 	
+	action_system_update(&state->as, dt);
 	particle_system_update(&state->ps, dt);
 	
 	cd_position_t *pos = entity_get_component_data(state->minyx, COMP_FAMILY_POSITION);
@@ -215,7 +223,7 @@ static int scene_free(scene_t *scene)
 {
 	menu_scene_state *state = scene->user_data;
 	printf("menuscene free %p ...\n", scene);
-	
+	action_system_shutdown(&state->as);
 	garbage_system_shutdown(&state->gs);
 	particle_system_shutdown(&state->ps);
 	render_system_shutdown(&state->rs);

@@ -10,6 +10,7 @@
 #include "action_system.h"
 #include <memory.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void action_system_init(le_action_system_t *sys, le_entity_manager_t *mgr)
 {
@@ -54,6 +55,7 @@ static void handle_move_to(cd_actn_move_to_t *actn, le_entity_t *ent, double dt)
 		
 		actn->_ups_x = d.x / actn->duration;
 		actn->_ups_y = d.y / actn->duration;
+		actn->initialized = true;
 	}
 	
 	pos->pos.x += actn->_ups_x * dt;
@@ -75,6 +77,7 @@ void action_system_update(le_action_system_t *sys, double dt)
 	le_component_t *current_action = NULL;
 	for (size_t i = 0; i < res; i++)
 	{
+
 		current_entity = sys->qry_resp_cache[i];
 		current_action = entity_get_component(current_entity, COMP_FAMILY_ACTION_CONTAINER);
 		
@@ -82,6 +85,11 @@ void action_system_update(le_action_system_t *sys, double dt)
 		{
 			case ACTN_SUB_MOVETO:
 				handle_move_to(current_action->comp_data, current_entity, dt);
+				if ( comp_get_data(current_action, cd_actn_move_to_t)->finished )
+				{	
+					entity_remove_component(current_entity, current_action);
+					printf("LOL BAI!\n");
+				}
 				break;
 			default:
 				break;
