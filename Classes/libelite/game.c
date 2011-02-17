@@ -211,9 +211,6 @@ void game_tick(void)
 	if (timer.delta > max_timer_delta)
 	{
 		unsigned int t = timer_get_tick_count();
-		unsigned int diff = t - next_game_tick;
-		
-		//printf("delta: %f\nt: %i\nnext: %i\ndiff: %i\n", timer.delta,t, next_game_tick, diff);
 		loops = 0;
 		while (t > next_game_tick)// && loops < MAX_FRAMESKIP)
 		{

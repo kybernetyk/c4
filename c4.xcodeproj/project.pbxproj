@@ -72,6 +72,7 @@
 		0397CA341302A07E00FCB95C /* impact20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 0397CA321302A07E00FCB95C /* impact20.fnt */; };
 		03A2593C1302B7FE00C30AEE /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 03A2593B1302B7FE00C30AEE /* TODO */; };
 		03A383FF130C1BE700CD1E34 /* menu.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 03A383FE130C1BE700CD1E34 /* menu.m4a */; };
+		03A3864F130D3D8F00CD1E34 /* action_system.c in Sources */ = {isa = PBXBuildFile; fileRef = 03A3864E130D3D8F00CD1E34 /* action_system.c */; };
 		1D3623260D0F684500981E51 /* c4AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* c4AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -199,6 +200,8 @@
 		0397CA321302A07E00FCB95C /* impact20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = impact20.fnt; sourceTree = "<group>"; };
 		03A2593B1302B7FE00C30AEE /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		03A383FE130C1BE700CD1E34 /* menu.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = menu.m4a; sourceTree = "<group>"; };
+		03A3864D130D3D8F00CD1E34 /* action_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = action_system.h; sourceTree = "<group>"; };
+		03A3864E130D3D8F00CD1E34 /* action_system.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = action_system.c; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* c4AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c4AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* c4AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = c4AppDelegate.m; sourceTree = "<group>"; };
@@ -424,6 +427,7 @@
 		034375CF1309700A00925536 /* systems */ = {
 			isa = PBXGroup;
 			children = (
+				03A3864C130D3D8300CD1E34 /* action_system */,
 				0343795D130A812900925536 /* garbage_system */,
 				0343784B13099A4600925536 /* particle_system */,
 				0343766A130981D900925536 /* position_system */,
@@ -490,6 +494,15 @@
 				0308B837130554870083D624 /* sysconfig */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		03A3864C130D3D8300CD1E34 /* action_system */ = {
+			isa = PBXGroup;
+			children = (
+				03A3864D130D3D8F00CD1E34 /* action_system.h */,
+				03A3864E130D3D8F00CD1E34 /* action_system.c */,
+			);
+			name = action_system;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
@@ -689,6 +702,7 @@
 				0343784E13099A4F00925536 /* particle_system.c in Sources */,
 				03437960130A814500925536 /* garbage_system.c in Sources */,
 				038A8256130BCA9100A4D4F0 /* le_pause_scene.c in Sources */,
+				03A3864F130D3D8F00CD1E34 /* action_system.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

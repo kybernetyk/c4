@@ -15,6 +15,7 @@
 #define COMP_FAMILY_RENDERABLE 0x01
 #define COMP_FAMILY_POSITION 0x02
 #define COMP_FAMILY_GARBAGE 0x03
+#define COMP_FAMILY_ACTION_CONTAINER 0x04
 
 typedef struct le_component_t
 {

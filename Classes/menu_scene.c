@@ -18,6 +18,7 @@ typedef struct menu_scene_state
 {
 	le_entity_manager_t mgr;
 	le_garbage_system_t gs;
+	le_action_system_t as;
 	le_render_system_t rs;
 	
 	le_particle_system_t ps;
@@ -87,15 +88,16 @@ static int scene_init(scene_t *scene)
 
 	//bubble
 
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		state->bubble = em_create_entity(&state->mgr);
 		comp = entity_add_component(state->bubble, COMP_FAMILY_POSITION);
 		comp_position_init(comp, vec2d_make(rand()%320, rand()%480), -3.0);
 		
 		comp = entity_add_component(state->bubble, COMP_FAMILY_RENDERABLE);
-		comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
-		
+		cd_atlas_quad_t *aq = comp_atlas_quad_init(comp, "bubbles.png", rect_make(0.0, 0.0, 41.0, 41.0));
+		aq->atlas_quad->ri.scale = vec2d_make(2.0, 2.0);
+		aq->atlas_quad->ri.alpha = 0.3;
 	}
 	
 	//das minyx
@@ -129,8 +131,8 @@ static int scene_init(scene_t *scene)
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w, g_sysconfig.screen_h), -2.0);
 	
 	comp = entity_add_component(state->time, COMP_FAMILY_RENDERABLE);
-	comp_text_init(comp, "impact20.fnt", "00:00:00");
-	comp_get_data(comp, cd_text_t)->font->ri.anchor_point = vec2d_make(1.0, 1.0);
+	cd_text_t *t = comp_text_init(comp, "impact20.fnt", "00:00:00");
+	t->font->ri.anchor_point = vec2d_make(1.0, 1.0);
 	
 	state->time_counter = 0.0;
 	
@@ -185,10 +187,9 @@ static void scene_update(scene_t *scene, double dt)
 									))
 		{	
 			printf("playing sound %i ...\n", state->sound);
-			fs_audio_sound_play(state->sound);
-			//game_pop_scene();
-			//entity_add_component(bubble, COMP_FAMILY_GARBAGE);
-			sleep(1);
+			//fs_audio_sound_play(state->sound);
+			game_pop_scene();
+			//entity_add_component(state->bubble, COMP_FAMILY_GARBAGE);
 			
 		}
 	}
