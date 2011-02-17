@@ -17,20 +17,20 @@
 #define COMP_FAMILY_GARBAGE 0x03
 #define COMP_FAMILY_ACTION_CONTAINER 0x04
 
-typedef struct le_component_t
+typedef struct le_component_header_t
 {
 	component_family_id_t family;
 	component_sub_id_t subid;
 
-	void *comp_data;
-	void (*comp_data_deallocator)(void *);
+	void *component;
+	void (*component_deallocator)(void *);
 	bool in_use;
 
 #ifdef COMP_INCLUDES_NAME 	
 	char name[128];
 #endif
 	
-} le_component_t;
+} le_component_header_t;
 
-#define comp_get_data(obj, type) ((type*)obj->comp_data)
-#define comp_data(obj) (obj->comp_data)
+#define comp_get_ts(obj, type) ((type*)obj->component)
+#define comp_get(obj) (obj->component)

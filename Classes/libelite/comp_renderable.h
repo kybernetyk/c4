@@ -31,9 +31,9 @@ typedef struct cd_pemitter_t
 	fs_particle_emitter_t *pemitter;
 } cd_pemitter_t;
 
-extern cd_quad_t *comp_quad_init(le_component_t *comp, const char *filename);
-extern cd_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename, rect_t src);
-extern cd_pemitter_t *comp_pe_init(le_component_t *comp, const char *filename);
+extern cd_quad_t *comp_quad_init(le_component_header_t *comp, const char *filename);
+extern cd_atlas_quad_t *comp_atlas_quad_init(le_component_header_t *comp, const char *filename, rect_t src);
+extern cd_pemitter_t *comp_pe_init(le_component_header_t *comp, const char *filename);
 
-extern cd_text_t *comp_text_init(le_component_t *comp, const char *filename, const char *text);
-extern void comp_text_set_text(le_component_t *comp, const char *text);
+extern cd_text_t *comp_text_init(le_component_header_t *comp, const char *filename, const char *text);
+extern void comp_text_set_text(le_component_header_t *comp, const char *text);

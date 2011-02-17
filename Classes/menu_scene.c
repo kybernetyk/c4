@@ -55,7 +55,7 @@ static int scene_init(scene_t *scene)
 	
 	//background
 	le_entity_t *ent = em_create_entity(&state->mgr);
-	le_component_t *comp = entity_add_component(ent, COMP_FAMILY_POSITION);
+	le_component_header_t *comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2), -4.0);
 	
 	comp = entity_add_component(ent, COMP_FAMILY_RENDERABLE);
@@ -141,7 +141,7 @@ static int scene_init(scene_t *scene)
 	
 	comp = action_system_add_action_to_entity(&state->as, state->time);
 	cd_actn_move_to_t *acn = action_move_to_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2));
-	acn->duration = 10.0;
+	acn->header.duration = 10.0;
 	
 	
 	return 0;
@@ -160,15 +160,15 @@ static void scene_update(scene_t *scene, double dt)
 	action_system_update(&state->as, dt);
 	particle_system_update(&state->ps, dt);
 	
-	cd_position_t *pos = entity_get_component_data(state->minyx, COMP_FAMILY_POSITION);
+	cd_position_t *pos = entity_get_component(state->minyx, COMP_FAMILY_POSITION);
 	pos->rot += dt * 360.0;
 	
-	pos = entity_get_component_data(state->firetail, COMP_FAMILY_POSITION);
+	pos = entity_get_component(state->firetail, COMP_FAMILY_POSITION);
 
 	pos->pos.x = g_sysconfig.screen_w/2 +  100.0 * sin(timer_get_double_time()*5.0);
 	pos->pos.y = g_sysconfig.screen_h/2 +  100.0 * cos(timer_get_double_time()*5.0);
 	
-	pos = entity_get_component_data(state->oh_hai, COMP_FAMILY_POSITION);
+	pos = entity_get_component(state->oh_hai, COMP_FAMILY_POSITION);
 	pos->rot -= dt * 360.0;
 	
 	state->time_counter+=dt;
@@ -176,7 +176,7 @@ static void scene_update(scene_t *scene, double dt)
 	char c[255];
 	sprintf(c,"%.4f", state->time_counter);
 	
-	comp_text_set_text(entity_get_component(state->time, COMP_FAMILY_RENDERABLE), c);
+	comp_text_set_text(entity_get_component_header(state->time, COMP_FAMILY_RENDERABLE), c);
 	if (state->time_counter > 1.0)
 	{	
 		state->time_counter = 0.0;

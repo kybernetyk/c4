@@ -35,7 +35,7 @@ void particle_system_update(le_particle_system_t *ps, double dt)
 	size_t res = em_get_entities_with_components(ps->e_manager, qry, 2, ps->qry_resp_cache, g_sysconfig.entity_pool_size);
 	
 	le_entity_t *current_entity = NULL;
-	le_component_t *current_ren = NULL;
+	le_component_header_t *current_ren = NULL;
 	
 	cd_position_t *pos;
 	cd_pemitter_t *pe;
@@ -43,14 +43,14 @@ void particle_system_update(le_particle_system_t *ps, double dt)
 	for (size_t i = 0; i < res; i++)
 	{
 		current_entity = ps->qry_resp_cache[i];
-		current_ren = entity_get_component(current_entity, COMP_FAMILY_RENDERABLE);
+		current_ren = entity_get_component_header(current_entity, COMP_FAMILY_RENDERABLE);
 		
 		if (current_ren->subid == REN_SUB_PEMITTER)
 		{
-			pe = current_ren->comp_data; 
+			pe = current_ren->component; 
 			if (fs_particle_emitter_should_handle(pe->pemitter))
 			{
-				pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->comp_data;
+				pos = entity_get_component_header(current_entity, COMP_FAMILY_POSITION)->component;
 					
 				pe->pemitter->ri.pos = pos->pos;
 				fs_particle_emitter_update(pe->pemitter, dt);

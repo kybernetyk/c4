@@ -20,11 +20,11 @@ typedef struct le_entity_t
 	bool in_use;
 } le_entity_t;
 
-extern le_component_t *entity_add_component(le_entity_t *entity, component_family_id_t fam_id); 
-extern le_component_t *entity_get_component(le_entity_t *entity, component_family_id_t fam_id);
-void *entity_get_component_data(le_entity_t *entity, component_family_id_t fam_id);
+extern le_component_header_t *entity_add_component(le_entity_t *entity, component_family_id_t fam_id); 
+extern le_component_header_t *entity_get_component_header(le_entity_t *entity, component_family_id_t fam_id);
+void *entity_get_component(le_entity_t *entity, component_family_id_t fam_id);
 
-extern void entity_remove_component(le_entity_t *entity, le_component_t *component);
+extern void entity_remove_component(le_entity_t *entity, le_component_header_t *comp_hdr);
 extern void entity_remove_all_components(le_entity_t *entity);
 
 extern void entity_dump(le_entity_t *entity);

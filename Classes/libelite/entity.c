@@ -14,7 +14,7 @@
 
 #pragma mark -
 #pragma mark component management
-le_component_t *entity_add_component(le_entity_t *entity, component_family_id_t fam_id)
+le_component_header_t *entity_add_component(le_entity_t *entity, component_family_id_t fam_id)
 {
 	if (!entity->in_use)
 	{
@@ -27,7 +27,7 @@ le_component_t *entity_add_component(le_entity_t *entity, component_family_id_t 
 	
 	manager->is_dirty = true;
 	
-	le_component_t *ret = &manager->components[entity->manager_id][fam_id];
+	le_component_header_t *ret = &manager->components[entity->manager_id][fam_id];
 	if (ret->in_use)
 	{
 		printf("[entity %i]: replacing component %i.%i with %i.%i\n",
@@ -41,15 +41,15 @@ le_component_t *entity_add_component(le_entity_t *entity, component_family_id_t 
 	
 	ret->in_use = true;
 	ret->family = fam_id;
-	ret->comp_data = NULL;
+	ret->component = NULL;
 	ret->subid = 0;
-	ret->comp_data_deallocator = NULL;
+	ret->component_deallocator = NULL;
 	return ret;
 }
 
 
 
-void entity_remove_component(le_entity_t *entity, le_component_t *component)
+void entity_remove_component(le_entity_t *entity, le_component_header_t *comp_hdr)
 {
 	if (!entity->in_use)
 	{
@@ -60,19 +60,19 @@ void entity_remove_component(le_entity_t *entity, le_component_t *component)
 	
 	le_entity_manager_t *manager = entity->entity_manager;
 	
-	if (!component->in_use)
+	if (!comp_hdr->in_use)
 		return;
 	
 	manager->is_dirty = true;
 	
-	if (component->comp_data_deallocator)
-		component->comp_data_deallocator(component->comp_data);
+	if (comp_hdr->component_deallocator)
+		comp_hdr->component_deallocator(comp_hdr->component);
 	
-	component->comp_data_deallocator = NULL;
-	component->comp_data = NULL;
-	component->family = 0;
-	component->subid = 0;
-	component->in_use = false;
+	comp_hdr->component_deallocator = NULL;
+	comp_hdr->component = NULL;
+	comp_hdr->family = 0;
+	comp_hdr->subid = 0;
+	comp_hdr->in_use = false;
 }
 
 void entity_remove_all_components(le_entity_t *entity)
@@ -87,27 +87,27 @@ void entity_remove_all_components(le_entity_t *entity)
 }
 
 
-le_component_t *entity_get_component(le_entity_t *entity, component_family_id_t fam_id)
+le_component_header_t *entity_get_component_header(le_entity_t *entity, component_family_id_t fam_id)
 {
 	le_entity_manager_t *manager = entity->entity_manager;
 	
-	le_component_t *ret = &manager->components[entity->manager_id][fam_id];
+	le_component_header_t *ret = &manager->components[entity->manager_id][fam_id];
 	if (!ret->in_use)
 		return NULL;
 	
 	return ret;
 }
 
-void *entity_get_component_data(le_entity_t *entity, component_family_id_t fam_id)
+void *entity_get_component(le_entity_t *entity, component_family_id_t fam_id)
 {
-	return entity_get_component(entity, fam_id)->comp_data;
+	return entity_get_component_header(entity, fam_id)->component;
 }
 
 
 #pragma mark -
 #pragma mark dumping
 
-void component_dump(le_component_t *component)
+void component_dump(le_component_header_t *component)
 {
 #ifdef COMP_INCLUDES_NAME 
 	printf("component [fam: %i, sub: %i] @ %p (%s)\n", component->family, component->subid, component, component->name);	

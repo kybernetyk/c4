@@ -20,4 +20,5 @@ typedef struct cd_position_t
 } cd_position_t;
 
 
-extern cd_position_t *comp_position_init(le_component_t *comp, vec2d_t pos, double z);
+extern cd_position_t *comp_position_init(le_component_header_t *comp, vec2d_t pos, double z);
+

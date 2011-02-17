@@ -19,8 +19,8 @@ typedef struct le_entity_manager_t
 	guid_t current_guid;
 	bool is_dirty;
 	
-	struct le_entity_t *entities;	
-	struct le_component_t **components;
+	le_entity_t *entities;	
+	le_component_header_t **components;
 } le_entity_manager_t;
 
 extern 		void 			em_init(le_entity_manager_t *manager);

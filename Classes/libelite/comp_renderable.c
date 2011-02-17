@@ -22,7 +22,7 @@ static void comp_quad_free(void *data)
 	free(data);
 }
 
-cd_quad_t *comp_quad_init(le_component_t *comp, const char *filename)
+cd_quad_t *comp_quad_init(le_component_header_t *comp, const char *filename)
 {
 	fs_quad_t *q = quad_new();
 	
@@ -35,8 +35,8 @@ cd_quad_t *comp_quad_init(le_component_t *comp, const char *filename)
 	cd_quad_t *ret = malloc(sizeof(cd_quad_t));
 	ret->quad = q;
 	
-	comp->comp_data = ret;
-	comp->comp_data_deallocator = comp_quad_free;
+	comp->component = ret;
+	comp->component_deallocator = comp_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_QUAD;
 #ifdef COMP_INCLUDES_NAME 
@@ -54,7 +54,7 @@ static void comp_atlas_quad_free(void *data)
 	free(data);
 }
 
-cd_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename, rect_t src)
+cd_atlas_quad_t *comp_atlas_quad_init(le_component_header_t *comp, const char *filename, rect_t src)
 {
 	fs_atlas_quad_t *aq = fs_atlas_quad_new();
 	if (!fs_atlas_quad_load(filename, aq))
@@ -70,8 +70,8 @@ cd_atlas_quad_t *comp_atlas_quad_init(le_component_t *comp, const char *filename
 	aq->src_rect = src;
 	aq->ri.size = size2d_make(src.w, src.h);
 
-	comp->comp_data = ret;
-	comp->comp_data_deallocator = comp_atlas_quad_free;
+	comp->component = ret;
+	comp->component_deallocator = comp_atlas_quad_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_ATLAS_QUAD;
 
@@ -90,7 +90,7 @@ static void comp_text_free(void *data)
 	free(data);
 }
 
-cd_text_t *comp_text_init(le_component_t *comp, const char *filename, const char *text)
+cd_text_t *comp_text_init(le_component_header_t *comp, const char *filename, const char *text)
 {
 	fs_font_t *fnt = fs_font_new();
 	
@@ -106,8 +106,8 @@ cd_text_t *comp_text_init(le_component_t *comp, const char *filename, const char
 	ret->string = malloc(strlen(text)+1);
 	sprintf(ret->string,"%s", text);
 		
-	comp->comp_data = ret;
-	comp->comp_data_deallocator = comp_text_free;
+	comp->component = ret;
+	comp->component_deallocator = comp_text_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_TEXT;
 #ifdef COMP_INCLUDES_NAME 
@@ -116,9 +116,9 @@ cd_text_t *comp_text_init(le_component_t *comp, const char *filename, const char
 	return ret;
 }
 
-void comp_text_set_text(le_component_t *comp, const char *text)
+void comp_text_set_text(le_component_header_t *comp, const char *text)
 {
-	cd_text_t *ctxt = comp->comp_data;
+	cd_text_t *ctxt = comp->component;
 	if (ctxt->string)
 	{
 		if (strlen(ctxt->string) > strlen(text))
@@ -142,7 +142,7 @@ static void comp_pe_free(void *data)
 	free(data);
 }
 
-cd_pemitter_t *comp_pe_init(le_component_t *comp, const char *filename)
+cd_pemitter_t *comp_pe_init(le_component_header_t *comp, const char *filename)
 {
 	fs_particle_emitter_t *pe = particle_emitter_new();
 	
@@ -155,8 +155,8 @@ cd_pemitter_t *comp_pe_init(le_component_t *comp, const char *filename)
 	cd_pemitter_t *ret = malloc(sizeof(cd_pemitter_t));
 	ret->pemitter = pe;
 	
-	comp->comp_data = ret;
-	comp->comp_data_deallocator = comp_pe_free;
+	comp->component = ret;
+	comp->component_deallocator = comp_pe_free;
 	comp->family = COMP_FAMILY_RENDERABLE;
 	comp->subid = REN_SUB_PEMITTER;
 #ifdef COMP_INCLUDES_NAME 

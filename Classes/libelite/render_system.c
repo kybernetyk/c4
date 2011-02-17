@@ -32,8 +32,8 @@ static int z_comp(const void *ep1, const void *ep2)
 //	le_entity_t *e2 = *(le_entity_t**)ep2;
 	
 	cd_position_t *p1, *p2;
-	p1 = entity_get_component(*(le_entity_t**)ep1, COMP_FAMILY_POSITION)->comp_data;
-	p2 = entity_get_component(*(le_entity_t**)ep2, COMP_FAMILY_POSITION)->comp_data;
+	p1 = entity_get_component_header(*(le_entity_t**)ep1, COMP_FAMILY_POSITION)->component;
+	p2 = entity_get_component_header(*(le_entity_t**)ep2, COMP_FAMILY_POSITION)->component;
 	
 	if (p1->z < p2->z)
 		return -1;
@@ -56,7 +56,7 @@ static int z_comp(const void *ep1, const void *ep2)
 void render_system_render(le_render_system_t *rs)
 {
 	le_entity_t *current_entity = NULL;
-	le_component_t *current_ren = NULL;
+	le_component_header_t *current_ren = NULL;
 	
 	//qry and sort only if something has changed
 	if (rs->e_manager->is_dirty)
@@ -80,34 +80,34 @@ void render_system_render(le_render_system_t *rs)
 	for (size_t i = 0; i < rs->resp_size; i++)
 	{
 		current_entity = rs->qry_resp_cache[i];
-		current_ren = entity_get_component(current_entity, COMP_FAMILY_RENDERABLE);
-		pos = entity_get_component(current_entity, COMP_FAMILY_POSITION)->comp_data;
+		current_ren = entity_get_component_header(current_entity, COMP_FAMILY_RENDERABLE);
+		pos = entity_get_component_header(current_entity, COMP_FAMILY_POSITION)->component;
 		
 		switch (current_ren->subid) 
 		{
 			case REN_SUB_QUAD:
-				quad = comp_get_data(current_ren, cd_quad_t);
+				quad = comp_get(current_ren);
 				quad->quad->ri.pos = pos->pos;
 				quad->quad->ri.zval = pos->z;
 				quad->quad->ri.rot_a = pos->rot;
 				fs_quad_render(quad->quad);
 				break;
 			case REN_SUB_ATLAS_QUAD:
-				aquad = comp_get_data(current_ren, cd_atlas_quad_t);
+				aquad = comp_get(current_ren);
 				aquad->atlas_quad->ri.pos = pos->pos;
 				aquad->atlas_quad->ri.zval = pos->z;
 				aquad->atlas_quad->ri.rot_a = pos->rot;
 				fs_atlas_quad_render(aquad->atlas_quad);
 				break;
 			case REN_SUB_TEXT:
-				text = comp_get_data(current_ren, cd_text_t);
+				text = comp_get(current_ren);
 				text->font->ri.pos = pos->pos;
 				text->font->ri.zval = pos->z;
 				text->font->ri.rot_a = pos->rot;
 				fs_font_render(text->font, text->string);
 				break;
 			case REN_SUB_PEMITTER:
-				pe = comp_get_data(current_ren, cd_pemitter_t);
+				pe = comp_get(current_ren);
 				pe->pemitter->ri.pos = pos->pos;
 				pe->pemitter->ri.zval = pos->z;
 				fs_particle_emitter_render(pe->pemitter);

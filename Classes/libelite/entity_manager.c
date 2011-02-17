@@ -30,16 +30,16 @@ void em_init(le_entity_manager_t *manager)
 		manager->entities[i].entity_manager = manager;
 	}
 	
-	manager->components = calloc(g_sysconfig.entity_pool_size, sizeof(le_component_t*));
+	manager->components = calloc(g_sysconfig.entity_pool_size, sizeof(le_component_header_t*));
 	for (int i = 0; i < g_sysconfig.entity_pool_size; i++)
 	{	
-		manager->components[i] = calloc(g_sysconfig.components_per_entity, sizeof(le_component_t));
+		manager->components[i] = calloc(g_sysconfig.components_per_entity, sizeof(le_component_header_t));
 		for (int j = 0; j < g_sysconfig.components_per_entity; j++)
 		{
 			manager->components[i][j].family = 0;
 			manager->components[i][j].subid = 0;
-			manager->components[i][j].comp_data_deallocator = NULL;
-			manager->components[i][j].comp_data = NULL;
+			manager->components[i][j].component_deallocator = NULL;
+			manager->components[i][j].component = NULL;
 			manager->components[i][j].in_use = false;
 		}
 	}
