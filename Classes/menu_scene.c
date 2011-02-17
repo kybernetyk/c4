@@ -142,7 +142,7 @@ static int scene_init(scene_t *scene)
 	
 	action_header_t *acthdr = action_system_add_action_to_entity(&state->as, state->time);
 	action_move_to_init(acthdr, vec2d_make(g_sysconfig.screen_w/2 , g_sysconfig.screen_h/2));
-	acthdr->duration = 1.0;
+	acthdr->duration = 10.0;
 	
 	
 //	cd_actn_move_to_t *acn = action_move_to_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2));
