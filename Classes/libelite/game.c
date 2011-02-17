@@ -13,14 +13,15 @@
 #include <stdbool.h>
 #include <assert.h>
 #include "elite.h"
+#include <unistd.h>
 
-
-static double TICKS_PER_SECOND;
+static unsigned int TICKS_PER_SECOND;
 static double SKIP_TICKS;
-static double MAX_FRAMESKIP = 5;
+static unsigned int MAX_FRAMESKIP = 5;
 static double FIXED_DELTA;
-static double next_game_tick;
+static unsigned int next_game_tick;
 static unsigned int loops;
+static double max_timer_delta;
 
 //static int game_paused = 0;
 
@@ -127,9 +128,10 @@ void game_pop_scene(void)
 bool game_init(scene_t initial_scene)
 {
 	TICKS_PER_SECOND = g_sysconfig.desired_fps;
-	SKIP_TICKS = (1000.0 / TICKS_PER_SECOND);
+	SKIP_TICKS = (1000.0 / (double)TICKS_PER_SECOND);
 	MAX_FRAMESKIP = 5;
 	FIXED_DELTA = (1.0/TICKS_PER_SECOND);
+	max_timer_delta = FIXED_DELTA*2.0;
 //	game_paused = 0;
 		
 	timer_update(&timer);
@@ -198,9 +200,6 @@ void game_tick(void)
 	sprintf(fps_str, "fps: %.2f", timer.fps);
 
 	//delta based loop (don't use)
-	fs_input_update();
-	current_scene->pre_frame_func(current_scene);
-	current_scene->update_func(current_scene, timer.delta);
 	
 
 	/* do while instead of just while will remove the jerkiness if we get 0 loops.
@@ -208,20 +207,36 @@ void game_tick(void)
 	 
 	 while(t > ...) instead of (while timer_get_tick_count() > ...) seems to work ... time will tell
 	 */
-
-	/*current_scene->pre_frame_func(current_scene);
 	
-	loops = 0;
-	double t = timer_get_tick_count();
-	while (t > next_game_tick && loops < MAX_FRAMESKIP)
+	if (timer.delta > max_timer_delta)
 	{
+		unsigned int t = timer_get_tick_count();
+		unsigned int diff = t - next_game_tick;
+		
+		//printf("delta: %f\nt: %i\nnext: %i\ndiff: %i\n", timer.delta,t, next_game_tick, diff);
+		loops = 0;
+		while (t > next_game_tick)// && loops < MAX_FRAMESKIP)
+		{
+			fs_input_update();
+			current_scene->pre_frame_func(current_scene);
+			current_scene->update_func(current_scene, FIXED_DELTA);
+			next_game_tick += SKIP_TICKS;
+			loops++;
+		}
+		if (loops > 0)
+		{	
+			printf("%i\n", loops);
+			
+		}
+	}
+	else
+	{
+		next_game_tick = timer_get_tick_count();
 		fs_input_update();
+		current_scene->pre_frame_func(current_scene);
+		current_scene->update_func(current_scene, timer.delta);
+	}
 	
-		current_scene->update_func(current_scene, FIXED_DELTA);
-		next_game_tick += SKIP_TICKS;
-		loops++;
-	}*/
-//	printf("%i\n", loops);
 }
 
 void game_render(void)
@@ -252,8 +267,8 @@ void game_render(void)
 	current_scene->render_func(current_scene);
 	fs_font_render(&fps_font, fps_str);
 	
-	
 	current_scene->post_frame_func(current_scene);
+	
 	fs_renderer_end_frame();
 }
 

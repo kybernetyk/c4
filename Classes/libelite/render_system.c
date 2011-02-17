@@ -55,10 +55,8 @@ static int z_comp(const void *ep1, const void *ep2)
 
 void render_system_render(le_render_system_t *rs)
 {
-	
 	le_entity_t *current_entity = NULL;
 	le_component_t *current_ren = NULL;
-
 	
 	//qry and sort only if something has changed
 	if (rs->e_manager->is_dirty)
@@ -70,28 +68,8 @@ void render_system_render(le_render_system_t *rs)
 		};
 
 		rs->resp_size = em_get_entities_with_components(rs->e_manager, qry, 2, rs->qry_resp_cache, g_sysconfig.entity_pool_size);
-
-//		for (int i = 0; i < rs->resp_size; i++)
-//		{
-//			current_entity = rs->qry_resp_cache[i];
-//			printf("%p = z: %f\n", current_entity, comp_get_data(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t  )->z  );		
-//		}
-		
-//		printf("\n\n");
-		
 		qsort(rs->qry_resp_cache, rs->resp_size, sizeof(le_entity_t *),z_comp);
-
-//		for (int i = 0; i < rs->resp_size; i++)
-//		{
-//			current_entity = rs->qry_resp_cache[i];
-//			printf("%i: %p = z: %f\n",i , current_entity, comp_get_data(entity_get_component(current_entity, COMP_FAMILY_POSITION),cd_position_t)->z  );		
-//		}
-		
 	}
-	
-	
-
-
 	
 	cd_quad_t *quad = NULL;
 	cd_atlas_quad_t *aquad = NULL;

@@ -19,8 +19,8 @@ static int scene_init(scene_t *scene)
 {
 	printf("startup %p fired!\n", scene);
 
-	fs_audio_id music = fs_audio_music_load("music.mp3");
-	fs_audio_music_play(music);
+	//fs_audio_id music = fs_audio_music_load("music.mp3");
+	//fs_audio_music_play(music);
 
 	return 0;
 }

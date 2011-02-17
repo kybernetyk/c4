@@ -22,6 +22,6 @@ typedef struct timer_t
 extern void timer_update(timer_t *timer);
 extern float timer_get_fps(timer_t *timer);
 
-extern double timer_get_tick_count(void);
+extern unsigned int timer_get_tick_count(void);
 extern double timer_get_double_time(void);
 extern float timer_get_float_time(void);

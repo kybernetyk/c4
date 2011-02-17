@@ -40,21 +40,21 @@ float timer_get_fps(timer_t *timer)
 	return timer->fps;
 }
 
-//unsigned int timer_get_tick_count(void)
-//{
-//	struct timeval v;
-//	gettimeofday(&v, 0);
-//	return (v.tv_sec * 1000) + (v.tv_usec / 1000);
-//}
-
-double timer_get_tick_count(void)
+unsigned int timer_get_tick_count(void)
 {
-	mach_timebase_info_data_t base;
-	mach_timebase_info(&base);
-
-	uint64_t nanos = (mach_absolute_time()*base.numer)/base.denom;
-	return (double)nanos*1.0e-6;
+	struct timeval v;
+	gettimeofday(&v, 0);
+	return (v.tv_sec * 1000) + (v.tv_usec / 1000);
 }
+
+//double timer_get_tick_count(void)
+//{
+//	mach_timebase_info_data_t base;
+//	mach_timebase_info(&base);
+//
+//	uint64_t nanos = (mach_absolute_time()*base.numer)/base.denom;
+//	return (double)nanos*1.0e-6;
+//}
 
 
 double timer_get_double_time(void)

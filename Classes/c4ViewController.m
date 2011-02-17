@@ -80,7 +80,7 @@ enum {
 	}
 	
     animating = FALSE;
-    animationFrameInterval = 60/g_sysconfig.desired_fps;
+    animationFrameInterval = 1;//60/g_sysconfig.desired_fps;
 	printf("animation interval = %i\n", animationFrameInterval);
     self.displayLink = nil;
 	

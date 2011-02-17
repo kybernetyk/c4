@@ -11,6 +11,7 @@
 #include <math.h>
 #include "elite.h"
 #include "menu_scene.h"
+#include <unistd.h>
 
 
 typedef struct menu_scene_state
@@ -28,6 +29,10 @@ typedef struct menu_scene_state
 	
 	le_entity_t *firetail;
 	fs_audio_id sound;
+	
+	le_entity_t *time;
+	
+	double time_counter;
 	
 } menu_scene_state;
 
@@ -118,7 +123,17 @@ static int scene_init(scene_t *scene)
 	comp = entity_add_component(ent, COMP_FAMILY_POSITION);
 	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h), 1.0);
 	
-
+	//time label
+	state->time = em_create_entity(&state->mgr);
+	comp = entity_add_component(state->time, COMP_FAMILY_POSITION);
+	comp_position_init(comp, vec2d_make(g_sysconfig.screen_w, g_sysconfig.screen_h), -2.0);
+	
+	comp = entity_add_component(state->time, COMP_FAMILY_RENDERABLE);
+	comp_text_init(comp, "impact20.fnt", "00:00:00");
+	comp_get_data(comp, cd_text_t)->font->ri.anchor_point = vec2d_make(1.0, 1.0);
+	
+	state->time_counter = 0.0;
+	
 	
 	return 0;
 }
@@ -129,7 +144,10 @@ static void scene_pre_frame(scene_t *scene)
 
 static void scene_update(scene_t *scene, double dt)
 {
+	printf("%f\n", dt);
 	menu_scene_state *state = scene->user_data;
+	garbage_system_collect(&state->gs); 	//collect previous frame's garbage
+	
 	particle_system_update(&state->ps, dt);
 	
 	cd_position_t *pos = entity_get_component_data(state->minyx, COMP_FAMILY_POSITION);
@@ -142,6 +160,18 @@ static void scene_update(scene_t *scene, double dt)
 	
 	pos = entity_get_component_data(state->oh_hai, COMP_FAMILY_POSITION);
 	pos->rot -= dt * 360.0;
+	
+	state->time_counter+=dt;
+	
+	char c[255];
+	sprintf(c,"%.4f", state->time_counter);
+	
+	comp_text_set_text(entity_get_component(state->time, COMP_FAMILY_RENDERABLE), c);
+	if (state->time_counter > 1.0)
+	{	
+		state->time_counter = 0.0;
+		fs_audio_sound_play(state->sound);
+	}
 	
 	if (fs_input_touch_up_received())
 	{	
@@ -156,11 +186,13 @@ static void scene_update(scene_t *scene, double dt)
 		{	
 			printf("playing sound %i ...\n", state->sound);
 			fs_audio_sound_play(state->sound);
-			game_pop_scene();
+			//game_pop_scene();
 			//entity_add_component(bubble, COMP_FAMILY_GARBAGE);
+			sleep(1);
+			
 		}
 	}
-
+	
 }
 
 static void scene_render(scene_t *scene)
@@ -175,7 +207,7 @@ static void scene_post_frame(scene_t *scene)
 {
 	menu_scene_state *state = scene->user_data;
 	em_update(&state->mgr);	//set mgr->is_dirty to false
-	garbage_system_collect(&state->gs); 	//collect previous frame's garbage
+	
 }
 
 static int scene_free(scene_t *scene)
