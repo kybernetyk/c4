@@ -24,10 +24,46 @@ void action_system_shutdown(le_action_system_t *sys)
 	free(sys->qry_resp_cache);
 }
 
-static void handle_move_to(cd_actn_move_to_t *actn, le_entity_t *ent)
+static bool step(double *timestamp, double *duration, double dt)
 {
+	*timestamp += dt;
+	if (*duration - *timestamp <= 0.0)
+		return true;
+	
+	return false;
+}
+
+
+static void handle_move_to(cd_actn_move_to_t *actn, le_entity_t *ent, double dt)
+{
+	cd_position_t *pos = entity_get_component_data(ent, COMP_FAMILY_POSITION);
+	if (!pos)
+		return;
+	
+	if (actn->duration == 0.0)
+	{
+		pos->pos = actn->dest;
+		return;
+	}
+	
+	if (!actn->initialized)
+	{
+		vec2d_t d;
+		d.x = actn->dest.x - pos->pos.x;
+		d.y = actn->dest.y - pos->pos.y;
+		
+		actn->_ups_x = d.x / actn->duration;
+		actn->_ups_y = d.y / actn->duration;
+	}
+	
+	pos->pos.x += actn->_ups_x * dt;
+	pos->pos.y += actn->_ups_y * dt;
+	
+	
+	actn->finished = step(&actn->timestamp, &actn->duration, dt);
 	//... blehrg
 }
+
 
 void action_system_update(le_action_system_t *sys, double dt)
 {
@@ -45,7 +81,7 @@ void action_system_update(le_action_system_t *sys, double dt)
 		switch (current_action->subid) 
 		{
 			case ACTN_SUB_MOVETO:
-				handle_move_to(current_action->comp_data, current_entity);
+				handle_move_to(current_action->comp_data, current_entity, dt);
 				break;
 			default:
 				break;
@@ -60,10 +96,15 @@ cd_actn_move_to_t *action_move_to_init(le_component_t *comp, vec2d_t dest)
 	cd_actn_move_to_t *ret = malloc(sizeof(cd_actn_move_to_t));
 	ret->dest = dest;
 	ret->_ups_x = ret->_ups_y = 0.0;
+	ret->initialized = false;
+	ret->finished = false;
+	ret->duration = 0.0;
+	ret->timestamp = 0.0;
 
 	comp->subid = ACTN_SUB_MOVETO;
 	comp->comp_data = ret;
 	comp->comp_data_deallocator = free;
+
 	
 	return ret;
 }

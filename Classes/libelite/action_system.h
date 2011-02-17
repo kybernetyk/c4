@@ -22,6 +22,9 @@ typedef struct cd_actn_move_to_t
 	double duration;
 	bool finished;
 	
+	bool initialized;
+	
+	double timestamp;
 } cd_actn_move_to_t;
 
 typedef struct le_action_system_t
