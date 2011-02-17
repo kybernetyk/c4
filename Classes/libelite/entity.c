@@ -100,7 +100,11 @@ le_component_header_t *entity_get_component_header(le_entity_t *entity, componen
 
 void *entity_get_component(le_entity_t *entity, component_family_id_t fam_id)
 {
-	return entity_get_component_header(entity, fam_id)->component;
+	le_component_header_t *h = entity_get_component_header(entity, fam_id);
+	if (!h)
+		return NULL;
+	
+	return h->component;
 }
 
 

@@ -10,6 +10,8 @@
 #pragma once
 #include "elite.h"
 
+#define NUM_ACTIONS_PER_CONTAINER 32
+
 #define ACTN_SUB_MOVETO 0x01
 
 typedef struct action_header_t
@@ -18,12 +20,23 @@ typedef struct action_header_t
 	double timestamp;
 	bool finished;
 	bool initialized;
+	
+	void *action;	//pointer do action stuct like cd_actn_move_to_t
+	void (*action_deallocator)(void *);
+	
+	struct action_header_t *on_complete_action_header;
+	int type;
+	
 } action_header_t;
+
+typedef struct cd_action_container_t
+{
+	action_header_t *headers[NUM_ACTIONS_PER_CONTAINER];
+} cd_action_container_t;
+
 
 typedef struct cd_actn_move_to_t
 {
-	action_header_t header;		//always always place the header at offset 0!
-	
 	vec2d_t dest;
 		
 	double _ups_x;
@@ -42,6 +55,8 @@ extern void action_system_shutdown(le_action_system_t *sys);
 
 extern void action_system_update(le_action_system_t *sys, double dt);
 
-extern le_component_header_t *action_system_add_action_to_entity(le_action_system_t *sys, le_entity_t *ent);
+//appends to_append to first
+extern void action_append_action(action_header_t *first, action_header_t *to_append);
 
-extern cd_actn_move_to_t *action_move_to_init(le_component_header_t *comp, vec2d_t dest);
+extern action_header_t *action_system_add_action_to_entity(le_action_system_t *sys, le_entity_t *ent);
+extern cd_actn_move_to_t *action_move_to_init(action_header_t *act_hdr, vec2d_t dest);

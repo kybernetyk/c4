@@ -136,12 +136,17 @@ static int scene_init(scene_t *scene)
 	comp = entity_add_component(state->time, COMP_FAMILY_RENDERABLE);
 	cd_text_t *t = comp_text_init(comp, "impact20.fnt", "00:00:00");
 	t->font->ri.anchor_point = vec2d_make(1.0, 1.0);
-	
 	state->time_counter = 0.0;
 	
-	comp = action_system_add_action_to_entity(&state->as, state->time);
-	cd_actn_move_to_t *acn = action_move_to_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2));
-	acn->header.duration = 10.0;
+	
+	
+	action_header_t *acthdr = action_system_add_action_to_entity(&state->as, state->time);
+	action_move_to_init(acthdr, vec2d_make(g_sysconfig.screen_w/2 , g_sysconfig.screen_h/2));
+	acthdr->duration = 1.0;
+	
+	
+//	cd_actn_move_to_t *acn = action_move_to_init(comp, vec2d_make(g_sysconfig.screen_w/2, g_sysconfig.screen_h/2));
+//	acn->header.duration = 10.0;
 	
 	
 	return 0;
