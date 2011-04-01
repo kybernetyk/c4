@@ -13,7 +13,7 @@ contact: http://nntp.pl / jszpilewski at me dot com
 
 Intro
 -----
-blah
+Experimental game framework for iOS. Written in C99, features a component based entity system. Turned out to be too hard to debug because of void* and casting abuse. You can extract the 2D rendering stuff though as it's pretty much solid. (Features sprite, atlas sprite, bitmap font (support for FNT files), a particle system.)
 
 How to build
 ------------
@@ -23,6 +23,8 @@ Open XCode project, click build. If you want to extract the lib don't forget to 
 
 Current State
 -------------
+2011-02-17: Project cancelled. (Too hard to debug because of void pointers and wild casting.)
+
 2011-02-16: We've got something like scene management (with push/pop scene possibility)
 
 2011-02-15: A simple entity system is ready. I'm still working on the API so it's not too verbose
